@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Crazy Ark" />
+<meta property="og:description" content="Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://arkbriar.tk/" />
+
+
+
+<meta property="og:updated_time" content="2017-07-26T16:59:26&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.25.1" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Blog",
+  "headline": "Crazy Ark",
+  "url" : "http://arkbriar.tk/",
+  "author": {
+    "@type": "Person",
+    "name": "Ark"
+  },
+  "dateModified": "2017-07-26T16:59:26&#43;08:00",
+  "keywords": "",
+  "description": "Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith"
+}
+</script>
+
+
+    <link rel="canonical" href="http://arkbriar.tk/">
+
+    <title>Crazy Ark</title>
+
+    <!-- combined, minified CSS -->
+    <link href="http://arkbriar.tk/css/style.css" rel="stylesheet" integrity="sha384-j3n8sYdzztDYtVc80KiiuOXoCg5Bjz0zYyLGzDMW8RbfA0u5djbF0GO3bVOPoLyN" crossorigin="anonymous">
+
+    
+    <!-- RSS 2.0 feed -->
+    <link href="http://arkbriar.tk/index.xml" rel="alternate" type="application/rss+xml" title="Crazy Ark" />
+    
+
+    
+
+    
+
+    
+
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link active" href="http://arkbriar.tk/">Home</a>
+          
+          
+        </nav>
+      </div>
+    </div>
+
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title"><a href="http://arkbriar.tk/" rel="home">Crazy Ark</a></h1>
+        <p class="lead blog-description">Our greatest glory is not in never falling, but in rising every time we fall. &ndash; Oliver Goldsmith</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+
+
+
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title"><a href="http://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/">2017 Alibaba Middelware 24h Final (Just for Fun 😀)</a></h2>
+    <p class="blog-post-meta"><time datetime="2017-07-26T16:59:26&#43;08:00">Wed Jul 26, 2017</time> by Ark</p>
+  </header>
+  今年阿里中间件比赛的时候不巧博主心情不好，外加要准备期末考试，并没有参加，非常遗憾。不过好在好基友 Eric Fu 参加并获得了冠军！今年的主题是分布式数据库，如果想了解详情及复赛的解题思路请读者前往 Eric 的博客。
+博主没有参加甚是遗憾，外加看到题目手痒难耐，遂问基友讨了最后的24h极客赛来玩一玩。
+24h TOPKN 题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&rdquo;分布式&rdquo;的策略，赛题中使用多个文件模拟多个数据分片。
+简称 top(k, n)。
+ 给定一批数据，求解按顺序从小到大，顺序排名从第k下标序号之后连续的n个数据 (类似于数据库的order by asc + limit k,n语义)
+top(k,3)代表获取排名序号为k+1,k+2,k+3的内容,例:top(10,3)代表序号为11、12、13的内容,top(0,3)代表序号为1、2、3的内容 需要考虑k值几种情况，k值比较小或者特别大的情况，比如k=1,000,000,000 对应k,n取值范围： 0 &lt;= k &lt; 2^63 和 0 &lt; n &lt; 100 数据全部是文本和数字结合的数据，排序的时候按照整个字符串的长度来排序。例如一个有序的排序如下(相同长度情况下ascii码小的排在前面)： 例： a ab abc def abc123
+例如给定的k,n为(2,2)，则上面的数据需要的答案为: abc def
+ 原题目在 https://code.aliyun.com/wanshao/topkn_final。
+要求在24小时内完成，然而 &hellip;
+这题我死命优化，带cache建一次index也要4s，清cache建一次要8s以上，也不知道第一名5轮 11s 怎么做的&hellip;
+解题过程 主要条件： 1. 3台机器，2台worker，一台master 2. 输出在master上
+主要限制： 1. Timeout: 5min 2. JVM heap size: 3G 3.
+  <a href='http://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/'>Read more →</a>
+</article> 
+
+
+
+
+
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 offset-sm-1 blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p>No one will forget you trying but no one will forgive you for not trying to make it work.</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/">2017 Alibaba Middelware 24h Final (Just for Fun 😀)</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://ericfu.me">Coding Husky</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+  </body>
+
+</html>
