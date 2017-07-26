@@ -2,7 +2,7 @@
 title: "2017 Alibaba Middelware 24h Final (Just for Fun 😀)"
 date: 2017-07-26T16:59:26+08:00
 keywords: ["2017阿里天池中间件大赛","分布式","24h极客赛","数据库"]
-draft: true
+draft: false
 markdown: mmark
 ---
 
@@ -28,8 +28,9 @@ markdown: mmark
 
 原题目在 [https://code.aliyun.com/wanshao/topkn_final](https://code.aliyun.com/wanshao/topkn_final)。
 
-要求在24小时内完成，然而我连研究加完善用了2天多...
-还是要学习一个。
+要求在24小时内完成，然而 ...
+
+这题我死命优化，带cache建一次index也要4s，清cache建一次要8s以上，也不知道第一名5轮 11s 怎么做的...
 
 ## 解题过程
 
@@ -60,6 +61,7 @@ markdown: mmark
 
 B树是1972年由 Rudolf Bayer 和 Edward M.McCreight 提出的，它是一种泛化的自平衡树，每个节点可以有多于两个的子节点。与自平衡二叉查找树不同的是，B树为系统大块数据的读写操作做了优化。B树减少定位记录时所经历的中间过程，从而加快存取速度。所以B树常被应用于数据库和文件系统的实现。
 
+// TODO
 
 参考自 
 
@@ -69,6 +71,7 @@ B树是1972年由 Rudolf Bayer 和 Edward M.McCreight 提出的，它是一种�
 
 ### 桶排序
 
+// TODO
 
 
 
