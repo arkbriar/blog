@@ -3,3 +3,23 @@ languageCode = "en-us"
 title = "Crazy Ark"
 enableGitInfo = true
 theme = "hugo-theme-bootstrap4-blog"
+
+paginate = 5
+
+copyright = "Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/)."
+
+[permalinks]
+  post = "/:year/:month/:title/"
+  page = "/:slug/"
+
+[[menu.sidebar]]
+  name = "Coding Husky"
+  url = "https://ericfu.me"
+
+[params]
+  author = "Ark"
+
+  description = "Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith"
+
+  [params.sidebar]
+    about = "No one will forget you trying but no one will forgive you for not trying to make it work."
