@@ -7,24 +7,23 @@
 
 <meta property="og:title" content="2017 Alibaba Middelware 24h Final (Just for Fun 😀)" />
 <meta property="og:description" content="今年阿里中间件比赛的时候不巧博主心情不好，外加要准备期末考试，并没有参加，非常遗憾。不过好在好基友 Eric Fu 参加并获得了冠军！今年的主题是分布式数据库，如果想了解详情及复赛的解题思路请读者前往 Eric 的博客。
+
 博主没有参加甚是遗憾，外加看到题目手痒难耐，遂问基友讨了最后的24h极客赛来玩一玩。
-24h TOPKN 题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&rdquo;分布式&rdquo;的策略，赛题中使用多个文件模拟多个数据分片。
+
+24h TOPKN
+
+题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&rdquo;分布式&rdquo;的策略，赛题中使用多个文件模拟多个数据分片。
+
 简称 top(k, n)。
- 给定一批数据，求解按顺序从小到大，顺序排名从第k下标序号之后连续的n个数据 (类似于数据库的order by asc &#43; limit k,n语义)
-top(k,3)代表获取排名序号为k&#43;1,k&#43;2,k&#43;3的内容,例:top(10,3)代表序号为11、12、13的内容,top(0,3)代表序号为1、2、3的内容 需要考虑k值几种情况，k值比较小或者特别大的情况，比如k=1,000,000,000 对应k,n取值范围： 0 &lt;= k &lt; 2^63 和 0 &lt; n &lt; 100 数据全部是文本和数字结合的数据，排序的时候按照整个字符串的长度来排序。例如一个有序的排序如下(相同长度情况下ascii码小的排在前面)： 例： a ab abc def abc123
-例如给定的k,n为(2,2)，则上面的数据需要的答案为: abc def
- 原题目在 https://code.aliyun.com/wanshao/topkn_final。
-要求在24小时内完成，然而 &hellip;
-这题我死命优化，带cache建一次index也要4s，清cache建一次要8s以上，也不知道第一名5轮 11s 怎么做的&hellip;
-解题过程 主要条件： 1. 3台机器，2台worker，一台master 2. 输出在master上
-主要限制： 1. Timeout: 5min 2. JVM heap size: 3G 3." />
+
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/" />
 
 
 
 <meta property="article:published_time" content="2017-07-26T16:59:26&#43;08:00"/>
-<meta property="article:modified_time" content="2017-07-27T01:17:54&#43;08:00"/>
+<meta property="article:modified_time" content="2017-07-27T01:39:49&#43;08:00"/>
 
 
 
@@ -45,17 +44,16 @@ top(k,3)代表获取排名序号为k&#43;1,k&#43;2,k&#43;3的内容,例:top(10,3
 <meta name="twitter:text:title" content="2017 Alibaba Middelware 24h Final (Just for Fun 😀)"/>
 <meta name="twitter:title" content="2017 Alibaba Middelware 24h Final (Just for Fun 😀)"/>
 <meta name="twitter:description" content="今年阿里中间件比赛的时候不巧博主心情不好，外加要准备期末考试，并没有参加，非常遗憾。不过好在好基友 Eric Fu 参加并获得了冠军！今年的主题是分布式数据库，如果想了解详情及复赛的解题思路请读者前往 Eric 的博客。
+
 博主没有参加甚是遗憾，外加看到题目手痒难耐，遂问基友讨了最后的24h极客赛来玩一玩。
-24h TOPKN 题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&rdquo;分布式&rdquo;的策略，赛题中使用多个文件模拟多个数据分片。
+
+24h TOPKN
+
+题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&rdquo;分布式&rdquo;的策略，赛题中使用多个文件模拟多个数据分片。
+
 简称 top(k, n)。
- 给定一批数据，求解按顺序从小到大，顺序排名从第k下标序号之后连续的n个数据 (类似于数据库的order by asc &#43; limit k,n语义)
-top(k,3)代表获取排名序号为k&#43;1,k&#43;2,k&#43;3的内容,例:top(10,3)代表序号为11、12、13的内容,top(0,3)代表序号为1、2、3的内容 需要考虑k值几种情况，k值比较小或者特别大的情况，比如k=1,000,000,000 对应k,n取值范围： 0 &lt;= k &lt; 2^63 和 0 &lt; n &lt; 100 数据全部是文本和数字结合的数据，排序的时候按照整个字符串的长度来排序。例如一个有序的排序如下(相同长度情况下ascii码小的排在前面)： 例： a ab abc def abc123
-例如给定的k,n为(2,2)，则上面的数据需要的答案为: abc def
- 原题目在 https://code.aliyun.com/wanshao/topkn_final。
-要求在24小时内完成，然而 &hellip;
-这题我死命优化，带cache建一次index也要4s，清cache建一次要8s以上，也不知道第一名5轮 11s 怎么做的&hellip;
-解题过程 主要条件： 1. 3台机器，2台worker，一台master 2. 输出在master上
-主要限制： 1. Timeout: 5min 2. JVM heap size: 3G 3."/>
+
+"/>
 
 <meta name="generator" content="Hugo 0.25.1" />
 
@@ -67,9 +65,9 @@ top(k,3)代表获取排名序号为k&#43;1,k&#43;2,k&#43;3的内容,例:top(10,3
   "@type": "BlogPosting",
   "headline": "2017 Alibaba Middelware 24h Final (Just for Fun 😀)",
   "url": "https://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/",
-  "wordCount": "115",
+  "wordCount": "1548",
   "datePublished": "2017-07-26T16:59:26&#43;08:00",
-  "dateModified": "2017-07-27T01:17:54&#43;08:00",
+  "dateModified": "2017-07-27T01:39:49&#43;08:00",
   "author": {
     "@type": "Person",
     "name": "Ark"
@@ -127,9 +125,7 @@ top(k,3)代表获取排名序号为k&#43;1,k&#43;2,k&#43;3的内容,例:top(10,3
     <h2 class="blog-post-title"><a href="https://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/">2017 Alibaba Middelware 24h Final (Just for Fun 😀)</a></h2>
     <p class="blog-post-meta"><time datetime="2017-07-26T16:59:26&#43;08:00">Wed Jul 26, 2017</time> by Ark</p>
   </header>
-  
-
-<p>今年阿里中间件比赛的时候不巧博主心情不好，外加要准备期末考试，并没有参加，非常遗憾。不过好在好基友 <a href="https://ericfu.me">Eric Fu</a> 参加并获得了冠军！今年的主题是分布式数据库，如果想了解详情及复赛的解题思路请读者前往 Eric 的博客。</p>
+  <p>今年阿里中间件比赛的时候不巧博主心情不好，外加要准备期末考试，并没有参加，非常遗憾。不过好在好基友 <a href="https://ericfu.me">Eric Fu</a> 参加并获得了冠军！今年的主题是分布式数据库，如果想了解详情及复赛的解题思路请读者前往 Eric 的博客。</p>
 
 <p>博主没有参加甚是遗憾，外加看到题目手痒难耐，遂问基友讨了最后的24h极客赛来玩一玩。</p>
 
@@ -138,6 +134,8 @@ top(k,3)代表获取排名序号为k&#43;1,k&#43;2,k&#43;3的内容,例:top(10,3
 <p>题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&rdquo;分布式&rdquo;的策略，赛题中使用多个文件模拟多个数据分片。</p>
 
 <p>简称 top(k, n)。</p>
+
+<p></p>
 
 <blockquote>
 <p>给定一批数据，求解按顺序从小到大，顺序排名从第k下标序号之后连续的n个数据 (类似于数据库的order by asc + limit k,n语义)</p>
@@ -198,7 +196,6 @@ top(k,3)代表获取排名序号为k&#43;1,k&#43;2,k&#43;3的内容,例:top(10,3
 <h3 id="桶排序">桶排序</h3>
 
 <p>// TODO</p>
-
 
   
 
