@@ -1,0 +1,5 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Crazy Ark"
+enableGitInfo = true
+theme = "hugo-theme-bootstrap4-blog"
