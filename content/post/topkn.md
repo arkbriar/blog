@@ -15,6 +15,8 @@ markdown: mmark
 题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为"分布式"的策略，赛题中使用多个文件模拟多个数据分片。
 
 简称 top(k, n)。
+
+<!--more-->
  
 > 给定一批数据，求解按顺序从小到大，顺序排名从第k下标序号之后连续的n个数据 (类似于数据库的order by asc + limit k,n语义)
 
