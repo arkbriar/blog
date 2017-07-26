@@ -3,29 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/</loc>
+    <loc>https://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/</loc>
     <lastmod>2017-07-27T01:17:54+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://arkbriar.tk/categories/</loc>
+    <loc>https://arkbriar.tk/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://arkbriar.tk/</loc>
-    <lastmod>2017-07-27T01:17:54+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://arkbriar.tk/post/</loc>
+    <loc>https://arkbriar.tk/</loc>
     <lastmod>2017-07-27T01:17:54+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://arkbriar.tk/tags/</loc>
+    <loc>https://arkbriar.tk/post/</loc>
+    <lastmod>2017-07-27T01:17:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://arkbriar.tk/tags/</loc>
     <priority>0</priority>
   </url>
   
