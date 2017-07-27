@@ -34,15 +34,14 @@ markdown: mmark
 
 ## 解题过程
 
-主要条件：
-1. 3台机器，2台worker，一台master
-2. 输出在master上
+<br />
 
-主要限制：
-1. Timeout: 5min
-2. JVM heap size: 3G
-3. 不允许使用堆外内存(FileChannel)
+**主要条件** | **主要限制**
+:---- | :------
+1. 3台机器: 2台worker，1台master <br /> 2. 输出在master上 | 1. Timeout: 5min <br /> 2. JVM heap size: 3G <br/> 3. 不允许使用堆外内存(FileChannel)
 
+
+<br />
 题目中一共有大约160000000条数据(字符串)，并分布在两台机器上，要进行 top(k, n)，首先 brute force 一定是不行的。
 
 如果要对160000000条数据全排序JVM，第一内存太小，第二时间不够。对 10000000 条数据进行排序大约耗时为 1min13s，参考自 [https://codereview.stackexchange.com/questions/67387/quicksort-implementation-seems-too-slow-with-large-data](https://codereview.stackexchange.com/questions/67387/quicksort-implementation-seems-too-slow-with-large-data)；如果要进行外排序，磁盘读写导致耗时更长；以及还有最后要输出到master上，还有网络开销。

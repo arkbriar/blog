@@ -23,7 +23,7 @@
 
 
 <meta property="article:published_time" content="2017-07-26T16:59:26&#43;08:00"/>
-<meta property="article:modified_time" content="2017-07-27T01:39:49&#43;08:00"/>
+<meta property="article:modified_time" content="2017-07-27T11:30:03&#43;08:00"/>
 
 
 
@@ -65,9 +65,9 @@
   "@type": "BlogPosting",
   "headline": "2017 Alibaba Middelware 24h Final (Just for Fun 😀)",
   "url": "https://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/",
-  "wordCount": "3148",
+  "wordCount": "3146",
   "datePublished": "2017-07-26T16:59:26&#43;08:00",
-  "dateModified": "2017-07-27T01:39:49&#43;08:00",
+  "dateModified": "2017-07-27T11:30:03&#43;08:00",
   "author": {
     "@type": "Person",
     "name": "Ark"
@@ -155,16 +155,26 @@
 
 <h2 id="解题过程">解题过程</h2>
 
-<p>主要条件：
-1. 3台机器，2台worker，一台master
-2. 输出在master上</p>
+<p><br /></p>
 
-<p>主要限制：
-1. Timeout: 5min
-2. JVM heap size: 3G
-3. 不允许使用堆外内存(FileChannel)</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>主要条件</strong></th>
+<th align="left"><strong>主要限制</strong></th>
+</tr>
+</thead>
 
-<p>题目中一共有大约160000000条数据(字符串)，并分布在两台机器上，要进行 top(k, n)，首先 brute force 一定是不行的。</p>
+<tbody>
+<tr>
+<td align="left">1. 3台机器: 2台worker，1台master <br /> 2. 输出在master上</td>
+<td align="left">1. Timeout: 5min <br /> 2. JVM heap size: 3G <br/> 3. 不允许使用堆外内存(FileChannel)</td>
+</tr>
+</tbody>
+</table>
+
+<p><br />
+题目中一共有大约160000000条数据(字符串)，并分布在两台机器上，要进行 top(k, n)，首先 brute force 一定是不行的。</p>
 
 <p>如果要对160000000条数据全排序JVM，第一内存太小，第二时间不够。对 10000000 条数据进行排序大约耗时为 1min13s，参考自 <a href="https://codereview.stackexchange.com/questions/67387/quicksort-implementation-seems-too-slow-with-large-data">https://codereview.stackexchange.com/questions/67387/quicksort-implementation-seems-too-slow-with-large-data</a>；如果要进行外排序，磁盘读写导致耗时更长；以及还有最后要输出到master上，还有网络开销。</p>
 
