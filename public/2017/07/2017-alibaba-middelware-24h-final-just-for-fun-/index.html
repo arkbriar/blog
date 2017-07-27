@@ -23,7 +23,7 @@
 
 
 <meta property="article:published_time" content="2017-07-26T16:59:26&#43;08:00"/>
-<meta property="article:modified_time" content="2017-07-27T11:30:03&#43;08:00"/>
+<meta property="article:modified_time" content="2017-07-27T11:43:45&#43;08:00"/>
 
 
 
@@ -65,9 +65,9 @@
   "@type": "BlogPosting",
   "headline": "2017 Alibaba Middelware 24h Final (Just for Fun 😀)",
   "url": "https://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/",
-  "wordCount": "3146",
+  "wordCount": "3184",
   "datePublished": "2017-07-26T16:59:26&#43;08:00",
-  "dateModified": "2017-07-27T11:30:03&#43;08:00",
+  "dateModified": "2017-07-27T11:43:45&#43;08:00",
   "author": {
     "@type": "Person",
     "name": "Ark"
@@ -252,14 +252,13 @@
 <li>临时、结果磁盘：SSD</li>
 </ol>
 
-<p>下面是重点：
-<strong>本题由于读是从内存文件系统读的，所以并发读非常可怕，60ms扫完所有字符串不是梦。</strong></p>
-
 <h3 id="top-1-的最终结果">Top 1 的最终结果</h3>
 
 <p>从基友那得知，top 1 的实现5轮总耗时(JVM启动、暂停，以及计算)共11s多，用来推算自己离最优还有多远。</p>
 
-<h3 id="失败的i-o实现">失败的I/O实现</h3>
+<p>(我实在没想通第一名怎么跑到11s的，大概是我内存文件系统开的不对？)</p>
+
+<h3 id="不稳定的i-o实现">不稳定的I/O实现</h3>
 
 <p>每个文件单线程读，固定4线程处理，通过预先分配的 buffer 避免出现 GC。</p>
 
@@ -271,9 +270,7 @@
 
 <p>这种实现无法调优，等待的时间完全看 OS 心情。</p>
 
-<p>推断结果大约为 9 + 8 + 4 * 5 = 37s 左右完成5轮，差的太远了 &hellip;</p>
-
-<h3 id="正确的i-o实现">正确的I/O实现</h3>
+<h3 id="稳定的i-o实现">稳定的I/O实现</h3>
 
 <p>其实之前提到过，单线程读并不是一个很好的思路，而且上述的处理架构存在着不稳定的等待问题。</p>
 
@@ -296,7 +293,9 @@
 
 <p>这样每一个线程都在读和处理之间循环，先完成的线程会请求下一个 Segment，保证以最短的时间完成调用所有 Core 进行一遍数据处理。</p>
 
-<p>其实到这里本题已经差不多了，我记得 Eric 在这种处理下最终结果是 14s 多。</p>
+<p>这个方法保证能够十分稳定的进行读取和处理，并且不需要等待 Reader 和 Processor 通信，在我的实验环境中基本存着cache 3-4s能扫描一遍，清理cache也在 7-8s。</p>
+
+<p>其实到这里本题已经差不多了，我记得 Eric 在这种处理下比赛的最终结果是 14s 多。</p>
 
 <h3 id="top-1-的优化">Top 1 的优化</h3>
 
