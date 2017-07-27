@@ -164,10 +164,56 @@ public class FileSegment {
 
 对比之下，之前的方式是从内存文件系统读取5G的文件，现在是从SSD读取1G左右文件，只要并发读速度差距不在5倍以上，这样的优化是能节省不少时间！
 
-
 ## 测试
 
-TODO
+仅测试了建 Index
+
+### 清理 cache
+
+```bash
+$ sysctl -w vm.drop_caches=3
+vm.drop_caches = 3
+$ time java ${JAVA_OPTS} -cp /exp/topkn/topkn.jar com.alibaba.middleware.topkn.TopknWorker localhost 5527 .
+[2017-07-27 14:24:27.512] INFO com.alibaba.middleware.topkn.TopknWorker Connecting to master at localhost:5527
+[2017-07-27 14:24:27.519] INFO com.alibaba.middleware.topkn.TopknWorker Building index ...
+0.673: [GC (Allocation Failure) 0.673: [ParNew: 809135K->99738K(943744K), 0.1759305 secs] 809135K->542134K(3040896K), 0.1761763 secs] [Times: user=3.15 sys=0.69, real=0.17 secs]
+[2017-07-27 14:24:32.330] INFO com.alibaba.middleware.topkn.TopknWorker Index built.
+Heap
+ par new generation   total 943744K, used 903716K [0x0000000700000000, 0x0000000740000000, 0x0000000740000000)
+  eden space 838912K,  95% used [0x0000000700000000, 0x00000007311225e0, 0x0000000733340000)
+  from space 104832K,  95% used [0x00000007399a0000, 0x000000073fb06b38, 0x0000000740000000)
+  to   space 104832K,   0% used [0x0000000733340000, 0x0000000733340000, 0x00000007399a0000)
+ concurrent mark-sweep generation total 2097152K, used 442395K [0x0000000740000000, 0x00000007c0000000, 0x00000007c0000000)
+ Metaspace       used 3980K, capacity 4638K, committed 4864K, reserved 1056768K
+  class space    used 434K, capacity 462K, committed 512K, reserved 1048576K
+
+real    0m5.238s
+user    1m11.980s
+sys     0m26.324s
+```
+
+### 不清理 cache
+
+```bash
+$ time java ${JAVA_OPTS} -cp /exp/topkn/topkn.jar com.alibaba.middleware.topkn.TopknWorker localhost 5527 .
+[2017-07-27 14:25:39.986] INFO com.alibaba.middleware.topkn.TopknWorker Connecting to master at localhost:5527
+[2017-07-27 14:25:39.992] INFO com.alibaba.middleware.topkn.TopknWorker Building index ...
+0.590: [GC (Allocation Failure) 0.590: [ParNew: 838912K->99751K(943744K), 0.1851592 secs] 838912K->591302K(3040896K), 0.1855308 secs] [Times: user=3.03 sys=0.88, real=0.19 secs]
+[2017-07-27 14:25:44.449] INFO com.alibaba.middleware.topkn.TopknWorker Index built.
+Heap
+ par new generation   total 943744K, used 863664K [0x0000000700000000, 0x0000000740000000, 0x0000000740000000)
+  eden space 838912K,  91% used [0x0000000700000000, 0x000000072ea02318, 0x0000000733340000)
+  from space 104832K,  95% used [0x00000007399a0000, 0x000000073fb09e00, 0x0000000740000000)
+  to   space 104832K,   0% used [0x0000000733340000, 0x0000000733340000, 0x00000007399a0000)
+ concurrent mark-sweep generation total 2097152K, used 491550K [0x0000000740000000, 0x00000007c0000000, 0x00000007c0000000)
+ Metaspace       used 3980K, capacity 4638K, committed 4864K, reserved 1056768K
+  class space    used 434K, capacity 462K, committed 512K, reserved 1048576K
+
+real    0m4.754s
+user    0m57.144s
+sys     0m30.568s
+```
+
 
 ## 总结
 

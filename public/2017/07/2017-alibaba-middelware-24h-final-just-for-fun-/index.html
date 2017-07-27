@@ -23,7 +23,7 @@
 
 
 <meta property="article:published_time" content="2017-07-26T16:59:26&#43;08:00"/>
-<meta property="article:modified_time" content="2017-07-27T11:43:45&#43;08:00"/>
+<meta property="article:modified_time" content="2017-07-27T14:21:53&#43;08:00"/>
 
 
 
@@ -65,9 +65,9 @@
   "@type": "BlogPosting",
   "headline": "2017 Alibaba Middelware 24h Final (Just for Fun 😀)",
   "url": "https://arkbriar.tk/2017/07/2017-alibaba-middelware-24h-final-just-for-fun-/",
-  "wordCount": "3184",
+  "wordCount": "3441",
   "datePublished": "2017-07-26T16:59:26&#43;08:00",
-  "dateModified": "2017-07-27T11:43:45&#43;08:00",
+  "dateModified": "2017-07-27T14:21:53&#43;08:00",
   "author": {
     "@type": "Person",
     "name": "Ark"
@@ -308,7 +308,51 @@
 
 <h2 id="测试">测试</h2>
 
-<p>TODO</p>
+<p>仅测试了建 Index</p>
+
+<h3 id="清理-cache">清理 cache</h3>
+
+<pre><code class="language-bash">$ sysctl -w vm.drop_caches=3
+vm.drop_caches = 3
+$ time java ${JAVA_OPTS} -cp /exp/topkn/topkn.jar com.alibaba.middleware.topkn.TopknWorker localhost 5527 .
+[2017-07-27 14:24:27.512] INFO com.alibaba.middleware.topkn.TopknWorker Connecting to master at localhost:5527
+[2017-07-27 14:24:27.519] INFO com.alibaba.middleware.topkn.TopknWorker Building index ...
+0.673: [GC (Allocation Failure) 0.673: [ParNew: 809135K-&gt;99738K(943744K), 0.1759305 secs] 809135K-&gt;542134K(3040896K), 0.1761763 secs] [Times: user=3.15 sys=0.69, real=0.17 secs]
+[2017-07-27 14:24:32.330] INFO com.alibaba.middleware.topkn.TopknWorker Index built.
+Heap
+ par new generation   total 943744K, used 903716K [0x0000000700000000, 0x0000000740000000, 0x0000000740000000)
+  eden space 838912K,  95% used [0x0000000700000000, 0x00000007311225e0, 0x0000000733340000)
+  from space 104832K,  95% used [0x00000007399a0000, 0x000000073fb06b38, 0x0000000740000000)
+  to   space 104832K,   0% used [0x0000000733340000, 0x0000000733340000, 0x00000007399a0000)
+ concurrent mark-sweep generation total 2097152K, used 442395K [0x0000000740000000, 0x00000007c0000000, 0x00000007c0000000)
+ Metaspace       used 3980K, capacity 4638K, committed 4864K, reserved 1056768K
+  class space    used 434K, capacity 462K, committed 512K, reserved 1048576K
+
+real    0m5.238s
+user    1m11.980s
+sys     0m26.324s
+</code></pre>
+
+<h3 id="不清理-cache">不清理 cache</h3>
+
+<pre><code class="language-bash">$ time java ${JAVA_OPTS} -cp /exp/topkn/topkn.jar com.alibaba.middleware.topkn.TopknWorker localhost 5527 .
+[2017-07-27 14:25:39.986] INFO com.alibaba.middleware.topkn.TopknWorker Connecting to master at localhost:5527
+[2017-07-27 14:25:39.992] INFO com.alibaba.middleware.topkn.TopknWorker Building index ...
+0.590: [GC (Allocation Failure) 0.590: [ParNew: 838912K-&gt;99751K(943744K), 0.1851592 secs] 838912K-&gt;591302K(3040896K), 0.1855308 secs] [Times: user=3.03 sys=0.88, real=0.19 secs]
+[2017-07-27 14:25:44.449] INFO com.alibaba.middleware.topkn.TopknWorker Index built.
+Heap
+ par new generation   total 943744K, used 863664K [0x0000000700000000, 0x0000000740000000, 0x0000000740000000)
+  eden space 838912K,  91% used [0x0000000700000000, 0x000000072ea02318, 0x0000000733340000)
+  from space 104832K,  95% used [0x00000007399a0000, 0x000000073fb09e00, 0x0000000740000000)
+  to   space 104832K,   0% used [0x0000000733340000, 0x0000000733340000, 0x00000007399a0000)
+ concurrent mark-sweep generation total 2097152K, used 491550K [0x0000000740000000, 0x00000007c0000000, 0x00000007c0000000)
+ Metaspace       used 3980K, capacity 4638K, committed 4864K, reserved 1056768K
+  class space    used 434K, capacity 462K, committed 512K, reserved 1048576K
+
+real    0m4.754s
+user    0m57.144s
+sys     0m30.568s
+</code></pre>
 
 <h2 id="总结">总结</h2>
 
