@@ -11,5 +11,14 @@
 	<atom:link href="https://arkbriar.tk/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Development</title>
+      <link>https://arkbriar.tk/categories/development/</link>
+      <pubDate>Wed, 26 Jul 2017 16:59:26 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/categories/development/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

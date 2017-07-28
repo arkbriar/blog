@@ -7,9 +7,37 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
+    <lastBuildDate>Wed, 26 Jul 2017 16:59:26 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Distributed System</title>
+      <link>https://arkbriar.tk/tags/distributed-system/</link>
+      <pubDate>Wed, 26 Jul 2017 16:59:26 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/distributed-system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://arkbriar.tk/tags/java/</link>
+      <pubDate>Wed, 26 Jul 2017 16:59:26 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Parallel Computing</title>
+      <link>https://arkbriar.tk/tags/parallel-computing/</link>
+      <pubDate>Wed, 26 Jul 2017 16:59:26 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/parallel-computing/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

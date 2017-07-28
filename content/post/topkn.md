@@ -1,7 +1,8 @@
 ---
 title: "2017 Alibaba Middleware 24h Final (Just for Fun 😀)"
 date: 2017-07-26T16:59:26+08:00
-keywords: ["2017阿里天池中间件大赛","分布式","24h极客赛","数据库"]
+tags: ["java", "distributed system", "parallel computing"]
+categories: ["Development"]
 draft: false
 markdown: mmark
 ---
