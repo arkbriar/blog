@@ -6,6 +6,9 @@ theme = "hugo-theme-bootstrap4-blog"
 hasCJKLanguage = true
 disqusShortname = "crazyark"
 
+# pygmentsuseclasses = true
+pygmentsstyle = "colorful"
+
 paginate = 5
 
 copyright = "Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/)."

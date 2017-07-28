@@ -37,11 +37,10 @@ Codes 托管在 github 上 [https://github.com/arkbriar/topKN](https://github.co
 
 ## 解题过程
 
-<br />
 
-**主要条件** | **主要限制**
-:---- | :------
-1. 3台机器: 2台worker，1台master <br /> 2. 输出在master上 | 1. Timeout: 5min <br /> 2. JVM heap size: 3G <br/> 3. 不允许使用堆外内存(FileChannel)
+**主要条件** | | **主要限制**
+:---- | :-:|:------
+1. 3台机器: 2台worker，1台master <br /> 2. 输出在master上 | |1. Timeout: 5min <br /> 2. JVM heap size: 3G <br/> 3. 不允许使用堆外内存(FileChannel)
 
 
 <br />
@@ -145,6 +144,7 @@ B树是1972年由 Rudolf Bayer 和 Edward M.McCreight 提出的，它是一种�
 这里采用 Eric 在复赛里的实现: FileSegment, 通过将一个文件分割为一个一个 Segment，让每一个线程自己请求下一个 Segment，并通过 RandomAccessFile 进行读取。(由于不许用 FileChannel)
 
 ```java
+{{<highlight java>}}
 public class FileSegment {
     private final File file;
     private final long offset;
@@ -152,6 +152,7 @@ public class FileSegment {
     
     ...
 }
+{{</highlight>}}
 ```
 
 这样每一个线程都在读和处理之间循环，先完成的线程会请求下一个 Segment，保证以最短的时间完成调用所有 Core 进行一遍数据处理。
@@ -174,6 +175,7 @@ public class FileSegment {
 ### 清理 cache
 
 ```bash
+{{<highlight console>}}
 $ sysctl -w vm.drop_caches=3
 vm.drop_caches = 3
 $ time java ${JAVA_OPTS} -cp /exp/topkn/topkn.jar com.alibaba.middleware.topkn.TopknWorker localhost 5527 .
@@ -193,11 +195,13 @@ Heap
 real    0m5.238s
 user    1m11.980s
 sys     0m26.324s
+{{</highlight>}}
 ```
 
 ### 不清理 cache
 
 ```bash
+{{<highlight console>}}
 $ time java ${JAVA_OPTS} -cp /exp/topkn/topkn.jar com.alibaba.middleware.topkn.TopknWorker localhost 5527 .
 [2017-07-27 14:25:39.986] INFO com.alibaba.middleware.topkn.TopknWorker Connecting to master at localhost:5527
 [2017-07-27 14:25:39.992] INFO com.alibaba.middleware.topkn.TopknWorker Building index ...
@@ -215,6 +219,7 @@ Heap
 real    0m4.754s
 user    0m57.144s
 sys     0m30.568s
+{{</highlight>}}
 ```
 
 

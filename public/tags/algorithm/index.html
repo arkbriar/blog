@@ -5,14 +5,14 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<meta property="og:title" content="Parallel Computing" />
+<meta property="og:title" content="Algorithm" />
 <meta property="og:description" content="Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://arkbriar.tk/tags/parallel-computing/" />
+<meta property="og:url" content="https://arkbriar.tk/tags/algorithm/" />
 
 
 
-<meta property="og:updated_time" content="2017-07-26T16:59:26&#43;08:00"/>
+<meta property="og:updated_time" content="2017-07-28T21:08:02&#43;08:00"/>
 
 
 
@@ -32,19 +32,19 @@
   "@context": "http://schema.org",
   "@type": "Blog",
   "headline": "Crazy Ark",
-  "url" : "https://arkbriar.tk/tags/parallel-computing/",
+  "url" : "https://arkbriar.tk/tags/algorithm/",
   "author": {
     "@type": "Person",
     "name": "Ark"
   },
-  "dateModified": "2017-07-26T16:59:26&#43;08:00",
+  "dateModified": "2017-07-28T21:08:02&#43;08:00",
   "keywords": "algorithm,development,algorithm,boyer-moore-majority-vote-algorithm,distributed-system,java,parallel-computing,",
   "description": "Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith"
 }
 </script>
 
 
-    <link rel="canonical" href="https://arkbriar.tk/tags/parallel-computing/">
+    <link rel="canonical" href="https://arkbriar.tk/tags/algorithm/">
 
     <title>Crazy Ark</title>
 
@@ -53,7 +53,7 @@
 
     
     <!-- RSS 2.0 feed -->
-    <link href="https://arkbriar.tk/tags/parallel-computing/index.xml" rel="alternate" type="application/rss+xml" title="Crazy Ark" />
+    <link href="https://arkbriar.tk/tags/algorithm/index.xml" rel="alternate" type="application/rss+xml" title="Crazy Ark" />
     
 
     
@@ -100,27 +100,25 @@
 
 <article class="blog-post">
   <header>
-    <h2 class="blog-post-title"><a href="https://arkbriar.tk/2017/07/2017-alibaba-middleware-24h-final-just-for-fun-/">2017 Alibaba Middleware 24h Final (Just for Fun 😀)</a></h2>
-    <p class="blog-post-meta"><time datetime="2017-07-26T16:59:26&#43;08:00">Wed Jul 26, 2017</time> by Ark in 
-<i class="fa fa-folder" aria-hidden="true"></i>&nbsp;<a href="/categories/development" rel="category tag">Development</a>
+    <h2 class="blog-post-title"><a href="https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/">Boyer-Moore Majority Voting Algorithm</a></h2>
+    <p class="blog-post-meta"><time datetime="2017-07-28T21:08:02&#43;08:00">Fri Jul 28, 2017</time> by Ark in 
+<i class="fa fa-folder" aria-hidden="true"></i>&nbsp;<a href="/categories/development" rel="category tag">Development</a>, <a href="/categories/algorithm" rel="category tag">Algorithm</a>
 
 
-<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<a href="/tags/java" rel="tag">java</a>, <a href="/tags/distributed-system" rel="tag">distributed system</a>, <a href="/tags/parallel-computing" rel="tag">parallel computing</a>
+<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<a href="/tags/algorithm" rel="tag">algorithm</a>, <a href="/tags/boyer-moore-majority-vote-algorithm" rel="tag">boyer-moore majority vote algorithm</a>
 
 </p>
   </header>
-  <p>今年阿里中间件比赛的时候不巧博主心情不好，外加要准备期末考试，并没有参加，非常遗憾。不过好在好基友 <a href="https://ericfu.me">Eric Fu</a> 参加并获得了冠军！今年的主题是分布式数据库，如果想了解详情及复赛的解题思路请读者前往 Eric 的博客。</p>
+  <p>刷leetcode时碰到的问题，本篇仅做简要描述，以及记录思考。</p>
 
-<p>博主没有参加甚是遗憾，外加看到题目手痒难耐，遂问基友讨了最后的24h极客赛来玩一玩。</p>
+<p>参考自: <a href="https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html">https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html</a>，一篇写的非常好的博客</p>
 
-<h2 id="24h-topkn">24h TOPKN</h2>
+<p>问题描述：考虑你有一个长度为n的<strong>无序</strong>列表，现在你想知道列表中是否有一个值占据了列表的一半以上 (majority)，如果有的话找出这个数。</p>
 
-<p>题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&rdquo;分布式&rdquo;的策略，赛题中使用多个文件模拟多个数据分片。</p>
-
-<p>简称 top(k, n)。</p>
+<p>这个问题的一个普遍的应用场景是在容错计算 (fault-tolerant computing) 中，在进行了多次冗余的计算后，输出最后多数计算得到的值。</p>
 
 <p></p>
-  <a href='https://arkbriar.tk/2017/07/2017-alibaba-middleware-24h-final-just-for-fun-/'>Read more →</a>
+  <a href='https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/'>Read more →</a>
 </article> 
 
 

@@ -7,10 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Wed, 26 Jul 2017 16:59:26 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 28 Jul 2017 21:08:02 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Boyer-Moore Majority Voting Algorithm</title>
+      <link>https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/</link>
+      <pubDate>Fri, 28 Jul 2017 21:08:02 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/</guid>
+      <description>&lt;p&gt;刷leetcode时碰到的问题，本篇仅做简要描述，以及记录思考。&lt;/p&gt;
+
+&lt;p&gt;参考自: &lt;a href=&#34;https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html&#34;&gt;https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html&lt;/a&gt;，一篇写的非常好的博客&lt;/p&gt;
+
+&lt;p&gt;问题描述：考虑你有一个长度为n的&lt;strong&gt;无序&lt;/strong&gt;列表，现在你想知道列表中是否有一个值占据了列表的一半以上 (majority)，如果有的话找出这个数。&lt;/p&gt;
+
+&lt;p&gt;这个问题的一个普遍的应用场景是在容错计算 (fault-tolerant computing) 中，在进行了多次冗余的计算后，输出最后多数计算得到的值。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>2017 Alibaba Middleware 24h Final (Just for Fun 😀)</title>
