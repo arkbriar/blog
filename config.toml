@@ -4,6 +4,7 @@ title = "Crazy Ark"
 enableGitInfo = true
 theme = "hugo-theme-bootstrap4-blog"
 hasCJKLanguage = true
+disqusShortname = "crazyark"
 
 paginate = 5
 
