@@ -32,6 +32,8 @@ markdown: mmark
 
 要求在24小时内完成，然而 ...
 
+Codes 托管在 github 上 [https://github.com/arkbriar/topKN](https://github.com/arkbriar/topKN)，这个版本从基友的版本轻度修改而来 ...
+
 ## 解题过程
 
 <br />
