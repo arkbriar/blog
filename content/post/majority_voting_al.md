@@ -61,7 +61,7 @@ def boyer_moore_majority(input):
     if count > len(input) / 2:
         return candidate
     else:
-        return -1 // any value represents NOT FOUND
+        return -1 # any value represents NOT FOUND
 
 {{< /highlight >}}
 ```
