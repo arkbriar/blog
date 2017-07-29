@@ -65,7 +65,7 @@
   "@type": "BlogPosting",
   "headline": "2017 Alibaba Middleware 24h Final (Just for Fun 😀)",
   "url": "https://arkbriar.tk/2017/07/2017-alibaba-middleware-24h-final-just-for-fun-/",
-  "wordCount": "3498",
+  "wordCount": "3676",
   "datePublished": "2017-07-26T16:59:26&#43;08:00",
   "dateModified": "2017-07-28T22:46:36&#43;08:00",
   "author": {
@@ -294,13 +294,56 @@
 
 <p>这里采用 Eric 在复赛里的实现: FileSegment, 通过将一个文件分割为一个一个 Segment，让每一个线程自己请求下一个 Segment，并通过 RandomAccessFile 进行读取。(由于不许用 FileChannel)</p>
 
-<pre><code class="language-java"><div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="color: #008800; font-weight: bold">public</span> <span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">FileSegment</span> <span style="color: #333333">{</span>
-    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #008800; font-weight: bold">final</span> File file<span style="color: #333333">;</span>
-    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #008800; font-weight: bold">final</span> <span style="color: #333399; font-weight: bold">long</span> offset<span style="color: #333333">;</span>
-    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #008800; font-weight: bold">final</span> <span style="color: #333399; font-weight: bold">long</span> nextOffset<span style="color: #333333">;</span>
-    
-    <span style="color: #333333">...</span>
-<span style="color: #333333">}</span>
+<pre><code class="language-java"><div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="background-color: #f0f0f0; padding: 0 5px 0 5px">1 </span><span style="color: #008800; font-weight: bold">public</span> <span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">FileSegment</span> <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">2 </span>    <span style="color: #008800; font-weight: bold">private</span> File file<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">3 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">4 </span>    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #333399; font-weight: bold">long</span> offset<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">5 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">6 </span>    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #333399; font-weight: bold">long</span> size<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">7 </span>    <span style="color: #333333">...</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">8 </span><span style="color: #333333">}</span>
+</pre></div>
+
+</code></pre>
+
+<pre><code class="language-java"><div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 1 </span><span style="color: #008800; font-weight: bold">public</span> <span style="color: #008800; font-weight: bold">abstract</span> <span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">BufferedFileSegmentReadProcessor</span> <span style="color: #008800; font-weight: bold">implements</span> Runnable <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 2 </span>    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #008800; font-weight: bold">final</span> <span style="color: #333399; font-weight: bold">int</span> bufferMargin <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">1024</span><span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 3 </span>    <span style="color: #008800; font-weight: bold">private</span> FileSegmentLoader fileSegmentLoader<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 4 </span>    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #333399; font-weight: bold">int</span> bufferSize<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 5 </span>    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #333399; font-weight: bold">byte</span><span style="color: #333333">[]</span> readBuffer<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 6 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 7 </span>    <span style="color: #888888">// Here bufferSize must be greater than segments&#39; size got from fileSegmentLoader, </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 8 </span>    <span style="color: #888888">// otherwise segment will not be fully read/processed!</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 9 </span>    <span style="color: #008800; font-weight: bold">public</span> <span style="color: #0066BB; font-weight: bold">BufferedFileSegmentReadProcessor</span><span style="color: #333333">(</span>FileSegmentLoader fileSegmentLoader<span style="color: #333333">,</span> <span style="color: #333399; font-weight: bold">int</span> bufferSize<span style="color: #333333">)</span> <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">10 </span>        <span style="color: #008800; font-weight: bold">this</span><span style="color: #333333">.</span><span style="color: #0000CC">bufferSize</span> <span style="color: #333333">=</span> bufferSize<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">11 </span>        <span style="color: #008800; font-weight: bold">this</span><span style="color: #333333">.</span><span style="color: #0000CC">fileSegmentLoader</span> <span style="color: #333333">=</span> fileSegmentLoader<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">12 </span>    <span style="color: #333333">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">13 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">14 </span>    <span style="color: #008800; font-weight: bold">private</span> <span style="color: #333399; font-weight: bold">int</span> <span style="color: #0066BB; font-weight: bold">readSegment</span><span style="color: #333333">(</span>FileSegment segment<span style="color: #333333">,</span> <span style="color: #333399; font-weight: bold">byte</span><span style="color: #333333">[]</span> readBuffer<span style="color: #333333">)</span> <span style="color: #008800; font-weight: bold">throws</span> IOException <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">15 </span>        <span style="color: #333399; font-weight: bold">int</span> limit <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">16 </span>        <span style="color: #008800; font-weight: bold">try</span> <span style="color: #333333">(</span>RandomAccessFile randomAccessFile <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> RandomAccessFile<span style="color: #333333">(</span>segment<span style="color: #333333">.</span><span style="color: #0000CC">getFile</span><span style="color: #333333">(),</span> <span style="background-color: #fff0f0">&quot;r&quot;</span><span style="color: #333333">))</span> <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">17 </span>            randomAccessFile<span style="color: #333333">.</span><span style="color: #0000CC">seek</span><span style="color: #333333">(</span>segment<span style="color: #333333">.</span><span style="color: #0000CC">getOffset</span><span style="color: #333333">());</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">18 </span>            limit <span style="color: #333333">=</span> randomAccessFile<span style="color: #333333">.</span><span style="color: #0000CC">read</span><span style="color: #333333">(</span>readBuffer<span style="color: #333333">,</span> <span style="color: #0000DD; font-weight: bold">0</span><span style="color: #333333">,</span> readBuffer<span style="color: #333333">.</span><span style="color: #0000CC">length</span><span style="color: #333333">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">19 </span>        <span style="color: #333333">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">20 </span>        <span style="color: #008800; font-weight: bold">return</span> limit<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">21 </span>    <span style="color: #333333">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">22 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">23 </span>    <span style="color: #008800; font-weight: bold">protected</span> <span style="color: #008800; font-weight: bold">abstract</span> <span style="color: #333399; font-weight: bold">void</span> <span style="color: #0066BB; font-weight: bold">processSegment</span><span style="color: #333333">(</span>FileSegment segment<span style="color: #333333">,</span> <span style="color: #333399; font-weight: bold">byte</span><span style="color: #333333">[]</span> readBuffer<span style="color: #333333">,</span> <span style="color: #333399; font-weight: bold">int</span> limit<span style="color: #333333">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">24 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">25 </span>    <span style="color: #555555; font-weight: bold">@Override</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">26 </span>    <span style="color: #008800; font-weight: bold">public</span> <span style="color: #333399; font-weight: bold">void</span> <span style="color: #0066BB; font-weight: bold">run</span><span style="color: #333333">()</span> <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">27 </span>        readBuffer <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> <span style="color: #333399; font-weight: bold">byte</span><span style="color: #333333">[</span>bufferSize <span style="color: #333333">+</span> bufferMargin<span style="color: #333333">];</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">28 </span>        <span style="color: #008800; font-weight: bold">try</span> <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">29 </span>            FileSegment segment<span style="color: #333333">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">30 </span>            <span style="color: #008800; font-weight: bold">while</span> <span style="color: #333333">((</span>segment <span style="color: #333333">=</span> fileSegmentLoader<span style="color: #333333">.</span><span style="color: #0000CC">nextFileSegment</span><span style="color: #333333">())</span> <span style="color: #333333">!=</span> <span style="color: #008800; font-weight: bold">null</span><span style="color: #333333">)</span> <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">31 </span>                <span style="color: #333399; font-weight: bold">int</span> limit <span style="color: #333333">=</span> readSegment<span style="color: #333333">(</span>segment<span style="color: #333333">,</span> readBuffer<span style="color: #333333">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">32 </span>                processSegment<span style="color: #333333">(</span>segment<span style="color: #333333">,</span> readBuffer<span style="color: #333333">,</span> limit<span style="color: #333333">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">33 </span>            <span style="color: #333333">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">34 </span>        <span style="color: #333333">}</span> <span style="color: #008800; font-weight: bold">catch</span> <span style="color: #333333">(</span>IOException e<span style="color: #333333">)</span> <span style="color: #333333">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">35 </span>            e<span style="color: #333333">.</span><span style="color: #0000CC">printStackTrace</span><span style="color: #333333">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">36 </span>        <span style="color: #333333">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">37 </span>    <span style="color: #333333">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">38 </span><span style="color: #333333">}</span>
 </pre></div>
 
 </code></pre>

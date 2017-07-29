@@ -144,13 +144,57 @@ B树是1972年由 Rudolf Bayer 和 Edward M.McCreight 提出的，它是一种�
 这里采用 Eric 在复赛里的实现: FileSegment, 通过将一个文件分割为一个一个 Segment，让每一个线程自己请求下一个 Segment，并通过 RandomAccessFile 进行读取。(由于不许用 FileChannel)
 
 ```java
-{{<highlight java>}}
+{{<highlight java "linenos=inline">}}
 public class FileSegment {
-    private final File file;
-    private final long offset;
-    private final long nextOffset;
-    
+    private File file;
+
+    private long offset;
+
+    private long size;
     ...
+}
+{{</highlight>}}
+```
+
+```java
+{{<highlight java "linenos=inline">}}
+public abstract class BufferedFileSegmentReadProcessor implements Runnable {
+    private final int bufferMargin = 1024;
+    private FileSegmentLoader fileSegmentLoader;
+    private int bufferSize;
+    private byte[] readBuffer;
+
+    // Here bufferSize must be greater than segments' size got from fileSegmentLoader, 
+    // otherwise segment will not be fully read/processed!
+    public BufferedFileSegmentReadProcessor(FileSegmentLoader fileSegmentLoader, int bufferSize) {
+        this.bufferSize = bufferSize;
+        this.fileSegmentLoader = fileSegmentLoader;
+    }
+
+    private int readSegment(FileSegment segment, byte[] readBuffer) throws IOException {
+        int limit = 0;
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(segment.getFile(), "r")) {
+            randomAccessFile.seek(segment.getOffset());
+            limit = randomAccessFile.read(readBuffer, 0, readBuffer.length);
+        }
+        return limit;
+    }
+
+    protected abstract void processSegment(FileSegment segment, byte[] readBuffer, int limit);
+
+    @Override
+    public void run() {
+        readBuffer = new byte[bufferSize + bufferMargin];
+        try {
+            FileSegment segment;
+            while ((segment = fileSegmentLoader.nextFileSegment()) != null) {
+                int limit = readSegment(segment, readBuffer);
+                processSegment(segment, readBuffer, limit);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 {{</highlight>}}
 ```

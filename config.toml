@@ -7,6 +7,7 @@ hasCJKLanguage = true
 disqusShortname = "crazyark"
 
 # pygmentsuseclasses = true
+pygmentsCodeFencesGuessSyntax = true
 pygmentsstyle = "colorful"
 
 paginate = 5

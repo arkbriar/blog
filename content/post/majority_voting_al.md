@@ -41,7 +41,7 @@ draft: false
 来看一下Python版代码实现：
 
 ```python
-{{< highlight python >}}
+{{< highlight python "linenos=inline">}}
 def boyer_moore_majority(input):
     candidate = 0
     count = 0
@@ -119,7 +119,7 @@ def boyer_moore_majority(input):
 主要算法如下：
 
 ```python
-{{< highlight python >}}
+{{< highlight python "linenos=inline">}}
 def distributed_boyer_moore_majority(parallel_output):
     candidate = 0
     count = 0
