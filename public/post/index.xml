@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Fri, 28 Jul 2017 21:08:02 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jul 2017 22:44:24 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dynamic Proxy in Java</title>
+      <link>https://arkbriar.tk/2017/07/dynamic-proxy-in-java/</link>
+      <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/2017/07/dynamic-proxy-in-java/</guid>
+      <description>&lt;p&gt;虽然在一年前就知道了 Proxy 模式，但是基本没有尝试使用过，仅在框架里看到一些例子。昨天翻阅《大型网站系统与Java中间件实践》时，偶然发现了 Proxy 模式在 Java 中的应用 —— 动态代理，遂记录下来，顺便复习一下 Proxy 模式。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Boyer-Moore Majority Voting Algorithm</title>

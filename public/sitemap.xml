@@ -3,8 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://arkbriar.tk/2017/07/dynamic-proxy-in-java/</loc>
+    <lastmod>2017-07-29T22:46:15+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
   </url>
   
   <url>
@@ -14,72 +19,90 @@
   
   <url>
     <loc>https://arkbriar.tk/2017/07/2017-alibaba-middleware-24h-final-just-for-fun-/</loc>
-    <lastmod>2017-07-28T22:46:36+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/tags/algorithm/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/categories/algorithm/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/categories/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T22:46:15+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://arkbriar.tk/tags/design-pattern/</loc>
+    <lastmod>2017-07-29T22:46:15+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/categories/development/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T22:46:15+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/tags/distributed-system/</loc>
-    <lastmod>2017-07-28T22:46:36+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://arkbriar.tk/tags/dynamic-proxy/</loc>
+    <lastmod>2017-07-29T22:46:15+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/tags/java/</loc>
-    <lastmod>2017-07-28T22:46:36+08:00</lastmod>
+    <lastmod>2017-07-29T22:46:15+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/tags/parallel-computing/</loc>
-    <lastmod>2017-07-28T22:46:36+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/post/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T22:46:15+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://arkbriar.tk/categories/programming-language/</loc>
+    <lastmod>2017-07-29T22:46:15+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://arkbriar.tk/tags/</loc>
-    <lastmod>2017-07-28T22:50:53+08:00</lastmod>
+    <lastmod>2017-07-29T23:23:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
