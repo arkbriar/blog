@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Algorithm on Crazy Ark</title>
-    <link>https://arkbriar.tk/categories/algorithm/</link>
-    <description>Recent content in Algorithm on Crazy Ark</description>
+    <title>Paper on Crazy Ark</title>
+    <link>https://arkbriar.tk/tags/paper/</link>
+    <description>Recent content in Paper on Crazy Ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
     <lastBuildDate>Wed, 02 Aug 2017 20:58:55 +0800</lastBuildDate>
     
-	<atom:link href="https://arkbriar.tk/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://arkbriar.tk/tags/paper/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -23,23 +23,6 @@
 &lt;p&gt;首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。&lt;/p&gt;
 
 &lt;p&gt;然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 &lt;a href=&#34;http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf&#34;&gt;Selection in X + Y and Matrices with Sorted Rows and Columns&lt;/a&gt;，同时适用于另一道题 &lt;a href=&#34;https://leetcode.com/problems/find-k-pairs-with-smallest-sums/&#34;&gt;Find k Pairs with Smallest Sums&lt;/a&gt;，在此只做介绍，因为我不认为有人能在面试的时候写的出来&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Boyer-Moore Majority Voting Algorithm</title>
-      <link>https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/</link>
-      <pubDate>Fri, 28 Jul 2017 21:08:02 +0800</pubDate>
-      
-      <guid>https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/</guid>
-      <description>&lt;p&gt;刷leetcode时碰到的问题，本篇仅做简要描述，以及记录思考。&lt;/p&gt;
-
-&lt;p&gt;参考自: &lt;a href=&#34;https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html&#34;&gt;https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html&lt;/a&gt;，一篇写的非常好的博客&lt;/p&gt;
-
-&lt;p&gt;问题描述：考虑你有一个长度为n的&lt;strong&gt;无序&lt;/strong&gt;列表，现在你想知道列表中是否有一个值占据了列表的一半以上 (majority)，如果有的话找出这个数。&lt;/p&gt;
-
-&lt;p&gt;这个问题的一个普遍的应用场景是在容错计算 (fault-tolerant computing) 中，在进行了多次冗余的计算后，输出最后多数计算得到的值。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

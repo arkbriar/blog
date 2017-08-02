@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Selection in X&#43;Y or Sorted Matrices" />
+<meta property="og:description" content="今天在刷 leetcode 的时候遇到一道题目 Kth Smallest Element in a Sorted Matrix。
+
+首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。
+
+然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 Selection in X &#43; Y and Matrices with Sorted Rows and Columns，同时适用于另一道题 Find k Pairs with Smallest Sums，在此只做介绍，因为我不认为有人能在面试的时候写的出来&hellip;
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/" />
+
+
+
+<meta property="article:published_time" content="2017-08-02T20:58:55&#43;08:00"/>
+<meta property="article:modified_time" content="2017-08-02T20:58:55&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:text:title" content="Selection in X&#43;Y or Sorted Matrices"/>
+<meta name="twitter:title" content="Selection in X&#43;Y or Sorted Matrices"/>
+<meta name="twitter:description" content="今天在刷 leetcode 的时候遇到一道题目 Kth Smallest Element in a Sorted Matrix。
+
+首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。
+
+然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 Selection in X &#43; Y and Matrices with Sorted Rows and Columns，同时适用于另一道题 Find k Pairs with Smallest Sums，在此只做介绍，因为我不认为有人能在面试的时候写的出来&hellip;
+
+"/>
+
+<meta name="generator" content="Hugo 0.25.1" />
+
+
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Selection in X&#43;Y or Sorted Matrices",
+  "url": "https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/",
+  "wordCount": "1716",
+  "datePublished": "2017-08-02T20:58:55&#43;08:00",
+  "dateModified": "2017-08-02T20:58:55&#43;08:00",
+  "author": {
+    "@type": "Person",
+    "name": "Ark"
+  },
+  "keywords": "Development, Algorithm, algorithm, paper, leetcode"
+}
+</script>
+
+
+
+    <link rel="canonical" href="https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/">
+
+    <title>Selection in X&#43;Y or Sorted Matrices | Crazy Ark</title>
+
+    <!-- combined, minified CSS -->
+    <link href="https://arkbriar.tk/css/style.css" rel="stylesheet" integrity="sha384-j3n8sYdzztDYtVc80KiiuOXoCg5Bjz0zYyLGzDMW8RbfA0u5djbF0GO3bVOPoLyN" crossorigin="anonymous">
+
+    
+
+    
+
+    
+
+    
+
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link " href="https://arkbriar.tk/">Home</a>
+          
+          
+          <a class="nav-link" href="https://arkbriar.tk/about/">About</a>
+          
+          
+        </nav>
+      </div>
+    </div>
+
+    <header class="blog-header">
+      <div class="container">
+        <h1 class="blog-title"><a href="https://arkbriar.tk/" rel="home">Crazy Ark</a></h1>
+        <p class="lead blog-description">Our greatest glory is not in never falling, but in rising every time we fall. &ndash; Oliver Goldsmith</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+
+          
+
+
+<article class="blog-post">
+  <header>
+    <h2 class="blog-post-title"><a href="https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/">Selection in X+Y or Sorted Matrices</a></h2>
+    <p class="blog-post-meta"><time datetime="2017-08-02T20:58:55&#43;08:00">Wed Aug 2, 2017</time> by Ark in 
+<i class="fa fa-folder" aria-hidden="true"></i>&nbsp;<a href="/categories/development" rel="category tag">Development</a>, <a href="/categories/algorithm" rel="category tag">Algorithm</a>
+
+
+<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<a href="/tags/algorithm" rel="tag">algorithm</a>, <a href="/tags/paper" rel="tag">paper</a>, <a href="/tags/leetcode" rel="tag">leetcode</a>
+
+</p>
+  </header>
+  <p>今天在刷 leetcode 的时候遇到一道题目 <a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/">Kth Smallest Element in a Sorted Matrix</a>。</p>
+
+<p>首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。</p>
+
+<p>然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf">Selection in X + Y and Matrices with Sorted Rows and Columns</a>，同时适用于另一道题 <a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/">Find k Pairs with Smallest Sums</a>，在此只做介绍，因为我不认为有人能在面试的时候写的出来&hellip;</p>
+
+<p></p>
+
+<h3 id="简单介绍">简单介绍</h3>
+
+<p>设 A 为一个 n * n 的矩阵，所有行和列都是非降续的。</p>
+
+<p>令 A* 是 A 取所有奇数行的子矩阵，如果 n 为偶数的话添上 A 的最后一行一列；令 rank_desc(A, a) 为 A 中大于 a 的元素的数目，rank_asc(A, a) 为 A 中小于 a 的元素数目。</p>
+
+<p>那么有以下不等式成立</p>
+
+<ol>
+<li>rank_asc(A, a) &lt;= 4 * rank_asc(A*, a)</li>
+<li>rank_desc(A, a) &lt;= 4 * rank_desc(A*, a)</li>
+</ol>
+
+<p>这是这个算法的基础，加上巧妙的选择，可以是使得问题变为解一个在A*上的子问题。</p>
+
+<p>算法过程参考论文，非常不直观，需要不少理论证明，实在没法详述&hellip; 有兴趣的同学还是参阅原论文</p>
+
+<h3 id="python-c-算法实现">Python、C++ 算法实现</h3>
+
+<p>在此摘录 discuss 上大佬给出的 python 和 cpp 版实现，在面试中谁能手写出来我只能跪穿。</p>
+
+<pre><code class="language-python"><div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 1 </span><span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">Solution</span>(<span style="color: #007020">object</span>):
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 2 </span>    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">kthSmallest</span>(<span style="color: #007020">self</span>, matrix, k):
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 3 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 4 </span>        <span style="color: #888888"># The median-of-medians selection function.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 5 </span>        <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">pick</span>(a, k):
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 6 </span>            <span style="color: #008800; font-weight: bold">if</span> k <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 7 </span>                <span style="color: #008800; font-weight: bold">return</span> <span style="color: #007020">min</span>(a)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 8 </span>            groups <span style="color: #333333">=</span> (a[i:i<span style="color: #333333">+</span><span style="color: #0000DD; font-weight: bold">5</span>] <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">range</span>(<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #007020">len</span>(a), <span style="color: #0000DD; font-weight: bold">5</span>))
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 9 </span>            medians <span style="color: #333333">=</span> [<span style="color: #007020">sorted</span>(group)[<span style="color: #007020">len</span>(group) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">2</span>] <span style="color: #008800; font-weight: bold">for</span> group <span style="color: #000000; font-weight: bold">in</span> groups]
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">10 </span>            pivot <span style="color: #333333">=</span> pick(medians, <span style="color: #007020">len</span>(medians) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">11 </span>            smaller <span style="color: #333333">=</span> [x <span style="color: #008800; font-weight: bold">for</span> x <span style="color: #000000; font-weight: bold">in</span> a <span style="color: #008800; font-weight: bold">if</span> x <span style="color: #333333">&lt;</span> pivot]
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">12 </span>            <span style="color: #008800; font-weight: bold">if</span> k <span style="color: #333333">&lt;=</span> <span style="color: #007020">len</span>(smaller):
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">13 </span>                <span style="color: #008800; font-weight: bold">return</span> pick(smaller, k)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">14 </span>            k <span style="color: #333333">-=</span> <span style="color: #007020">len</span>(smaller) <span style="color: #333333">+</span> a<span style="color: #333333">.</span>count(pivot)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">15 </span>            <span style="color: #008800; font-weight: bold">return</span> pivot <span style="color: #008800; font-weight: bold">if</span> k <span style="color: #333333">&lt;</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #008800; font-weight: bold">else</span> pick([x <span style="color: #008800; font-weight: bold">for</span> x <span style="color: #000000; font-weight: bold">in</span> a <span style="color: #008800; font-weight: bold">if</span> x <span style="color: #333333">&gt;</span> pivot], k)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">16 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">17 </span>        <span style="color: #888888"># Find the k1-th and k2th smallest entries in the submatrix.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">18 </span>        <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">biselect</span>(index, k1, k2):
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">19 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">20 </span>            <span style="color: #888888"># Provide the submatrix.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">21 </span>            n <span style="color: #333333">=</span> <span style="color: #007020">len</span>(index)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">22 </span>            <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">A</span>(i, j):
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">23 </span>                <span style="color: #008800; font-weight: bold">return</span> matrix[index[i]][index[j]]
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">24 </span>            
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">25 </span>            <span style="color: #888888"># Base case.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">26 </span>            <span style="color: #008800; font-weight: bold">if</span> n <span style="color: #333333">&lt;=</span> <span style="color: #0000DD; font-weight: bold">2</span>:
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">27 </span>                nums <span style="color: #333333">=</span> <span style="color: #007020">sorted</span>(A(i, j) <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">range</span>(n) <span style="color: #008800; font-weight: bold">for</span> j <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">range</span>(n))
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">28 </span>                <span style="color: #008800; font-weight: bold">return</span> nums[k1<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>], nums[k2<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>]
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">29 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">30 </span>            <span style="color: #888888"># Solve the subproblem.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">31 </span>            index_ <span style="color: #333333">=</span> index[::<span style="color: #0000DD; font-weight: bold">2</span>] <span style="color: #333333">+</span> index[n<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span><span style="color: #333333">+</span>n<span style="color: #333333">%</span><span style="color: #0000DD; font-weight: bold">2</span>:]
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">32 </span>            k1_ <span style="color: #333333">=</span> (k1 <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">*</span>n) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">4</span> <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #008800; font-weight: bold">if</span> n <span style="color: #333333">%</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #008800; font-weight: bold">else</span> n <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #333333">+</span> (k1 <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">3</span>) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">4</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">33 </span>            k2_ <span style="color: #333333">=</span> (k2 <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">3</span>) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">4</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">34 </span>            a, b <span style="color: #333333">=</span> biselect(index_, k1_, k2_)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">35 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">36 </span>            <span style="color: #888888"># Prepare ra_less, rb_more and L with saddleback search variants.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">37 </span>            ra_less <span style="color: #333333">=</span> rb_more <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">38 </span>            L <span style="color: #333333">=</span> []
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">39 </span>            jb <span style="color: #333333">=</span> n   <span style="color: #888888"># jb is the first where A(i, jb) is larger than b.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">40 </span>            ja <span style="color: #333333">=</span> n   <span style="color: #888888"># ja is the first where A(i, ja) is larger than or equal to a.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">41 </span>            <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">range</span>(n):
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">42 </span>                <span style="color: #008800; font-weight: bold">while</span> jb <span style="color: #000000; font-weight: bold">and</span> A(i, jb <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>) <span style="color: #333333">&gt;</span> b:
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">43 </span>                    jb <span style="color: #333333">-=</span> <span style="color: #0000DD; font-weight: bold">1</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">44 </span>                <span style="color: #008800; font-weight: bold">while</span> ja <span style="color: #000000; font-weight: bold">and</span> A(i, ja <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>) <span style="color: #333333">&gt;=</span> a:
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">45 </span>                    ja <span style="color: #333333">-=</span> <span style="color: #0000DD; font-weight: bold">1</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">46 </span>                ra_less <span style="color: #333333">+=</span> ja
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">47 </span>                rb_more <span style="color: #333333">+=</span> n <span style="color: #333333">-</span> jb
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">48 </span>                L<span style="color: #333333">.</span>extend(A(i, j) <span style="color: #008800; font-weight: bold">for</span> j <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">range</span>(jb, ja))
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">49 </span>                
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">50 </span>            <span style="color: #888888"># Compute and return x and y.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">51 </span>            x <span style="color: #333333">=</span> a <span style="color: #008800; font-weight: bold">if</span> ra_less <span style="color: #333333">&lt;=</span> k1 <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #008800; font-weight: bold">else</span> \
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">52 </span>                b <span style="color: #008800; font-weight: bold">if</span> k1 <span style="color: #333333">+</span> rb_more <span style="color: #333333">-</span> n<span style="color: #333333">*</span>n <span style="color: #333333">&lt;=</span> <span style="color: #0000DD; font-weight: bold">0</span> <span style="color: #008800; font-weight: bold">else</span> \
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">53 </span>                pick(L, k1 <span style="color: #333333">+</span> rb_more <span style="color: #333333">-</span> n<span style="color: #333333">*</span>n)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">54 </span>            y <span style="color: #333333">=</span> a <span style="color: #008800; font-weight: bold">if</span> ra_less <span style="color: #333333">&lt;=</span> k2 <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #008800; font-weight: bold">else</span> \
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">55 </span>                b <span style="color: #008800; font-weight: bold">if</span> k2 <span style="color: #333333">+</span> rb_more <span style="color: #333333">-</span> n<span style="color: #333333">*</span>n <span style="color: #333333">&lt;=</span> <span style="color: #0000DD; font-weight: bold">0</span> <span style="color: #008800; font-weight: bold">else</span> \
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">56 </span>                pick(L, k2 <span style="color: #333333">+</span> rb_more <span style="color: #333333">-</span> n<span style="color: #333333">*</span>n)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">57 </span>            <span style="color: #008800; font-weight: bold">return</span> x, y
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">58 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">59 </span>        <span style="color: #888888"># Set up and run the search.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">60 </span>        n <span style="color: #333333">=</span> <span style="color: #007020">len</span>(matrix)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">61 </span>        start <span style="color: #333333">=</span> <span style="color: #007020">max</span>(k <span style="color: #333333">-</span> n<span style="color: #333333">*</span>n <span style="color: #333333">+</span> n<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>, <span style="color: #0000DD; font-weight: bold">0</span>)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">62 </span>        k <span style="color: #333333">-=</span> n<span style="color: #333333">*</span>n <span style="color: #333333">-</span> (n <span style="color: #333333">-</span> start)<span style="color: #333333">**</span><span style="color: #0000DD; font-weight: bold">2</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">63 </span>        <span style="color: #008800; font-weight: bold">return</span> biselect(<span style="color: #007020">range</span>(start, <span style="color: #007020">min</span>(n, start<span style="color: #333333">+</span>k)), k, k)[<span style="color: #0000DD; font-weight: bold">0</span>]
+</pre></div>
+
+</code></pre>
+
+<pre><code class="language-cpp"><div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  1 </span><span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">Solution</span> {
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  2 </span><span style="color: #008800; font-weight: bold">public</span><span style="color: #333333">:</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  3 </span>	<span style="color: #333399; font-weight: bold">int</span> kthSmallest(<span style="color: #008800; font-weight: bold">const</span> std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;&gt;</span> <span style="color: #333333">&amp;</span> matrix, <span style="color: #333399; font-weight: bold">int</span> k)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  4 </span>	{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  5 </span>		<span style="color: #008800; font-weight: bold">if</span> (k <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">1</span>) <span style="color: #888888">// guard for 1x1 matrix</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  6 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  7 </span>			<span style="color: #008800; font-weight: bold">return</span> matrix.front().front();
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  8 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  9 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 10 </span>		<span style="color: #333399; font-weight: bold">size_t</span> n <span style="color: #333333">=</span> matrix.size();
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 11 </span>		std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span><span style="color: #333333">&gt;</span> indices(n);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 12 </span>		std<span style="color: #333333">::</span>iota(indices.begin(), indices.end(), <span style="color: #0000DD; font-weight: bold">0</span>);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 13 </span>		std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> ks <span style="color: #333333">=</span> { k <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>, k <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span> }; <span style="color: #888888">// use zero-based indices</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 14 </span>		std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> results <span style="color: #333333">=</span> biSelect(matrix, indices, ks);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 15 </span>		<span style="color: #008800; font-weight: bold">return</span> results[<span style="color: #0000DD; font-weight: bold">0</span>];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 16 </span>	}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 17 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 18 </span><span style="color: #008800; font-weight: bold">private</span><span style="color: #333333">:</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 19 </span>	<span style="color: #888888">// select two elements from four elements, recursively</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 20 </span>	std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> biSelect(
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 21 </span>		<span style="color: #008800; font-weight: bold">const</span> std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;&gt;</span> <span style="color: #333333">&amp;</span> matrix,
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 22 </span>		<span style="color: #008800; font-weight: bold">const</span> std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span><span style="color: #333333">&gt;</span> <span style="color: #333333">&amp;</span> indices,
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 23 </span>		<span style="color: #008800; font-weight: bold">const</span> std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> <span style="color: #333333">&amp;</span> ks)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 24 </span>	<span style="color: #888888">// Select both ks[0]-th element and ks[1]-th element in the matrix,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 25 </span>	<span style="color: #888888">// where k0 = ks[0] and k1 = ks[1] and n = indices.size() satisfie</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 26 </span>	<span style="color: #888888">// 0 &lt;= k0 &lt;= k1 &lt; n*n  and  k1 - k0 &lt;= 4n-4 = O(n)   and  n&gt;=2</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 27 </span>	{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 28 </span>		<span style="color: #333399; font-weight: bold">size_t</span> n <span style="color: #333333">=</span> indices.size();		
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 29 </span>		<span style="color: #008800; font-weight: bold">if</span> (n <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">2u</span>) <span style="color: #888888">// base case of resursion</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 30 </span>		{			
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 31 </span>			<span style="color: #008800; font-weight: bold">return</span> biSelectNative(matrix, indices, ks);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 32 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 33 </span>		
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 34 </span>		<span style="color: #888888">// update indices</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 35 </span>		std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span><span style="color: #333333">&gt;</span> indices_;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 36 </span>		<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">size_t</span> idx <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; idx <span style="color: #333333">&lt;</span> n; idx <span style="color: #333333">+=</span> <span style="color: #0000DD; font-weight: bold">2</span>)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 37 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 38 </span>			indices_.push_back(indices[idx]);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 39 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 40 </span>		<span style="color: #008800; font-weight: bold">if</span> (n <span style="color: #333333">%</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>) <span style="color: #888888">// ensure the last indice is included</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 41 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 42 </span>			indices_.push_back(indices.back());
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 43 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 44 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 45 </span>		<span style="color: #888888">// update ks</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 46 </span>		<span style="color: #888888">// the new interval [xs_[0], xs_[1]] should contain [xs[0], xs[1]]</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 47 </span>		<span style="color: #888888">// but the length of the new interval should be as small as possible</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 48 </span>		<span style="color: #888888">// therefore, ks_[0] is the largest possible index to ensure xs_[0] &lt;= xs[0]</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 49 </span>		<span style="color: #888888">// ks_[1] is the smallest possible index to ensure xs_[1] &gt;= xs[1]</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 50 </span>		std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> ks_ <span style="color: #333333">=</span> { ks[<span style="color: #0000DD; font-weight: bold">0</span>] <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">4</span>, <span style="color: #0000DD; font-weight: bold">0</span> };
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 51 </span>		<span style="color: #008800; font-weight: bold">if</span> (n <span style="color: #333333">%</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>) <span style="color: #888888">// even</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 52 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 53 </span>			ks_[<span style="color: #0000DD; font-weight: bold">1</span>] <span style="color: #333333">=</span> ks[<span style="color: #0000DD; font-weight: bold">1</span>] <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">4</span> <span style="color: #333333">+</span> n <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 54 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 55 </span>		<span style="color: #008800; font-weight: bold">else</span> <span style="color: #888888">// odd</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 56 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 57 </span>			ks_[<span style="color: #0000DD; font-weight: bold">1</span>] <span style="color: #333333">=</span> (ks[<span style="color: #0000DD; font-weight: bold">1</span>] <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">*</span> n <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">4</span>;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 58 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 59 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 60 </span>		<span style="color: #888888">// call recursively</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 61 </span>		std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> xs_ <span style="color: #333333">=</span> biSelect(matrix, indices_, ks_);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 62 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 63 </span>		<span style="color: #888888">// Now we partipate all elements into three parts:</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 64 </span>		<span style="color: #888888">// Part 1: {e : e &lt; xs_[0]}.  For this part, we only record its cardinality</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 65 </span>		<span style="color: #888888">// Part 2: {e : xs_[0] &lt;= e &lt; xs_[1]}. We store the set elementsBetween</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 66 </span>		<span style="color: #888888">// Part 3: {e : x &gt;= xs_[1]}. No use. Discard.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 67 </span>		std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> numbersOfElementsLessThanX <span style="color: #333333">=</span> { <span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">0</span> };
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 68 </span>		std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> elementsBetween; <span style="color: #888888">// [xs_[0], xs_[1])</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 69 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 70 </span>		std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> cols <span style="color: #333333">=</span> { n, n }; <span style="color: #888888">// column index such that elem &gt;= x</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 71 </span>		 <span style="color: #888888">// the first column where matrix(r, c) &gt; b</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 72 </span>		 <span style="color: #888888">// the first column where matrix(r, c) &gt;= a</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 73 </span>		<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">size_t</span> row <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; row <span style="color: #333333">&lt;</span> n; <span style="color: #333333">++</span>row)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 74 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 75 </span>			<span style="color: #333399; font-weight: bold">size_t</span> row_indice <span style="color: #333333">=</span> indices[row];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 76 </span>			<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">size_t</span> <span style="color: #997700; font-weight: bold">idx</span> : {<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">1</span>})
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 77 </span>			{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 78 </span>				<span style="color: #008800; font-weight: bold">while</span> ((cols[idx] <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">0</span>)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 79 </span>					<span style="color: #333333">&amp;&amp;</span> (matrix[row_indice][indices[cols[idx] <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>]] <span style="color: #333333">&gt;=</span> xs_[idx]))
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 80 </span>				{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 81 </span>					<span style="color: #333333">--</span>cols[idx];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 82 </span>				}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 83 </span>				numbersOfElementsLessThanX[idx] <span style="color: #333333">+=</span> cols[idx];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 84 </span>			}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 85 </span>			<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">size_t</span> col <span style="color: #333333">=</span> cols[<span style="color: #0000DD; font-weight: bold">0</span>]; col <span style="color: #333333">&lt;</span> cols[<span style="color: #0000DD; font-weight: bold">1</span>]; <span style="color: #333333">++</span>col)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 86 </span>			{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 87 </span>				elementsBetween.push_back(matrix[row_indice][indices[col]]);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 88 </span>			}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 89 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 90 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 91 </span>		std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> xs; <span style="color: #888888">// the return value</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 92 </span>		<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">size_t</span> <span style="color: #997700; font-weight: bold">idx</span> : {<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">1</span>})
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 93 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 94 </span>			<span style="color: #333399; font-weight: bold">size_t</span> k <span style="color: #333333">=</span> ks[idx];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 95 </span>			<span style="color: #008800; font-weight: bold">if</span> (k <span style="color: #333333">&lt;</span> numbersOfElementsLessThanX[<span style="color: #0000DD; font-weight: bold">0</span>]) <span style="color: #888888">// in the Part 1</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 96 </span>			{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 97 </span>				xs[idx] <span style="color: #333333">=</span> xs_[<span style="color: #0000DD; font-weight: bold">0</span>];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 98 </span>			}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 99 </span>			<span style="color: #008800; font-weight: bold">else</span> <span style="color: #008800; font-weight: bold">if</span> (k <span style="color: #333333">&lt;</span> numbersOfElementsLessThanX[<span style="color: #0000DD; font-weight: bold">1</span>]) <span style="color: #888888">// in the Part 2</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">100 </span>			{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">101 </span>				<span style="color: #333399; font-weight: bold">size_t</span> offset <span style="color: #333333">=</span> k <span style="color: #333333">-</span> numbersOfElementsLessThanX[<span style="color: #0000DD; font-weight: bold">0</span>];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">102 </span>				std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;::</span>iterator nth <span style="color: #333333">=</span> std<span style="color: #333333">::</span>next(elementsBetween.begin(), offset);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">103 </span>				std<span style="color: #333333">::</span>nth_element(elementsBetween.begin(), nth, elementsBetween.end());
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">104 </span>				xs[idx] <span style="color: #333333">=</span> (<span style="color: #333333">*</span>nth);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">105 </span>			}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">106 </span>			<span style="color: #008800; font-weight: bold">else</span> <span style="color: #888888">// in the Part 3</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">107 </span>			{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">108 </span>				xs[idx] <span style="color: #333333">=</span> xs_[<span style="color: #0000DD; font-weight: bold">1</span>];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">109 </span>			}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">110 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">111 </span>		<span style="color: #008800; font-weight: bold">return</span> xs;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">112 </span>	}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">113 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">114 </span>	<span style="color: #888888">// select two elements from four elements, using native way</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">115 </span>	std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> biSelectNative(
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">116 </span>		<span style="color: #008800; font-weight: bold">const</span> std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span>std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;&gt;</span> <span style="color: #333333">&amp;</span> matrix,
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">117 </span>		<span style="color: #008800; font-weight: bold">const</span> std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span><span style="color: #333333">&gt;</span> <span style="color: #333333">&amp;</span> indices,
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">118 </span>		<span style="color: #008800; font-weight: bold">const</span> std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">size_t</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> <span style="color: #333333">&amp;</span> ks)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">119 </span>	{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">120 </span>		std<span style="color: #333333">::</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;</span> allElements;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">121 </span>		<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">size_t</span> <span style="color: #997700; font-weight: bold">r</span> : indices)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">122 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">123 </span>			<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">size_t</span> <span style="color: #997700; font-weight: bold">c</span> : indices)
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">124 </span>			{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">125 </span>				allElements.push_back(matrix[r][c]);
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">126 </span>			}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">127 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">128 </span>		std<span style="color: #333333">::</span>sort(allElements.begin(), allElements.end());
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">129 </span>		std<span style="color: #333333">::</span>array<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span>, <span style="color: #0000DD; font-weight: bold">2</span><span style="color: #333333">&gt;</span> results;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">130 </span>		<span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">size_t</span> <span style="color: #997700; font-weight: bold">idx</span> : {<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">1</span>})
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">131 </span>		{
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">132 </span>			results[idx] <span style="color: #333333">=</span> allElements[ks[idx]];
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">133 </span>		}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">134 </span>		<span style="color: #008800; font-weight: bold">return</span> results;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">135 </span>	}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">136 </span>};
+</pre></div>
+
+</code></pre>
+
+<h3 id="min-heap-o-klgn-算法">Min-Heap O(klgn) 算法</h3>
+
+<pre><code class="language-cpp"><div class="highlight" style="background: #ffffff"><pre style="line-height: 125%"><span></span><span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 1 </span><span style="color: #008800; font-weight: bold">class</span> <span style="color: #BB0066; font-weight: bold">Solution</span> {
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 2 </span>    <span style="color: #008800; font-weight: bold">struct</span> Tuple {
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 3 </span>        <span style="color: #333399; font-weight: bold">int</span> x, y, val;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 4 </span>        Tuple(<span style="color: #333399; font-weight: bold">int</span> x, <span style="color: #333399; font-weight: bold">int</span> y, <span style="color: #333399; font-weight: bold">int</span> val) <span style="color: #333333">:</span> x(x), y(y), val(val) {}
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 5 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 6 </span>        <span style="color: #333399; font-weight: bold">bool</span> <span style="color: #008800; font-weight: bold">operator</span><span style="color: #333333">&lt;</span>(<span style="color: #008800; font-weight: bold">const</span> Tuple<span style="color: #333333">&amp;</span> other) <span style="color: #008800; font-weight: bold">const</span> { <span style="color: #008800; font-weight: bold">return</span> val <span style="color: #333333">&lt;</span> other.val; }
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 7 </span>        <span style="color: #333399; font-weight: bold">bool</span> <span style="color: #008800; font-weight: bold">operator</span><span style="color: #333333">&gt;</span>(<span style="color: #008800; font-weight: bold">const</span> Tuple<span style="color: #333333">&amp;</span> other) <span style="color: #008800; font-weight: bold">const</span> { <span style="color: #008800; font-weight: bold">return</span> val <span style="color: #333333">&gt;</span> other.val; }
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 8 </span>    };
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 9 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">10 </span><span style="color: #008800; font-weight: bold">public</span><span style="color: #333333">:</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">11 </span>    <span style="color: #333399; font-weight: bold">int</span> kthSmallest(vector<span style="color: #333333">&lt;</span>vector<span style="color: #333333">&lt;</span><span style="color: #333399; font-weight: bold">int</span><span style="color: #333333">&gt;&gt;&amp;</span> matrix, <span style="color: #333399; font-weight: bold">int</span> k) {
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">12 </span>        priority_queue<span style="color: #333333">&lt;</span>Tuple, vector<span style="color: #333333">&lt;</span>Tuple<span style="color: #333333">&gt;</span>, std<span style="color: #333333">::</span>greater<span style="color: #333333">&lt;</span>Tuple<span style="color: #333333">&gt;&gt;</span> min_heap;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">13 </span>        <span style="color: #333399; font-weight: bold">int</span> n <span style="color: #333333">=</span> matrix.size();
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">14 </span>        <span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> n; <span style="color: #333333">++</span>i) min_heap.push(Tuple(<span style="color: #0000DD; font-weight: bold">0</span>, i, matrix[<span style="color: #0000DD; font-weight: bold">0</span>][i]));
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">15 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">16 </span>        <span style="color: #008800; font-weight: bold">for</span> (<span style="color: #333399; font-weight: bold">int</span> i <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; i <span style="color: #333333">&lt;</span> k <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>; <span style="color: #333333">++</span>i) {
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">17 </span>            <span style="color: #008800; font-weight: bold">auto</span> t <span style="color: #333333">=</span> min_heap.top();
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">18 </span>            min_heap.pop();
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">19 </span>            <span style="color: #008800; font-weight: bold">if</span> (t.x <span style="color: #333333">==</span> n <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>) <span style="color: #008800; font-weight: bold">continue</span>;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">20 </span>            min_heap.push(Tuple(t.x <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>, t.y, matrix[t.x <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>][t.y]));
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">21 </span>        }
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">22 </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">23 </span>        <span style="color: #008800; font-weight: bold">return</span> min_heap.top().val;
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">24 </span>    }
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">25 </span>};
+</pre></div>
+
+</code></pre>
+
+  
+
+  
+  <hr>
+  <footer>
+
+  
+    <section>
+    <h4>Share</h4>
+    <nav class="nav sharing-icons">
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2farkbriar.tk%2f2017%2f08%2fselection-in-x-y-or-sorted-matrices%2f" title="Share on Facebook"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2farkbriar.tk%2f2017%2f08%2fselection-in-x-y-or-sorted-matrices%2f" title="Share on Google+"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2farkbriar.tk%2f2017%2f08%2fselection-in-x-y-or-sorted-matrices%2f" title="Share on LinkedIn"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/home?status=https%3a%2f%2farkbriar.tk%2f2017%2f08%2fselection-in-x-y-or-sorted-matrices%2f" title="Tweet this"><span class="fa fa-twitter fa-2x"></span></a>
+    </nav>
+  </section>
+
+  
+
+  
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "crazyark" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+  </footer>
+  
+
+</article> 
+
+
+
+        </div> <!-- /.blog-main -->
+
+        <aside class="col-sm-3 offset-sm-1 blog-sidebar">
+  
+  <section class="sidebar-module sidebar-module-inset">
+    <h4>About</h4>
+    <p>No one will forget you trying but no one will forgive you for not trying to make it work.</p>
+  </section>
+  
+
+  
+        <section class="sidebar-module">
+    <h4>Recent Posts</h4>
+    <ol class="list-unstyled">
+
+
+<li><a href="/2017/08/selection-in-x-y-or-sorted-matrices/">Selection in X+Y or Sorted Matrices</a></li>
+
+<li><a href="/2017/07/dynamic-proxy-in-java/">Dynamic Proxy in Java</a></li>
+
+<li><a href="/2017/07/boyer-moore-majority-voting-algorithm/">Boyer-Moore Majority Voting Algorithm</a></li>
+
+<li><a href="/2017/07/2017-alibaba-middleware-24h-final-just-for-fun-/">2017 Alibaba Middleware 24h Final (Just for Fun 😀)</a></li>
+
+    </ol>
+  </section>
+
+  
+
+  
+  <section class="sidebar-module">
+    <h4>Links</h4>
+    <ol class="list-unstyled">
+      
+      <li><a href="https://ericfu.me">Coding Husky</a></li>
+      
+    </ol>
+  </section>
+  
+</aside>
+
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>
+      
+      Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International license</a>.
+      
+      </p>
+      <p>
+      <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+  </body>
+
+</html>

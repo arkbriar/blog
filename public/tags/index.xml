@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Fri, 28 Jul 2017 21:08:02 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 02 Aug 2017 20:58:55 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>Algorithm</title>
       <link>https://arkbriar.tk/tags/algorithm/</link>
-      <pubDate>Fri, 28 Jul 2017 21:08:02 +0800</pubDate>
+      <pubDate>Wed, 02 Aug 2017 20:58:55 +0800</pubDate>
       
       <guid>https://arkbriar.tk/tags/algorithm/</guid>
       <description></description>
@@ -63,6 +63,24 @@
       <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
       
       <guid>https://arkbriar.tk/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Leetcode</title>
+      <link>https://arkbriar.tk/tags/leetcode/</link>
+      <pubDate>Wed, 02 Aug 2017 20:58:55 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/leetcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Paper</title>
+      <link>https://arkbriar.tk/tags/paper/</link>
+      <pubDate>Wed, 02 Aug 2017 20:58:55 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/paper/</guid>
       <description></description>
     </item>
     

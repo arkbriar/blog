@@ -5,14 +5,14 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<meta property="og:title" content="Boyer Moore Majority Vote Algorithm" />
+<meta property="og:title" content="Paper" />
 <meta property="og:description" content="Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/" />
+<meta property="og:url" content="https://arkbriar.tk/tags/paper/" />
 
 
 
-<meta property="og:updated_time" content="2017-07-28T21:08:02&#43;08:00"/>
+<meta property="og:updated_time" content="2017-08-02T20:58:55&#43;08:00"/>
 
 
 
@@ -32,19 +32,19 @@
   "@context": "http://schema.org",
   "@type": "Blog",
   "headline": "Crazy Ark",
-  "url" : "https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/",
+  "url" : "https://arkbriar.tk/tags/paper/",
   "author": {
     "@type": "Person",
     "name": "Ark"
   },
-  "dateModified": "2017-07-28T21:08:02&#43;08:00",
+  "dateModified": "2017-08-02T20:58:55&#43;08:00",
   "keywords": "algorithm,development,programming-language,algorithm,boyer-moore-majority-vote-algorithm,design-pattern,distributed-system,dynamic-proxy,java,leetcode,paper,parallel-computing,",
   "description": "Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith"
 }
 </script>
 
 
-    <link rel="canonical" href="https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/">
+    <link rel="canonical" href="https://arkbriar.tk/tags/paper/">
 
     <title>Crazy Ark</title>
 
@@ -53,7 +53,7 @@
 
     
     <!-- RSS 2.0 feed -->
-    <link href="https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/index.xml" rel="alternate" type="application/rss+xml" title="Crazy Ark" />
+    <link href="https://arkbriar.tk/tags/paper/index.xml" rel="alternate" type="application/rss+xml" title="Crazy Ark" />
     
 
     
@@ -100,25 +100,23 @@
 
 <article class="blog-post">
   <header>
-    <h2 class="blog-post-title"><a href="https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/">Boyer-Moore Majority Voting Algorithm</a></h2>
-    <p class="blog-post-meta"><time datetime="2017-07-28T21:08:02&#43;08:00">Fri Jul 28, 2017</time> by Ark in 
+    <h2 class="blog-post-title"><a href="https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/">Selection in X+Y or Sorted Matrices</a></h2>
+    <p class="blog-post-meta"><time datetime="2017-08-02T20:58:55&#43;08:00">Wed Aug 2, 2017</time> by Ark in 
 <i class="fa fa-folder" aria-hidden="true"></i>&nbsp;<a href="/categories/development" rel="category tag">Development</a>, <a href="/categories/algorithm" rel="category tag">Algorithm</a>
 
 
-<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<a href="/tags/algorithm" rel="tag">algorithm</a>, <a href="/tags/boyer-moore-majority-vote-algorithm" rel="tag">boyer-moore majority vote algorithm</a>
+<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<a href="/tags/algorithm" rel="tag">algorithm</a>, <a href="/tags/paper" rel="tag">paper</a>, <a href="/tags/leetcode" rel="tag">leetcode</a>
 
 </p>
   </header>
-  <p>刷leetcode时碰到的问题，本篇仅做简要描述，以及记录思考。</p>
+  <p>今天在刷 leetcode 的时候遇到一道题目 <a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/">Kth Smallest Element in a Sorted Matrix</a>。</p>
 
-<p>参考自: <a href="https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html">https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html</a>，一篇写的非常好的博客</p>
+<p>首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。</p>
 
-<p>问题描述：考虑你有一个长度为n的<strong>无序</strong>列表，现在你想知道列表中是否有一个值占据了列表的一半以上 (majority)，如果有的话找出这个数。</p>
-
-<p>这个问题的一个普遍的应用场景是在容错计算 (fault-tolerant computing) 中，在进行了多次冗余的计算后，输出最后多数计算得到的值。</p>
+<p>然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf">Selection in X + Y and Matrices with Sorted Rows and Columns</a>，同时适用于另一道题 <a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/">Find k Pairs with Smallest Sums</a>，在此只做介绍，因为我不认为有人能在面试的时候写的出来&hellip;</p>
 
 <p></p>
-  <a href='https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/'>Read more →</a>
+  <a href='https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/'>Read more →</a>
 </article> 
 
 

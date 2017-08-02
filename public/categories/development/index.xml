@@ -7,10 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
-    <lastBuildDate>Sat, 29 Jul 2017 22:44:24 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 02 Aug 2017 20:58:55 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Selection in X&#43;Y or Sorted Matrices</title>
+      <link>https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/</link>
+      <pubDate>Wed, 02 Aug 2017 20:58:55 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/</guid>
+      <description>&lt;p&gt;今天在刷 leetcode 的时候遇到一道题目 &lt;a href=&#34;https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/&#34;&gt;Kth Smallest Element in a Sorted Matrix&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。&lt;/p&gt;
+
+&lt;p&gt;然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 &lt;a href=&#34;http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf&#34;&gt;Selection in X + Y and Matrices with Sorted Rows and Columns&lt;/a&gt;，同时适用于另一道题 &lt;a href=&#34;https://leetcode.com/problems/find-k-pairs-with-smallest-sums/&#34;&gt;Find k Pairs with Smallest Sums&lt;/a&gt;，在此只做介绍，因为我不认为有人能在面试的时候写的出来&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Dynamic Proxy in Java</title>
