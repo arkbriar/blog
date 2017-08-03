@@ -35,6 +35,8 @@ Leetcode 上有一道题叫 Sliding Window Maximum，虽然不是今天刷的，
 
 此时最大值即为队列开端。
 
+因为每个数只进队一次，并出队一次，所以时间开销为 O(n)。
+
 ### Appendix
 
 #### C++ 实现
