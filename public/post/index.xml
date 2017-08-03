@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Crazy Ark</title>
+    <title>Posts on crazy.ark</title>
     <link>https://arkbriar.tk/post/</link>
-    <description>Recent content in Posts on Crazy Ark</description>
+    <description>Recent content in Posts on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
     <lastBuildDate>Thu, 03 Aug 2017 15:55:02 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/post/index.xml" rel="self" type="application/rss+xml" />
@@ -14,19 +13,19 @@
     
     <item>
       <title>Sliding Window Maximum / Monotonic Queue</title>
-      <link>https://arkbriar.tk/2017/08/sliding-window-maximum-/-monotonic-queue/</link>
+      <link>https://arkbriar.tk/post/monotonic_queue/</link>
       <pubDate>Thu, 03 Aug 2017 15:55:02 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/2017/08/sliding-window-maximum-/-monotonic-queue/</guid>
+      <guid>https://arkbriar.tk/post/monotonic_queue/</guid>
       <description>Leetcode 上有一道题叫 Sliding Window Maximum，虽然不是今天刷的，但是解法非常有意思，就记录一下。 问题描述： Given an array nums, there is a sliding window of size k which is moving from the very left of the array to</description>
     </item>
     
     <item>
       <title>Selection in X&#43;Y or Sorted Matrices</title>
-      <link>https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/</link>
+      <link>https://arkbriar.tk/post/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/</link>
       <pubDate>Wed, 02 Aug 2017 20:58:55 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/2017/08/selection-in-x-y-or-sorted-matrices/</guid>
+      <guid>https://arkbriar.tk/post/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/</guid>
       <description>&lt;p&gt;今天在刷 leetcode 的时候遇到一道题目 &lt;a href=&#34;https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/&#34;&gt;Kth Smallest Element in a Sorted Matrix&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。&lt;/p&gt;
@@ -38,10 +37,10 @@
     
     <item>
       <title>Dynamic Proxy in Java</title>
-      <link>https://arkbriar.tk/2017/07/dynamic-proxy-in-java/</link>
+      <link>https://arkbriar.tk/post/dynamic_proxy/</link>
       <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/2017/07/dynamic-proxy-in-java/</guid>
+      <guid>https://arkbriar.tk/post/dynamic_proxy/</guid>
       <description>&lt;p&gt;虽然在一年前就知道了 Proxy 模式，但是基本没有尝试使用过，仅在框架里看到一些例子。昨天翻阅《大型网站系统与Java中间件实践》时，偶然发现了 Proxy 模式在 Java 中的应用 —— 动态代理，遂记录下来，顺便复习一下 Proxy 模式。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -49,10 +48,10 @@
     
     <item>
       <title>Boyer-Moore Majority Voting Algorithm</title>
-      <link>https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/</link>
+      <link>https://arkbriar.tk/post/majority_voting_al/</link>
       <pubDate>Fri, 28 Jul 2017 21:08:02 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/2017/07/boyer-moore-majority-voting-algorithm/</guid>
+      <guid>https://arkbriar.tk/post/majority_voting_al/</guid>
       <description>&lt;p&gt;刷leetcode时碰到的问题，本篇仅做简要描述，以及记录思考。&lt;/p&gt;
 
 &lt;p&gt;参考自: &lt;a href=&#34;https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html&#34;&gt;https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html&lt;/a&gt;，一篇写的非常好的博客&lt;/p&gt;
@@ -66,10 +65,10 @@
     
     <item>
       <title>2017 Alibaba Middleware 24h Final (Just for Fun 😀)</title>
-      <link>https://arkbriar.tk/2017/07/2017-alibaba-middleware-24h-final-just-for-fun-/</link>
+      <link>https://arkbriar.tk/post/topkn/</link>
       <pubDate>Wed, 26 Jul 2017 16:59:26 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/2017/07/2017-alibaba-middleware-24h-final-just-for-fun-/</guid>
+      <guid>https://arkbriar.tk/post/topkn/</guid>
       <description>&lt;p&gt;今年阿里中间件比赛的时候不巧博主心情不好，外加要准备期末考试，并没有参加，非常遗憾。不过好在好基友 &lt;a href=&#34;https://ericfu.me&#34;&gt;Eric Fu&lt;/a&gt; 参加并获得了冠军！今年的主题是分布式数据库，如果想了解详情及复赛的解题思路请读者前往 Eric 的博客。&lt;/p&gt;
 
 &lt;p&gt;博主没有参加甚是遗憾，外加看到题目手痒难耐，遂问基友讨了最后的24h极客赛来玩一玩。&lt;/p&gt;

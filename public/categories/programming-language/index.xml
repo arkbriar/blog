@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Programming Language on Crazy Ark</title>
+    <title>Programming Language on crazy.ark</title>
     <link>https://arkbriar.tk/categories/programming-language/</link>
-    <description>Recent content in Programming Language on Crazy Ark</description>
+    <description>Recent content in Programming Language on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/).</copyright>
     <lastBuildDate>Sat, 29 Jul 2017 22:44:24 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/categories/programming-language/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +13,10 @@
     
     <item>
       <title>Dynamic Proxy in Java</title>
-      <link>https://arkbriar.tk/2017/07/dynamic-proxy-in-java/</link>
+      <link>https://arkbriar.tk/post/dynamic_proxy/</link>
       <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/2017/07/dynamic-proxy-in-java/</guid>
+      <guid>https://arkbriar.tk/post/dynamic_proxy/</guid>
       <description>&lt;p&gt;虽然在一年前就知道了 Proxy 模式，但是基本没有尝试使用过，仅在框架里看到一些例子。昨天翻阅《大型网站系统与Java中间件实践》时，偶然发现了 Proxy 模式在 Java 中的应用 —— 动态代理，遂记录下来，顺便复习一下 Proxy 模式。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>

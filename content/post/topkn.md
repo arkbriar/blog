@@ -3,6 +3,8 @@ title: "2017 Alibaba Middleware 24h Final (Just for Fun 😀)"
 date: 2017-07-26T16:59:26+08:00
 tags: ["java", "distributed system", "parallel computing"]
 categories: ["Development"]
+toc: true
+comments: true
 draft: false
 markdown: mmark
 ---
@@ -144,7 +146,6 @@ B树是1972年由 Rudolf Bayer 和 Edward M.McCreight 提出的，它是一种�
 这里采用 Eric 在复赛里的实现: FileSegment, 通过将一个文件分割为一个一个 Segment，让每一个线程自己请求下一个 Segment，并通过 RandomAccessFile 进行读取。(由于不许用 FileChannel)
 
 ```java
-{{<highlight java "linenos=inline">}}
 public class FileSegment {
     private File file;
 
@@ -153,11 +154,9 @@ public class FileSegment {
     private long size;
     ...
 }
-{{</highlight>}}
 ```
 
 ```java
-{{<highlight java "linenos=inline">}}
 public abstract class BufferedFileSegmentReadProcessor implements Runnable {
     private final int bufferMargin = 1024;
     private FileSegmentLoader fileSegmentLoader;
@@ -196,7 +195,6 @@ public abstract class BufferedFileSegmentReadProcessor implements Runnable {
         }
     }
 }
-{{</highlight>}}
 ```
 
 这样每一个线程都在读和处理之间循环，先完成的线程会请求下一个 Segment，保证以最短的时间完成调用所有 Core 进行一遍数据处理。
@@ -219,7 +217,6 @@ public abstract class BufferedFileSegmentReadProcessor implements Runnable {
 ### 清理 cache
 
 ```bash
-{{<highlight console>}}
 $ sysctl -w vm.drop_caches=3
 vm.drop_caches = 3
 $ time java ${JAVA_OPTS} -cp /exp/topkn/topkn.jar com.alibaba.middleware.topkn.TopknWorker localhost 5527 .
@@ -239,13 +236,11 @@ Heap
 real    0m5.238s
 user    1m11.980s
 sys     0m26.324s
-{{</highlight>}}
 ```
 
 ### 不清理 cache
 
 ```bash
-{{<highlight console>}}
 $ time java ${JAVA_OPTS} -cp /exp/topkn/topkn.jar com.alibaba.middleware.topkn.TopknWorker localhost 5527 .
 [2017-07-27 14:25:39.986] INFO com.alibaba.middleware.topkn.TopknWorker Connecting to master at localhost:5527
 [2017-07-27 14:25:39.992] INFO com.alibaba.middleware.topkn.TopknWorker Building index ...
@@ -263,7 +258,6 @@ Heap
 real    0m4.754s
 user    0m57.144s
 sys     0m30.568s
-{{</highlight>}}
 ```
 
 

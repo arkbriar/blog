@@ -3,6 +3,8 @@ title: "Sliding Window Maximum / Monotonic Queue"
 tags: ["algorithm", "leetcode"]
 categories: ["Development", "Algorithm"]
 date: 2017-08-03T15:55:02+08:00
+toc: true
+comments: true
 draft: false
 ---
 
@@ -35,10 +37,9 @@ Leetcode 上有一道题叫 Sliding Window Maximum，虽然不是今天刷的，
 
 ### Appendix
 
-Monotonic Queue 实现 / Leetcode 题解
+#### C++ 实现
 
 ```cpp
-{{<highlight cpp "linenos=inline">}}
 vector<int> maxSlidingWindow(vector<int> &nums, int k) {
     vector<int> res;
     // tracking index instead of value
@@ -57,5 +58,4 @@ vector<int> maxSlidingWindow(vector<int> &nums, int k) {
     
     return res;
 }
-{{</highlight>}}
 ```

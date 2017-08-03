@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Selection in X&#43;Y or Sorted Matrices &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.25.1" />
+
+
+<link rel="stylesheet" href="https://arkbriar.tk/css/vec.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://arkbriar.tk/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/post">~/post</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#简单介绍">简单介绍</a></li>
+<li><a href="#python-c-算法实现">Python、C++ 算法实现</a></li>
+<li><a href="#min-heap-o-klgn-算法">Min-Heap O(klgn) 算法</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://arkbriar.tk/post/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/">Selection in X&#43;Y or Sorted Matrices</a></h1>
+      <span class="post-date">Aug 2, 2017 </span>
+      <div class="post-content">
+        <p>今天在刷 leetcode 的时候遇到一道题目 <a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/">Kth Smallest Element in a Sorted Matrix</a>。</p>
+
+<p>首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。</p>
+
+<p>然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf">Selection in X + Y and Matrices with Sorted Rows and Columns</a>，同时适用于另一道题 <a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/">Find k Pairs with Smallest Sums</a>，在此只做介绍，因为我不认为有人能在面试的时候写的出来&hellip;</p>
+
+<p></p>
+
+<h3 id="简单介绍">简单介绍</h3>
+
+<p>设 A 为一个 n * n 的矩阵，所有行和列都是非降续的。</p>
+
+<p>令 A* 是 A 取所有奇数行的子矩阵，如果 n 为偶数的话添上 A 的最后一行一列；令 rank_desc(A, a) 为 A 中大于 a 的元素的数目，rank_asc(A, a) 为 A 中小于 a 的元素数目。</p>
+
+<p>那么有以下不等式成立</p>
+
+<ol>
+<li>rank_asc(A, a) &lt;= 4 * rank_asc(A*, a)</li>
+<li>rank_desc(A, a) &lt;= 4 * rank_desc(A*, a)</li>
+</ol>
+
+<p>这是这个算法的基础，加上巧妙的选择，可以是使得问题变为解一个在A*上的子问题。</p>
+
+<p>算法过程参考论文，非常不直观，需要不少理论证明，实在没法详述&hellip; 有兴趣的同学还是参阅原论文</p>
+
+<h3 id="python-c-算法实现">Python、C++ 算法实现</h3>
+
+<p>在此摘录 discuss 上大佬给出的 python 和 cpp 版实现，在面试中谁能手写出来我只能跪穿。</p>
+
+<pre><code class="language-python">class Solution(object):
+    def kthSmallest(self, matrix, k):
+
+        # The median-of-medians selection function.
+        def pick(a, k):
+            if k == 1:
+                return min(a)
+            groups = (a[i:i+5] for i in range(0, len(a), 5))
+            medians = [sorted(group)[len(group) / 2] for group in groups]
+            pivot = pick(medians, len(medians) / 2 + 1)
+            smaller = [x for x in a if x &lt; pivot]
+            if k &lt;= len(smaller):
+                return pick(smaller, k)
+            k -= len(smaller) + a.count(pivot)
+            return pivot if k &lt; 1 else pick([x for x in a if x &gt; pivot], k)
+
+        # Find the k1-th and k2th smallest entries in the submatrix.
+        def biselect(index, k1, k2):
+
+            # Provide the submatrix.
+            n = len(index)
+            def A(i, j):
+                return matrix[index[i]][index[j]]
+            
+            # Base case.
+            if n &lt;= 2:
+                nums = sorted(A(i, j) for i in range(n) for j in range(n))
+                return nums[k1-1], nums[k2-1]
+
+            # Solve the subproblem.
+            index_ = index[::2] + index[n-1+n%2:]
+            k1_ = (k1 + 2*n) / 4 + 1 if n % 2 else n + 1 + (k1 + 3) / 4
+            k2_ = (k2 + 3) / 4
+            a, b = biselect(index_, k1_, k2_)
+
+            # Prepare ra_less, rb_more and L with saddleback search variants.
+            ra_less = rb_more = 0
+            L = []
+            jb = n   # jb is the first where A(i, jb) is larger than b.
+            ja = n   # ja is the first where A(i, ja) is larger than or equal to a.
+            for i in range(n):
+                while jb and A(i, jb - 1) &gt; b:
+                    jb -= 1
+                while ja and A(i, ja - 1) &gt;= a:
+                    ja -= 1
+                ra_less += ja
+                rb_more += n - jb
+                L.extend(A(i, j) for j in range(jb, ja))
+                
+            # Compute and return x and y.
+            x = a if ra_less &lt;= k1 - 1 else \
+                b if k1 + rb_more - n*n &lt;= 0 else \
+                pick(L, k1 + rb_more - n*n)
+            y = a if ra_less &lt;= k2 - 1 else \
+                b if k2 + rb_more - n*n &lt;= 0 else \
+                pick(L, k2 + rb_more - n*n)
+            return x, y
+
+        # Set up and run the search.
+        n = len(matrix)
+        start = max(k - n*n + n-1, 0)
+        k -= n*n - (n - start)**2
+        return biselect(range(start, min(n, start+k)), k, k)[0]
+</code></pre>
+
+<pre><code class="language-cpp">class Solution {
+public:
+	int kthSmallest(const std::vector&lt;std::vector&lt;int&gt;&gt; &amp; matrix, int k)
+	{
+		if (k == 1) // guard for 1x1 matrix
+		{
+			return matrix.front().front();
+		}
+
+		size_t n = matrix.size();
+		std::vector&lt;size_t&gt; indices(n);
+		std::iota(indices.begin(), indices.end(), 0);
+		std::array&lt;size_t, 2&gt; ks = { k - 1, k - 1 }; // use zero-based indices
+		std::array&lt;int, 2&gt; results = biSelect(matrix, indices, ks);
+		return results[0];
+	}
+
+private:
+	// select two elements from four elements, recursively
+	std::array&lt;int, 2&gt; biSelect(
+		const std::vector&lt;std::vector&lt;int&gt;&gt; &amp; matrix,
+		const std::vector&lt;size_t&gt; &amp; indices,
+		const std::array&lt;size_t, 2&gt; &amp; ks)
+	// Select both ks[0]-th element and ks[1]-th element in the matrix,
+	// where k0 = ks[0] and k1 = ks[1] and n = indices.size() satisfie
+	// 0 &lt;= k0 &lt;= k1 &lt; n*n  and  k1 - k0 &lt;= 4n-4 = O(n)   and  n&gt;=2
+	{
+		size_t n = indices.size();		
+		if (n == 2u) // base case of resursion
+		{			
+			return biSelectNative(matrix, indices, ks);
+		}
+		
+		// update indices
+		std::vector&lt;size_t&gt; indices_;
+		for (size_t idx = 0; idx &lt; n; idx += 2)
+		{
+			indices_.push_back(indices[idx]);
+		}
+		if (n % 2 == 0) // ensure the last indice is included
+		{
+			indices_.push_back(indices.back());
+		}
+
+		// update ks
+		// the new interval [xs_[0], xs_[1]] should contain [xs[0], xs[1]]
+		// but the length of the new interval should be as small as possible
+		// therefore, ks_[0] is the largest possible index to ensure xs_[0] &lt;= xs[0]
+		// ks_[1] is the smallest possible index to ensure xs_[1] &gt;= xs[1]
+		std::array&lt;size_t, 2&gt; ks_ = { ks[0] / 4, 0 };
+		if (n % 2 == 0) // even
+		{
+			ks_[1] = ks[1] / 4 + n + 1;
+		}
+		else // odd
+		{
+			ks_[1] = (ks[1] + 2 * n + 1) / 4;
+		}
+
+		// call recursively
+		std::array&lt;int, 2&gt; xs_ = biSelect(matrix, indices_, ks_);
+
+		// Now we partipate all elements into three parts:
+		// Part 1: {e : e &lt; xs_[0]}.  For this part, we only record its cardinality
+		// Part 2: {e : xs_[0] &lt;= e &lt; xs_[1]}. We store the set elementsBetween
+		// Part 3: {e : x &gt;= xs_[1]}. No use. Discard.
+		std::array&lt;int, 2&gt; numbersOfElementsLessThanX = { 0, 0 };
+		std::vector&lt;int&gt; elementsBetween; // [xs_[0], xs_[1])
+
+		std::array&lt;size_t, 2&gt; cols = { n, n }; // column index such that elem &gt;= x
+		 // the first column where matrix(r, c) &gt; b
+		 // the first column where matrix(r, c) &gt;= a
+		for (size_t row = 0; row &lt; n; ++row)
+		{
+			size_t row_indice = indices[row];
+			for (size_t idx : {0, 1})
+			{
+				while ((cols[idx] &gt; 0)
+					&amp;&amp; (matrix[row_indice][indices[cols[idx] - 1]] &gt;= xs_[idx]))
+				{
+					--cols[idx];
+				}
+				numbersOfElementsLessThanX[idx] += cols[idx];
+			}
+			for (size_t col = cols[0]; col &lt; cols[1]; ++col)
+			{
+				elementsBetween.push_back(matrix[row_indice][indices[col]]);
+			}
+		}
+
+		std::array&lt;int, 2&gt; xs; // the return value
+		for (size_t idx : {0, 1})
+		{
+			size_t k = ks[idx];
+			if (k &lt; numbersOfElementsLessThanX[0]) // in the Part 1
+			{
+				xs[idx] = xs_[0];
+			}
+			else if (k &lt; numbersOfElementsLessThanX[1]) // in the Part 2
+			{
+				size_t offset = k - numbersOfElementsLessThanX[0];
+				std::vector&lt;int&gt;::iterator nth = std::next(elementsBetween.begin(), offset);
+				std::nth_element(elementsBetween.begin(), nth, elementsBetween.end());
+				xs[idx] = (*nth);
+			}
+			else // in the Part 3
+			{
+				xs[idx] = xs_[1];
+			}
+		}
+		return xs;
+	}
+
+	// select two elements from four elements, using native way
+	std::array&lt;int, 2&gt; biSelectNative(
+		const std::vector&lt;std::vector&lt;int&gt;&gt; &amp; matrix,
+		const std::vector&lt;size_t&gt; &amp; indices,
+		const std::array&lt;size_t, 2&gt; &amp; ks)
+	{
+		std::vector&lt;int&gt; allElements;
+		for (size_t r : indices)
+		{
+			for (size_t c : indices)
+			{
+				allElements.push_back(matrix[r][c]);
+			}
+		}
+		std::sort(allElements.begin(), allElements.end());
+		std::array&lt;int, 2&gt; results;
+		for (size_t idx : {0, 1})
+		{
+			results[idx] = allElements[ks[idx]];
+		}
+		return results;
+	}
+};
+</code></pre>
+
+<h3 id="min-heap-o-klgn-算法">Min-Heap O(klgn) 算法</h3>
+
+<pre><code class="language-cpp">class Solution {
+    struct Tuple {
+        int x, y, val;
+        Tuple(int x, int y, int val) : x(x), y(y), val(val) {}
+
+        bool operator&lt;(const Tuple&amp; other) const { return val &lt; other.val; }
+        bool operator&gt;(const Tuple&amp; other) const { return val &gt; other.val; }
+    };
+
+public:
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int k) {
+        priority_queue&lt;Tuple, vector&lt;Tuple&gt;, std::greater&lt;Tuple&gt;&gt; min_heap;
+        int n = matrix.size();
+        for (int i = 0; i &lt; n; ++i) min_heap.push(Tuple(0, i, matrix[0][i]));
+
+        for (int i = 0; i &lt; k - 1; ++i) {
+            auto t = min_heap.top();
+            min_heap.pop();
+            if (t.x == n - 1) continue;
+            min_heap.push(Tuple(t.x + 1, t.y, matrix[t.x + 1][t.y]));
+        }
+
+        return min_heap.top().val;
+    }
+};
+</code></pre>
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://arkbriar.tk/post/dynamic_proxy/"> Dynamic Proxy in Java </a> 
+       
+      
+      <a class="btn next " href="https://arkbriar.tk/post/monotonic_queue/"> Sliding Window Maximum / Monotonic Queue </a> 
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://arkbriar.tk/post/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.25.1</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+  
+  <script src="https://arkbriar.tk/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>

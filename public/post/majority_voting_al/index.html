@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Boyer-Moore Majority Voting Algorithm &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.25.1" />
+
+
+<link rel="stylesheet" href="https://arkbriar.tk/css/vec.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://arkbriar.tk/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/post">~/post</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#显而易见的做法">显而易见的做法</a></li>
+<li><a href="#boyer-moore-majority-algorithm">Boyer-Moore Majority Algorithm</a>
+<ul>
+<li><a href="#一个简单的证明">一个简单的证明</a></li>
+<li><a href="#更快更好">更快更好 😁</a></li>
+<li><a href="#分布式-boyer-moore">分布式 Boyer-Moore</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://arkbriar.tk/post/majority_voting_al/">Boyer-Moore Majority Voting Algorithm</a></h1>
+      <span class="post-date">Jul 28, 2017 </span>
+      <div class="post-content">
+        <p>刷leetcode时碰到的问题，本篇仅做简要描述，以及记录思考。</p>
+
+<p>参考自: <a href="https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html">https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html</a>，一篇写的非常好的博客</p>
+
+<p>问题描述：考虑你有一个长度为n的<strong>无序</strong>列表，现在你想知道列表中是否有一个值占据了列表的一半以上 (majority)，如果有的话找出这个数。</p>
+
+<p>这个问题的一个普遍的应用场景是在容错计算 (fault-tolerant computing) 中，在进行了多次冗余的计算后，输出最后多数计算得到的值。</p>
+
+<p></p>
+
+<h2 id="显而易见的做法">显而易见的做法</h2>
+
+<p>先排序，然后遍历列表并计数就行。耗时为 O(nlgn)，不够快！实际上我们可以在 O(n) 的时间内给出结果。</p>
+
+<h2 id="boyer-moore-majority-algorithm">Boyer-Moore Majority Algorithm</h2>
+
+<p>论文依据：<a href="http://www.cs.rug.nl/~wim/pub/whh348.pdf">Boyer-Moore Majority Algorithm</a></p>
+
+<p>该算法时间开销为 O(2n), 空间开销为 O(1)，总共遍历两遍列表，思想非常简单。</p>
+
+<p>我们需要以下两个值:</p>
+
+<ol>
+<li>candidate，初始化为任意值</li>
+<li>count，初始化为0</li>
+</ol>
+
+<p>第一遍遍历，以 current 代表当前值：</p>
+
+<ol>
+<li>IF count == 0, THEN candidate = current</li>
+<li>IF candiadate == current THEN count += 1 ELSE count -= 1</li>
+</ol>
+
+<p>第二遍遍历，对上次结果中的 candidate 计数，超过一半则存在 majority 为 candidate，否则不存在</p>
+
+<p>来看一下Python版代码实现：</p>
+
+<pre><code class="language-python">def boyer_moore_majority(input):
+    candidate = 0
+    count = 0
+    for value in input:
+        if count == 0:
+            candidate = value
+        if candidate == value
+            count += 1
+        else:
+            count -= 1
+
+    count = 0
+    for value in input:
+        if candidate == value:
+            count += 1
+    
+    if count &gt; len(input) / 2:
+        return candidate
+    else:
+        return -1 # any value represents NOT FOUND
+</code></pre>
+
+<h3 id="一个简单的证明">一个简单的证明</h3>
+
+<p>我们只需要考虑在原列表中有 majority 的情况，因为如果没有第二遍遍历会直接 reject。</p>
+
+<p>所以假设列表 L 中存在majority，记为 M。</p>
+
+<p>可以看到，上面 candidate 在 count 等于 0 的时候变更，其实将列表分成了一段一段，每一段有一个 candidate。</p>
+
+<p>每一段有一个重要的性质，即 candidate 在这一段中恰好占据了一半。</p>
+
+<p>我们归纳证明：在最后一段中 candidate == M</p>
+
+<p>那么当扫描到第一段S时，有两种情况：</p>
+
+<ol>
+<li>candidate == M，那么根据 M 是 majority，以及根据 count(M in S) = len(S) / 2，在子列表 L - S 中 M 还是 majority</li>
+<li>candidate != M，那么 count(M in S) &lt;= len(S) / 2, 同上，L - S 中 M 还是 majority</li>
+</ol>
+
+<p>最后一段就是最后一个子列表，所以 candidate == M。</p>
+
+<h3 id="更快更好">更快更好 😁</h3>
+
+<p>两遍遍历的 O(n) 已经很快，但是大家还是觉得不够快，于是&hellip; O(3n / 2 -2) 的算法诞生了。</p>
+
+<p>这个算法只比较 3n/2 - 2 次，已经是理论下限。 Here is the prover.<a href="http://www.cs.yale.edu/publications/techreports/tr252.pdf">Finding a majority among N votes</a></p>
+
+<p>这个算法的基本想法是：将原列表重新排列，使得没有两个相邻的值是相同的。</p>
+
+<p>在这里，我们需要一个<strong>桶</strong>来存放额外的值，所以空间消耗为 O(n)，同样是两遍遍历。</p>
+
+<p>第一遍遍历，candidate 保持为列表的最后一个值，current 为当前值</p>
+
+<ol>
+<li>current == candidate, 把 current 放入桶中</li>
+<li>current != candidate, 把 current 放到列表的最后，然后从桶中取出一个放到列表最后</li>
+</ol>
+
+<p>显然列表相邻的两个绝不可能相同</p>
+
+<p>第二遍遍历中，我们需要将 candidate 不断的与列表最后一个值比较：</p>
+
+<ol>
+<li>如果相同，从列表最后去除<strong>两个</strong>元素</li>
+<li>否则，从列表最后去除<strong>一个</strong>元素，并从桶中去除<strong>一个</strong>元素</li>
+</ol>
+
+<p>如果桶空了，那么没有 majority，否则 candidate 就是 majority。</p>
+
+<p>证明略去，有兴趣的同学可以参考论文。</p>
+
+<h3 id="分布式-boyer-moore">分布式 Boyer-Moore</h3>
+
+<p>有兴趣的同学可以阅读 <a href="http://www.crm.umontreal.ca/pub/Rapports/3300-3399/3302.pdf">Finding the Majority Element in Parallel</a>。</p>
+
+<p>主要算法如下：</p>
+
+<pre><code class="language-python">def distributed_boyer_moore_majority(parallel_output):
+    candidate = 0
+    count = 0
+    for candidate_i, count_i in parallel_output:
+    if candidate_i = candidate:
+        count += count_i
+    else if count_i &gt; count:
+        count = count_i - count
+        candidate = candidate_i
+    else:
+        count = count - count_i
+    ...
+</code></pre>
+
+<h2 id="总结">总结</h2>
+
+<p>刷 leetcode 时遇到的很有意思的题目 <a href="https://leetcode.com/problems/majority-element-ii/tabs/description">https://leetcode.com/problems/majority-element-ii/tabs/description</a>，知道这个算法就非常容易了。</p>
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://arkbriar.tk/post/topkn/"> 2017 Alibaba Middleware 24h Final (Just for Fun 😀) </a> 
+       
+      
+      <a class="btn next " href="https://arkbriar.tk/post/dynamic_proxy/"> Dynamic Proxy in Java </a> 
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://arkbriar.tk/post/majority_voting_al/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.25.1</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+  
+  <script src="https://arkbriar.tk/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>

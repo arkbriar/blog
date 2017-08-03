@@ -3,6 +3,8 @@ title: "Selection in X+Y or Sorted Matrices"
 tags: ["algorithm", "paper", "leetcode"]
 categories: ["Development", "Algorithm"]
 date: 2017-08-02T20:58:55+08:00
+toc: true
+comments: true
 draft: false
 markdown: mmark
 ---
@@ -35,7 +37,6 @@ markdown: mmark
 在此摘录 discuss 上大佬给出的 python 和 cpp 版实现，在面试中谁能手写出来我只能跪穿。
 
 ```python
-{{<highlight python "linenos=inline">}}
 class Solution(object):
     def kthSmallest(self, matrix, k):
 
@@ -99,11 +100,9 @@ class Solution(object):
         start = max(k - n*n + n-1, 0)
         k -= n*n - (n - start)**2
         return biselect(range(start, min(n, start+k)), k, k)[0]
-{{</highlight>}}
 ```
 
 ```cpp
-{{<highlight cpp "linenos=inline">}}
 class Solution {
 public:
 	int kthSmallest(const std::vector<std::vector<int>> & matrix, int k)
@@ -240,12 +239,10 @@ private:
 		return results;
 	}
 };
-{{</highlight>}}
 ```
 
 ### Min-Heap O(klgn) 算法
 ```cpp
-{{<highlight cpp "linenos=inline">}}
 class Solution {
     struct Tuple {
         int x, y, val;
@@ -271,5 +268,4 @@ public:
         return min_heap.top().val;
     }
 };
-{{</highlight>}}
 ```

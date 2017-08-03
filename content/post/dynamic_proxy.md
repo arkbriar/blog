@@ -3,6 +3,8 @@ title: "Dynamic Proxy in Java"
 date: 2017-07-29T22:44:24+08:00
 tags: ["java", "design pattern", "dynamic proxy"]
 categories: ["Development", "Programming Language"]
+toc: true
+comments: true
 draft: false
 ---
 
@@ -34,7 +36,6 @@ Proxy 模式图示：
 这里借用 《大型网站系统与Java中间件实践》中的例子：
 
 ```java
-{{<highlight java "linenos=inline">}}
 public interface Calculator {
     int add(int a, int b);
 }
@@ -58,7 +59,6 @@ public class CalculatorProxy implements Calculator {
         return calculator.add(a, b);
     }
 }
-{{</highlight>}}
 ```
 
 可以看到，在 CalculatorProxy 中我们可以调用了真正的add操作，并可以在add前后做很多额外的工作，这种方式看上去十分直接，但是如果我们有一批类需要代理，并且代理类中实现的功能是一致的，那么我们就需要为每一个类都实现一个 XxxProxy 类，这将会十分麻烦。
@@ -68,7 +68,6 @@ public class CalculatorProxy implements Calculator {
 Java 中提供了一种方式使我们能够动态的生成一个类的代理，我们来看一个例子
 
 ```java
-{{<highlight java "linenos=inline">}}
 public class DynamicProxyPlayground {
 
     public static void main(String[] args) {
@@ -111,7 +110,6 @@ public class DynamicProxyPlayground {
         }
     }
 }
-{{</highlight>}}
 ```
 
 在上述例子中，通过实现一个 `InvocationHandler`，我们就可以使用`Proxy.newInstance`为一批类创建功能相同的动态代理。

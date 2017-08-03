@@ -1,8 +1,8 @@
 baseURL = "https://arkbriar.tk/"
 languageCode = "en-us"
-title = "Crazy Ark"
+title = "crazy.ark"
 enableGitInfo = true
-theme = "hugo-theme-bootstrap4-blog"
+theme = "vec"
 hasCJKLanguage = true
 disqusShortname = "crazyark"
 
@@ -10,22 +10,55 @@ disqusShortname = "crazyark"
 pygmentsCodeFencesGuessSyntax = true
 pygmentsstyle = "colorful"
 
-paginate = 5
+paginate = 10
 
-copyright = "Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/)."
-
-[permalinks]
-  post = "/:year/:month/:title/"
-  page = "/:slug/"
-
-[[menu.sidebar]]
-  name = "Coding Husky"
-  url = "https://ericfu.me"
+[menu]
+  [[menu.main]]
+    name = "post"
+    weight = 0
+    url = "/post"
+  [[menu.main]]
+    name = "about"
+    weight = 1
+    url = "/about"
+  [[menu.main]]
+    name = "contact"
+    weight = 2
+    url = "/contact"
+  [[menu.main]]
+    name = "coding husky"
+    weight = 3
+    url = "https://ericfu.me"
 
 [params]
-  author = "Ark"
+  Keywords = "crazy"
+  Description = "Just blog"
 
-  description = "Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith"
+  Avatar = "img/avatar.jpg"
+  SelfIntro = "Just a worm, seek for true, live in shadow, no more..."
+  Email = "arkbriar@gmail.com"
 
-  [params.sidebar]
-    about = "No one will forget you trying but no one will forgive you for not trying to make it work."
+
+  GithubID = "arkbriar"
+  TwitterID = "ImperiusDs"
+  FacebookID = "100006756098121"
+
+
+# Params for bootstrap4-blog
+# copyright = "Except where otherwise noted, content on this site is licensed under a [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/)."
+#
+# [permalinks]
+#   post = "/:year/:month/:title/"
+#   page = "/:slug/"
+#
+# [[menu.sidebar]]
+#   name = "Coding Husky"
+#   url = "https://ericfu.me"
+#
+# [params]
+#   author = "Ark"
+#
+#   description = "Our greatest glory is not in never falling, but in rising every time we fall. -- Oliver Goldsmith"
+#
+#   [params.sidebar]
+#     about = "No one will forget you trying but no one will forgive you for not trying to make it work."

@@ -3,6 +3,8 @@ title: "Boyer-Moore Majority Voting Algorithm"
 date: 2017-07-28T21:08:02+08:00
 tags: ["algorithm", "boyer-moore majority vote algorithm"]
 categories: ["Development", "Algorithm"]
+toc: true
+comments: true
 draft: false
 ---
 
@@ -41,7 +43,6 @@ draft: false
 来看一下Python版代码实现：
 
 ```python
-{{< highlight python "linenos=inline">}}
 def boyer_moore_majority(input):
     candidate = 0
     count = 0
@@ -62,8 +63,6 @@ def boyer_moore_majority(input):
         return candidate
     else:
         return -1 # any value represents NOT FOUND
-
-{{< /highlight >}}
 ```
 
 ### 一个简单的证明
@@ -119,7 +118,6 @@ def boyer_moore_majority(input):
 主要算法如下：
 
 ```python
-{{< highlight python "linenos=inline">}}
 def distributed_boyer_moore_majority(parallel_output):
     candidate = 0
     count = 0
@@ -132,7 +130,6 @@ def distributed_boyer_moore_majority(parallel_output):
     else:
         count = count - count_i
     ...
-{{</highlight>}}
 ```
 
 ## 总结

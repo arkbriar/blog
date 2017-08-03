@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Sliding Window Maximum / Monotonic Queue &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.25.1" />
+
+
+<link rel="stylesheet" href="https://arkbriar.tk/css/vec.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://arkbriar.tk/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/post">~/post</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#monotonic-queue">Monotonic Queue</a></li>
+<li><a href="#appendix">Appendix</a>
+<ul>
+<li><a href="#c-实现">C++ 实现</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://arkbriar.tk/post/monotonic_queue/">Sliding Window Maximum / Monotonic Queue</a></h1>
+      <span class="post-date">Aug 3, 2017 </span>
+      <div class="post-content">
+        
+
+<p>Leetcode 上有一道题叫 Sliding Window Maximum，虽然不是今天刷的，但是解法非常有意思，就记录一下。</p>
+
+<p>问题描述：</p>
+
+<blockquote>
+<p>Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.</p>
+
+<p>For example, Given nums = [1,3,-1,-3,5,3,6,7], and k = 3.</p>
+
+<p>Therefore, return the max sliding window as [3,3,5,5,6,7].</p>
+</blockquote>
+
+<p>这道题可以用优先队列、自平衡BST等方法得到一个 O(nlgn) 的解法，但其实这道题有另一种 O(n) 的解法，基本思想是在过程中维持一个单调队列。</p>
+
+<h3 id="monotonic-queue">Monotonic Queue</h3>
+
+<p>我们用双端队列来实现这个单调队列，保证这个队列中所有数单调非增，同时一个窗口中的最大的数就在队列的开端。</p>
+
+<p>假设我们现在有一个队列 Q 满足上述条件，当一个数 a 进入窗口时，此时数 b 滑出窗口，队列操作步骤：</p>
+
+<ol>
+<li>如果队列不为空并且队列开端等于 b，remove it!</li>
+<li>如果队列不为空并且队列尾端小于 a，remove it！</li>
+<li>循环 <strong>步骤2</strong> 直到队列为空或者队列尾端不小于 a</li>
+<li>将 a 加到队列尾端</li>
+</ol>
+
+<p>显然，在 <strong>步骤2</strong> 中，删除的数都是<strong>不可能为最大值的数</strong>，所以在操作结束后，窗口内最大值仍然在队列中，并且队列保持单调非增。</p>
+
+<p>此时最大值即为队列开端。</p>
+
+<h3 id="appendix">Appendix</h3>
+
+<h4 id="c-实现">C++ 实现</h4>
+
+<pre><code class="language-cpp">vector&lt;int&gt; maxSlidingWindow(vector&lt;int&gt; &amp;nums, int k) {
+    vector&lt;int&gt; res;
+    // tracking index instead of value
+    deque&lt;int&gt; dq;
+    
+    for (int i = 0; i &lt; nums.size(); ++ i) {
+        // dequeue (i - k)th element if exists
+        if (!dq.empty() &amp;&amp; dq.front() == i - k) dq.pop_front();
+        // remove those less than current
+        while (!dq.empty() &amp;&amp; nums[dq.back()] &lt; nums[i]) dq.pop_back();
+        // enqueue current
+        dq.push_back(i);
+        
+        if (i &gt;= k - 1) res.push_back(nums[dq.front()]);
+    }
+    
+    return res;
+}
+</code></pre>
+
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://arkbriar.tk/post/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/"> Selection in X&#43;Y or Sorted Matrices </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://arkbriar.tk/post/monotonic_queue/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.25.1</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+  
+  <script src="https://arkbriar.tk/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>
