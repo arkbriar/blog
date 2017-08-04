@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Ford Johnson Algorithm &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.25.1" />
+
+
+<link rel="stylesheet" href="https://arkbriar.tk/css/vec.css">
+<link rel="stylesheet" href="https://arkbriar.tk/css/katex.min.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://arkbriar.tk/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/post">~/post</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://arkbriar.tk/post/ford_johnson_algorithm/">Ford Johnson Algorithm</a></h1>
+      <span class="post-date">Aug 4, 2017 </span>
+      <div class="post-content">
+        <p>偶然发现 AtCoder，上去注册了准备试试，结果卡在practice contest...</p>
+
+<p>问题倒是很简单：</p>
+
+<blockquote>
+<p>There are N balls labeled with the first N uppercase letters. The balls have pairwise distinct weights.
+You are allowed to ask at most Q queries. In each query, you can compare the weights of two balls (see Input/Output section for details).
+Sort the balls in the ascending order of their weights.</p>
+
+<p><strong>Constraints</strong>
+(N,Q)=(26,1000), (26,100), or (5,7).</p>
+
+<p><strong>Partial Score</strong>
+There are three testsets. Each testset is worth 100 points.
+In testset 1, N=26 and Q=1000.
+In testset 2, N=26 and Q=100.
+In testset 3, N=5 and Q=7.</p>
+</blockquote>
+
+<p>通过比较排序，一共三种数据，其中 (26, 1000) 的情况用任何比较都能过，但是可能会 TLE，(26, 100) 的用 worst-case <span  class="math">\(O(nlgn)\)</span> 的 merge sort 能过，唯一难受的是 (5, 7)。这个样例 merge sort 的 worst case 是比较8次。</p>
+
+<p>我和某网友一样，尝试用 STL 的 sort 来解决，结果发现 WA 了更多 🙄</p>
+
+<p>You must be kidding!</p>
+
+<h2 id="fordjohnson">Ford-Johnson</h2>
+
+<p>绝望之下只能求助 google，果然找到了一个算法叫 Ford-Johnson Algorithm，是 1959 年被提出来的，是针对比较排序中比较数进行最优化的算法，事实上在提出后的相当长一段时间被认为是比较数的 lower bound。</p>
+
+<p>即便后来被证明能够进一步优化，Ford-Johnson 算法距离事实 lower bound 也极其接近。</p>
+
+<p>在 Knuth 老爷子的 《<em>The Art of Computer Programming</em>》第三卷中，该算法也被称为 merge-insertion sort。</p>
+
+<h3 id="算法流程">算法流程</h3>
+
+<p>假设我们有n个元素需要排序，算法总共分为三步：</p>
+
+<ol>
+<li><p>将元素分为 <span  class="math">\(\lfloor n/2 \rfloor\)</span> 对，并两两进行比较，如果 n 是奇数，最后一个元素不进行配对</p></li>
+
+<li><p>递归地排序每对中大的那一个。现在我们有一个由每对中较大值组成的排过序的序列，叫做 main chain。假设 main chain 是 <span  class="math">\(a_1, a_2, ... a_{\lfloor n/2 \rfloor}\)</span>，剩余的元素假设他们是 <span  class="math">\(b_1, b_2, ..., b_{\lceil n/2\rceil}\)</span>，并且有 <span  class="math">\(b_i \le a_i\)</span> 对 <span  class="math">\(i = 1, 2, ..., \lfloor n/2 \rfloor\)</span> 成立。</p></li>
+
+<li><p>现在我们将 <span  class="math">\(b_1, ..., b_{[n/2]}\)</span> 插入 main chain 中，首先是 <span  class="math">\(b_1\)</span>，我们知道他在 <span  class="math">\(a_1\)</span> 前面，所以 main chain 变为 <span  class="math">\(\{b_1, a_1, a_2, ... a_{\lfloor n/2 \rfloor}\}\)</span>，然后考虑插入 <span  class="math">\(b_3\)</span>，仅需要比较三个数 <span  class="math">\(\{b_1, a_1, a_2\}\)</span>；假设前三个元素变为 <span  class="math">\(\{b_1, a_1, b_3\}\)</span>，那么插入 <span  class="math">\(b_2\)</span> 也是在这三个数内；可以看到，不论 <span  class="math">\(b_3\)</span> 被插入到那里了，要插入的范围总是最多为3。下一个要插入的数 <span  class="math">\(b_k\)</span> 对应于下一个<a href="https://en.wikipedia.org/wiki/Jacobsthal_number">Jacobsthal Number</a>，即我们先插入 <span  class="math">\(b_3\)</span>，然后插入 <span  class="math">\(b_5, b_{11}, b_{21} ...\)</span>，总结一下插入顺序为 <span  class="math">\(b_1, b_3, b_2, b_5, b_4, b_{11}, b_{10}, ..., b_6, b_{21}, ...\)</span></p></li>
+</ol>
+
+<h3 id="性能">性能</h3>
+
+<p>Ford-Johnson 算法需要特殊的数据结构来实现，他的运行速度并不算快，只是能够更少地进行比较，在实际使用中还是 merge sort 和 quick sort 来得更快一点。</p>
+
+<h3 id="问题-5-7">问题 (5, 7)</h3>
+
+<p>假设元素 A, B, C, D, E</p>
+
+<ol>
+<li>比较 (A, B) 和 (C, D)，不失一般性，我们假设 A &gt; B，C &gt; D</li>
+<li>比较 (A, C)，不失一般性，假设 A &gt; C</li>
+<li>将 E 插入 (D, C, A)，两次比较内完成</li>
+<li>将 B 插入排序后的{E, C, D} 中 (因为 B &lt; A，所以不需要考虑 A 的比较)，两次比较内完成</li>
+</ol>
+
+<p>这里第三步先插入 E，是因为如果先插入 B 到 (D, C)，最多需要两次比较，而插入 E 到 {D, C, B, A} 最多要三次比较。</p>
+
+<h3 id="实现">实现</h3>
+
+<p>TODO</p>
+
+<h2 id="references">References</h2>
+
+<p>[1] Bui, T. D., and Mai Thanh. &quot;Significant improvements to the Ford-Johnson algorithm for sorting.&quot; BIT Numerical Mathematics 25.1 (1985): 70-75.</p>
+
+<p>[2] <a href="https://codereview.stackexchange.com/questions/116367/ford-johnson-merge-insertion-sort">https://codereview.stackexchange.com/questions/116367/ford-johnson-merge-insertion-sort</a></p>
+
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://arkbriar.tk/post/monotonic_queue/"> Sliding Window Maximum / Monotonic Queue </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://arkbriar.tk/post/ford_johnson_algorithm/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.25.1</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+  
+  <script src="https://arkbriar.tk/js/katex.min.js"></script>
+  <script src="https://arkbriar.tk/js/auto-render.min.js"></script>
+  <script src="https://arkbriar.tk/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+    renderMathInElement(document.body);
+  </script>
+  
+
+</body>
+
+</html>

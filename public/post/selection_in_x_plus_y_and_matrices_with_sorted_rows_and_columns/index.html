@@ -10,6 +10,7 @@
 
 
 <link rel="stylesheet" href="https://arkbriar.tk/css/vec.css">
+<link rel="stylesheet" href="https://arkbriar.tk/css/katex.min.css">
 
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
@@ -56,19 +57,7 @@
   </nav>
 </header>
   <div class="content">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#简单介绍">简单介绍</a></li>
-<li><a href="#python-c-算法实现">Python、C++ 算法实现</a></li>
-<li><a href="#min-heap-o-klgn-算法">Min-Heap O(klgn) 算法</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
+    
     
     <section class="post">
       <h1 class="post-title"><a href="https://arkbriar.tk/post/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/">Selection in X&#43;Y or Sorted Matrices</a></h1>
@@ -78,7 +67,7 @@
 
 <p>首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。</p>
 
-<p>然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf">Selection in X + Y and Matrices with Sorted Rows and Columns</a>，同时适用于另一道题 <a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/">Find k Pairs with Smallest Sums</a>，在此只做介绍，因为我不认为有人能在面试的时候写的出来&hellip;</p>
+<p>然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf">Selection in X + Y and Matrices with Sorted Rows and Columns</a>，同时适用于另一道题 <a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/">Find k Pairs with Smallest Sums</a>，在此只做介绍，因为我不认为有人能在面试的时候写的出来...</p>
 
 <p></p>
 
@@ -97,9 +86,9 @@
 
 <p>这是这个算法的基础，加上巧妙的选择，可以是使得问题变为解一个在A*上的子问题。</p>
 
-<p>算法过程参考论文，非常不直观，需要不少理论证明，实在没法详述&hellip; 有兴趣的同学还是参阅原论文</p>
+<p>算法过程参考论文，非常不直观，需要不少理论证明，实在没法详述... 有兴趣的同学还是参阅原论文</p>
 
-<h3 id="python-c-算法实现">Python、C++ 算法实现</h3>
+<h3 id="pythonc-算法实现">Python、C++ 算法实现</h3>
 
 <p>在此摘录 discuss 上大佬给出的 python 和 cpp 版实现，在面试中谁能手写出来我只能跪穿。</p>
 
@@ -306,7 +295,7 @@ private:
 };
 </code></pre>
 
-<h3 id="min-heap-o-klgn-算法">Min-Heap O(klgn) 算法</h3>
+<h3 id="minheap-oklgn-算法">Min-Heap O(klgn) 算法</h3>
 
 <pre><code class="language-cpp">class Solution {
     struct Tuple {
@@ -377,9 +366,12 @@ public:
   </div>
 </footer>
   
+  <script src="https://arkbriar.tk/js/katex.min.js"></script>
+  <script src="https://arkbriar.tk/js/auto-render.min.js"></script>
   <script src="https://arkbriar.tk/js/highlight.min.js"></script>
   <script>
     hljs.initHighlightingOnLoad();
+    renderMathInElement(document.body);
   </script>
   
 

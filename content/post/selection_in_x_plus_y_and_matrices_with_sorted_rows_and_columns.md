@@ -6,7 +6,7 @@ date: 2017-08-02T20:58:55+08:00
 toc: true
 comments: true
 draft: false
-markdown: mmark
+markup: mmark
 ---
 
 今天在刷 leetcode 的时候遇到一道题目 [Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/)。

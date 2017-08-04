@@ -6,7 +6,7 @@
     <description>Recent content in Tags on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Aug 2017 15:55:02 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 04 Aug 2017 14:15:35 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,18 @@
     <item>
       <title>Algorithm</title>
       <link>https://arkbriar.tk/tags/algorithm/</link>
-      <pubDate>Thu, 03 Aug 2017 15:55:02 +0800</pubDate>
+      <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
       
       <guid>https://arkbriar.tk/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Atcoder</title>
+      <link>https://arkbriar.tk/tags/atcoder/</link>
+      <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/atcoder/</guid>
       <description></description>
     </item>
     
@@ -89,6 +98,15 @@
       <pubDate>Wed, 26 Jul 2017 16:59:26 +0800</pubDate>
       
       <guid>https://arkbriar.tk/tags/parallel-computing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sort</title>
+      <link>https://arkbriar.tk/tags/sort/</link>
+      <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/sort/</guid>
       <description></description>
     </item>
     

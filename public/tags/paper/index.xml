@@ -21,7 +21,7 @@
 
 &lt;p&gt;首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。&lt;/p&gt;
 
-&lt;p&gt;然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 &lt;a href=&#34;http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf&#34;&gt;Selection in X + Y and Matrices with Sorted Rows and Columns&lt;/a&gt;，同时适用于另一道题 &lt;a href=&#34;https://leetcode.com/problems/find-k-pairs-with-smallest-sums/&#34;&gt;Find k Pairs with Smallest Sums&lt;/a&gt;，在此只做介绍，因为我不认为有人能在面试的时候写的出来&amp;hellip;&lt;/p&gt;
+&lt;p&gt;然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 &lt;a href=&#34;http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf&#34;&gt;Selection in X + Y and Matrices with Sorted Rows and Columns&lt;/a&gt;，同时适用于另一道题 &lt;a href=&#34;https://leetcode.com/problems/find-k-pairs-with-smallest-sums/&#34;&gt;Find k Pairs with Smallest Sums&lt;/a&gt;，在此只做介绍，因为我不认为有人能在面试的时候写的出来...&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

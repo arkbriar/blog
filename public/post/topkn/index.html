@@ -10,6 +10,7 @@
 
 
 <link rel="stylesheet" href="https://arkbriar.tk/css/vec.css">
+<link rel="stylesheet" href="https://arkbriar.tk/css/katex.min.css">
 
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
@@ -56,34 +57,7 @@
   </nav>
 </header>
   <div class="content">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#24h-topkn">24h TOPKN</a></li>
-<li><a href="#解题过程">解题过程</a>
-<ul>
-<li><a href="#mysql-的索引">MySQL 的索引</a></li>
-<li><a href="#b-b-树">B/B+ 树</a></li>
-<li><a href="#桶排序">桶排序</a></li>
-<li><a href="#基本思路">基本思路</a></li>
-</ul></li>
-<li><a href="#实现过程">实现过程</a>
-<ul>
-<li><a href="#top-1-的最终结果">Top 1 的最终结果</a></li>
-<li><a href="#不稳定的i-o实现">不稳定的I/O实现</a></li>
-<li><a href="#稳定的i-o实现">稳定的I/O实现</a></li>
-<li><a href="#top-1-的优化">Top 1 的优化</a></li>
-</ul></li>
-<li><a href="#测试">测试</a>
-<ul>
-<li><a href="#清理-cache">清理 cache</a></li>
-<li><a href="#不清理-cache">不清理 cache</a></li>
-</ul></li>
-<li><a href="#总结">总结</a></li>
-</ul></li>
-</ul>
-</nav>
+    
     
     <section class="post">
       <h1 class="post-title"><a href="https://arkbriar.tk/post/topkn/">2017 Alibaba Middleware 24h Final (Just for Fun 😀)</a></h1>
@@ -95,7 +69,7 @@
 
 <h2 id="24h-topkn">24h TOPKN</h2>
 
-<p>题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&rdquo;分布式&rdquo;的策略，赛题中使用多个文件模拟多个数据分片。</p>
+<p>题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&quot;分布式&quot;的策略，赛题中使用多个文件模拟多个数据分片。</p>
 
 <p>简称 top(k, n)。</p>
 
@@ -115,9 +89,9 @@
 
 <p>原题目在 <a href="https://code.aliyun.com/wanshao/topkn_final">https://code.aliyun.com/wanshao/topkn_final</a>。</p>
 
-<p>要求在24小时内完成，然而 &hellip;</p>
+<p>要求在24小时内完成，然而 ...</p>
 
-<p>Codes 托管在 github 上 <a href="https://github.com/arkbriar/topKN">https://github.com/arkbriar/topKN</a>，这个版本从基友的版本轻度修改而来 &hellip;</p>
+<p>Codes 托管在 github 上 <a href="https://github.com/arkbriar/topKN">https://github.com/arkbriar/topKN</a>，这个版本从基友的版本轻度修改而来 ...</p>
 
 <h2 id="解题过程">解题过程</h2>
 
@@ -148,15 +122,15 @@
 
 <h3 id="mysql-的索引">MySQL 的索引</h3>
 
-<p>索引对查询的速度有至关重要的影响，理解索引也是进行数据库性能调优的起点。假设数据库中一个表有100000条记录，DBMS的页面大小为4K，并存储100条记录。如果没有索引，查询将对整个表进行扫描，最坏的情况下，如果所有数据页都不在内存，需要读取10000个页面，如果这10000个页面在磁盘上随机分布，需要进行10000次I/O，假设磁盘每次I/O时间为10ms，则总共需要100s(实际远不止)。但是如果建立 B+ 树索引，则只需要进行 $log_{100}1000000 = 3$次页面读取，最坏情况下耗时30ms，这就是索引带来的效果。</p>
+<p>索引对查询的速度有至关重要的影响，理解索引也是进行数据库性能调优的起点。假设数据库中一个表有100000条记录，DBMS的页面大小为4K，并存储100条记录。如果没有索引，查询将对整个表进行扫描，最坏的情况下，如果所有数据页都不在内存，需要读取10000个页面，如果这10000个页面在磁盘上随机分布，需要进行10000次I/O，假设磁盘每次I/O时间为10ms，则总共需要100s(实际远不止)。但是如果建立 B+ 树索引，则只需要进行 <span  class="math">\(log_{100}1000000 = 3\)</span>次页面读取，最坏情况下耗时30ms，这就是索引带来的效果。</p>
 
 <p>MySQL 有两种索引的类型：B+树和Hash索引。</p>
 
 <p>参考自 <a href="http://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html">http://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html</a></p>
 
-<h3 id="b-b-树">B/B+ 树</h3>
+<h3 id="bb-树">B/B+ 树</h3>
 
-<p>我们都知道RB-Tree和AVL-Tree是都是自平衡的二叉查找树，在这样的树上进行插入，删除和查询操作最坏情况都能在$O(log_{2}n)$的时间内完成。</p>
+<p>我们都知道RB-Tree和AVL-Tree是都是自平衡的二叉查找树，在这样的树上进行插入，删除和查询操作最坏情况都能在<span  class="math">\(O(log_{2}n)\)</span>的时间内完成。</p>
 
 <p>B树是1972年由 Rudolf Bayer 和 Edward M.McCreight 提出的，它是一种泛化的自平衡树，每个节点可以有多于两个的子节点。与自平衡二叉查找树不同的是，B树为系统大块数据的读写操作做了优化。B树减少定位记录时所经历的中间过程，从而加快存取速度。所以B树常被应用于数据库和文件系统的实现。</p>
 
@@ -224,7 +198,7 @@
 
 <p>(我实在没想通第一名怎么跑到11s的，大概是我内存文件系统开的不对？)</p>
 
-<h3 id="不稳定的i-o实现">不稳定的I/O实现</h3>
+<h3 id="不稳定的io实现">不稳定的I/O实现</h3>
 
 <p>每个文件单线程读，固定4线程处理，通过预先分配的 buffer 避免出现 GC。</p>
 
@@ -236,7 +210,7 @@
 
 <p>这种实现无法调优，等待的时间完全看 OS 心情。</p>
 
-<h3 id="稳定的i-o实现">稳定的I/O实现</h3>
+<h3 id="稳定的io实现">稳定的I/O实现</h3>
 
 <p>其实之前提到过，单线程读并不是一个很好的思路，而且上述的处理架构存在着不稳定的等待问题。</p>
 
@@ -407,9 +381,12 @@ sys     0m30.568s
   </div>
 </footer>
   
+  <script src="https://arkbriar.tk/js/katex.min.js"></script>
+  <script src="https://arkbriar.tk/js/auto-render.min.js"></script>
   <script src="https://arkbriar.tk/js/highlight.min.js"></script>
   <script>
     hljs.initHighlightingOnLoad();
+    renderMathInElement(document.body);
   </script>
   
 
