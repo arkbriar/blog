@@ -6,7 +6,6 @@ date: 2017-08-02T20:58:55+08:00
 toc: true
 comments: true
 draft: false
-markup: mmark
 ---
 
 今天在刷 leetcode 的时候遇到一道题目 [Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/)。
@@ -21,12 +20,12 @@ markup: mmark
 
 设 A 为一个 n * n 的矩阵，所有行和列都是非降续的。
 
-令 A* 是 A 取所有奇数行的子矩阵，如果 n 为偶数的话添上 A 的最后一行一列；令 rank\_desc(A, a) 为 A 中大于 a 的元素的数目，rank\_asc(A, a) 为 A 中小于 a 的元素数目。
+令 `$A^*$` 是 A 取所有奇数行的子矩阵，如果 n 为偶数的话添上 A 的最后一行一列；令 `$rank_{desc}(A, a)$` 为 A 中大于 a 的元素的数目，`$rank_{asc}(A, a)$` 为 A 中小于 a 的元素数目。
 
 那么有以下不等式成立
 
-1. rank\_asc(A, a) <= 4 * rank\_asc(A*, a)
-2. rank\_desc(A, a) <= 4 * rank\_desc(A*, a)
+1. `$rank_{asc}(A, a) \le 4 rank_{asc}(A^*, a)$`
+2. `$rank_{desc}(A, a) \le 4 rank_{desc}(A^*, a)$`
 
 这是这个算法的基础，加上巧妙的选择，可以是使得问题变为解一个在A*上的子问题。
 

@@ -10,7 +10,6 @@
 
 
 <link rel="stylesheet" href="https://arkbriar.tk/css/vec.css">
-<link rel="stylesheet" href="https://arkbriar.tk/css/katex.min.css">
 
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
@@ -57,7 +56,19 @@
   </nav>
 </header>
   <div class="content">
-    
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#简单介绍">简单介绍</a></li>
+<li><a href="#python-c-算法实现">Python、C++ 算法实现</a></li>
+<li><a href="#min-heap-o-klgn-算法">Min-Heap O(klgn) 算法</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
     
     <section class="post">
       <h1 class="post-title"><a href="https://arkbriar.tk/post/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/">Selection in X&#43;Y or Sorted Matrices</a></h1>
@@ -67,7 +78,7 @@
 
 <p>首先用一个 Min-Heap 就可以得到 O(klgn) (n为列数)的算法，实现放在最后。</p>
 
-<p>然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf">Selection in X + Y and Matrices with Sorted Rows and Columns</a>，同时适用于另一道题 <a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/">Find k Pairs with Smallest Sums</a>，在此只做介绍，因为我不认为有人能在面试的时候写的出来...</p>
+<p>然而在翻阅览 Discuss 区的时候发现，这玩意居然有 O(n) (n为行、列数) 的算法，来自一篇论文 <a href="http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf">Selection in X + Y and Matrices with Sorted Rows and Columns</a>，同时适用于另一道题 <a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/">Find k Pairs with Smallest Sums</a>，在此只做介绍，因为我不认为有人能在面试的时候写的出来&hellip;</p>
 
 <p></p>
 
@@ -75,20 +86,20 @@
 
 <p>设 A 为一个 n * n 的矩阵，所有行和列都是非降续的。</p>
 
-<p>令 A* 是 A 取所有奇数行的子矩阵，如果 n 为偶数的话添上 A 的最后一行一列；令 rank_desc(A, a) 为 A 中大于 a 的元素的数目，rank_asc(A, a) 为 A 中小于 a 的元素数目。</p>
+<p>令 <code>$A^*$</code> 是 A 取所有奇数行的子矩阵，如果 n 为偶数的话添上 A 的最后一行一列；令 <code>$rank_{desc}(A, a)$</code> 为 A 中大于 a 的元素的数目，<code>$rank_{asc}(A, a)$</code> 为 A 中小于 a 的元素数目。</p>
 
 <p>那么有以下不等式成立</p>
 
 <ol>
-<li>rank_asc(A, a) &lt;= 4 * rank_asc(A*, a)</li>
-<li>rank_desc(A, a) &lt;= 4 * rank_desc(A*, a)</li>
+<li><code>$rank_{asc}(A, a) \le 4 rank_{asc}(A^*, a)$</code></li>
+<li><code>$rank_{desc}(A, a) \le 4 rank_{desc}(A^*, a)$</code></li>
 </ol>
 
 <p>这是这个算法的基础，加上巧妙的选择，可以是使得问题变为解一个在A*上的子问题。</p>
 
-<p>算法过程参考论文，非常不直观，需要不少理论证明，实在没法详述... 有兴趣的同学还是参阅原论文</p>
+<p>算法过程参考论文，非常不直观，需要不少理论证明，实在没法详述&hellip; 有兴趣的同学还是参阅原论文</p>
 
-<h3 id="pythonc-算法实现">Python、C++ 算法实现</h3>
+<h3 id="python-c-算法实现">Python、C++ 算法实现</h3>
 
 <p>在此摘录 discuss 上大佬给出的 python 和 cpp 版实现，在面试中谁能手写出来我只能跪穿。</p>
 
@@ -295,7 +306,7 @@ private:
 };
 </code></pre>
 
-<h3 id="minheap-oklgn-算法">Min-Heap O(klgn) 算法</h3>
+<h3 id="min-heap-o-klgn-算法">Min-Heap O(klgn) 算法</h3>
 
 <pre><code class="language-cpp">class Solution {
     struct Tuple {
@@ -365,13 +376,49 @@ public:
     </p>
   </div>
 </footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<style type="text/css" media="screen">
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax();
+    all.forEach(function(e) {
+        e.SourceElement().parentNode.className += ' has-jax';
+    });
+});
+</script>
+
   
-  <script src="https://arkbriar.tk/js/katex.min.js"></script>
-  <script src="https://arkbriar.tk/js/auto-render.min.js"></script>
   <script src="https://arkbriar.tk/js/highlight.min.js"></script>
   <script>
     hljs.initHighlightingOnLoad();
-    renderMathInElement(document.body);
   </script>
   
 

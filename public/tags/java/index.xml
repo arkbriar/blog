@@ -34,7 +34,7 @@
 
 &lt;h2 id=&#34;24h-topkn&#34;&gt;24h TOPKN&lt;/h2&gt;
 
-&lt;p&gt;题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&amp;quot;分布式&amp;quot;的策略，赛题中使用多个文件模拟多个数据分片。&lt;/p&gt;
+&lt;p&gt;题目是分布式数据库上的分页排序，对应的SQL执行为 order by id limit k，n；主要的技术挑战为&amp;rdquo;分布式&amp;rdquo;的策略，赛题中使用多个文件模拟多个数据分片。&lt;/p&gt;
 
 &lt;p&gt;简称 top(k, n)。&lt;/p&gt;
 
