@@ -51,7 +51,7 @@ You must be kidding!
 
 ### 性能
 
-Ford-Johnson 算法需要特殊的数据结构来实现，他的运行速度并不算快，只是能够更少地进行比较，在实际使用中还是 merge sort 和 quick sort 来得更快一点。
+Ford-Johnson 算法需要特殊的数据结构来实现，运行速度并不算快，只是能够更少地进行比较，在实际使用中还是 merge sort 和 quick sort 来得更快一点。
 
 ### 问题 (5, 7)
 
@@ -64,13 +64,107 @@ Ford-Johnson 算法需要特殊的数据结构来实现，他的运行速度并�
 
 这里第三步先插入 E，是因为如果先插入 B 到 (D, C)，最多需要两次比较，而插入 E 到 {D, C, B, A} 最多要三次比较。
 
-### 实现
-
-TODO
-
 ## References
 
 [1] Bui, T. D., and Mai Thanh. "Significant improvements to the Ford-Johnson algorithm for sorting." BIT Numerical Mathematics 25.1 (1985): 70-75.
 
 [2] https://codereview.stackexchange.com/questions/116367/ford-johnson-merge-insertion-sort
 
+## Appendix
+
+### Interactive Sorter in C++
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+bool less_than(char a, char b) {
+    cout << "? " << a << " " << b << endl;
+    cout.flush();
+    char ans;
+    cin >> ans;
+    if (ans == '<') return true;
+    return false;
+}
+
+void ford_johnson(string &s, int n) {
+    // assert(n == 5)
+    // ugly but work
+    if (!less_than(s[0], s[1])) {
+        swap(s[0], s[1]);
+    }
+
+    if (!less_than(s[2], s[3])) {
+        swap(s[2], s[3]);
+    }
+
+    if (!less_than(s[1], s[3])) {
+        swap(s[0], s[2]);
+        swap(s[1], s[3]);
+    }
+
+    // now we have s[0] < s[1], s[2] < s[3], s[1] < s[3]
+    vector<char> cs = {s[0], s[1], s[3]};
+
+    // insertion will completed in two comparations
+    auto insert_into_first_three = [&](char c) {
+        if (less_than(c, cs[1])) {
+            if (less_than(c, cs[0])) cs.insert(cs.begin(), c);
+            else cs.insert(cs.begin() + 1, c);
+        } else {
+            if (less_than(c, cs[2])) cs.insert(cs.begin() + 2, c);
+            else cs.insert(cs.begin() + 3, c);
+        }
+    };
+    
+    insert_into_first_three(s[4]);
+    // always sorted {s[0], s[1], s[4]} < s[3] or s[0] < s[1] < s[3] < s[4]
+    // so the first three element is enough
+    insert_into_first_three(s[2]);
+
+    s = string(cs.begin(), cs.end());
+}
+
+// at most 99 comparations for n = 26
+void merge_sort(string &s, int n) {
+    if (n == 1) return;
+    else if (n == 2) {
+        if (!less_than(s[0], s[1])) swap(s[0], s[1]);
+        return;
+    }
+
+    auto left_half = s.substr(0, n / 2), 
+        right_half = s.substr(n / 2);
+        
+    merge_sort(left_half, n / 2);
+    merge_sort(right_half, n - n / 2);
+
+    // merge, at most n - 1 comparations
+    int i = 0, j = 0, k = 0;
+    while (k < n) {
+        if (i >= n / 2) s[k++] = right_half[j++];
+        if (j >= n - n / 2) s[k++] = left_half[i++];
+        else if (less_than(left_half[i], right_half[j])) s[k++] = left_half[i++];
+        else s[k++] = right_half[j++];
+    }
+}
+
+int main() {
+    int n, q;
+    cin >> n >> q;
+
+    string s;
+    for (int i = 0; i < n; ++i) {
+        s += 'A' + i;
+    }
+
+    if (n == 5) ford_johnson(s, n);
+    else merge_sort(s, n);
+
+    cout << "! " << s << endl;
+
+    return 0;
+}
+```
