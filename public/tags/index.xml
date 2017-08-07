@@ -6,7 +6,7 @@
     <description>Recent content in Tags on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Aug 2017 14:15:35 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 05 Aug 2017 22:14:01 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Algorithm</title>
       <link>https://arkbriar.tk/tags/algorithm/</link>
-      <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
+      <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       
       <guid>https://arkbriar.tk/tags/algorithm/</guid>
       <description></description>
@@ -66,6 +66,15 @@
     </item>
     
     <item>
+      <title>Graph Theory</title>
+      <link>https://arkbriar.tk/tags/graph-theory/</link>
+      <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/graph-theory/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Java</title>
       <link>https://arkbriar.tk/tags/java/</link>
       <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
@@ -80,6 +89,15 @@
       <pubDate>Thu, 03 Aug 2017 15:55:02 +0800</pubDate>
       
       <guid>https://arkbriar.tk/tags/leetcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Min Cut</title>
+      <link>https://arkbriar.tk/tags/min-cut/</link>
+      <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/tags/min-cut/</guid>
       <description></description>
     </item>
     

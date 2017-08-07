@@ -6,10 +6,19 @@
     <description>Recent content in Development on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Aug 2017 14:15:35 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 05 Aug 2017 22:14:01 +0800</lastBuildDate>
     
 	<atom:link href="https://arkbriar.tk/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Stoer-Wagner Algorithm -- Global Min-Cut in Undirected Weighted Graphs</title>
+      <link>https://arkbriar.tk/posts/stoer_wagner_al/</link>
+      <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
+      
+      <guid>https://arkbriar.tk/posts/stoer_wagner_al/</guid>
+      <description>最近碰到一道题目，求一个图的全局最小割，可惜图论博主学的不太好，至今只记得一个求s-t最大流/最小割的 ford-fulkerson。想了想总</description>
+    </item>
     
     <item>
       <title>Ford Johnson Algorithm</title>

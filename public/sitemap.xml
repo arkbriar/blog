@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://arkbriar.tk/posts/stoer_wagner_al/</loc>
+    <lastmod>2017-08-05T22:15:32+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://arkbriar.tk/posts/ford_johnson_algorithm/</loc>
     <lastmod>2017-08-05T22:15:32+08:00</lastmod>
   </url>
@@ -38,13 +43,13 @@
   </url>
   
   <url>
-    <loc>https://arkbriar.tk/tags/algorithm/</loc>
+    <loc>https://arkbriar.tk/categories/algorithm/</loc>
     <lastmod>2017-08-05T22:15:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://arkbriar.tk/categories/algorithm/</loc>
+    <loc>https://arkbriar.tk/tags/algorithm/</loc>
     <lastmod>2017-08-05T22:15:32+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -97,6 +102,12 @@
   </url>
   
   <url>
+    <loc>https://arkbriar.tk/tags/graph-theory/</loc>
+    <lastmod>2017-08-05T22:15:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://arkbriar.tk/tags/java/</loc>
     <lastmod>2017-08-05T22:15:32+08:00</lastmod>
     <priority>0</priority>
@@ -104,6 +115,12 @@
   
   <url>
     <loc>https://arkbriar.tk/tags/leetcode/</loc>
+    <lastmod>2017-08-05T22:15:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://arkbriar.tk/tags/min-cut/</loc>
     <lastmod>2017-08-05T22:15:32+08:00</lastmod>
     <priority>0</priority>
   </url>
