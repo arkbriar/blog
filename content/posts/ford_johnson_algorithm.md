@@ -108,7 +108,7 @@ void ford_johnson(string &s, int n) {
     // now we have s[0] < s[1], s[2] < s[3], s[1] < s[3]
     vector<char> cs = {s[0], s[1], s[3]};
 
-    // insertion will completed in two comparations
+    // insertion will be completed in two comparations
     auto insert_into_first_three = [&](char c) {
         if (less_than(c, cs[1])) {
             if (less_than(c, cs[0])) cs.insert(cs.begin(), c);
@@ -121,7 +121,7 @@ void ford_johnson(string &s, int n) {
     
     insert_into_first_three(s[4]);
     // always sorted {s[0], s[1], s[4]} < s[3] or s[0] < s[1] < s[3] < s[4]
-    // so the first three element is enough
+    // so the first three elements are enough
     insert_into_first_three(s[2]);
 
     s = string(cs.begin(), cs.end());

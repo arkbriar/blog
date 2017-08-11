@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="generator" content="Hugo 0.25.1" />
+<meta name="generator" content="Hugo 0.26" />
 
 
 <link rel="stylesheet" href="https://arkbriar.tk/css/vec.css">
@@ -186,7 +186,7 @@ void ford_johnson(string &amp;s, int n) {
     // now we have s[0] &lt; s[1], s[2] &lt; s[3], s[1] &lt; s[3]
     vector&lt;char&gt; cs = {s[0], s[1], s[3]};
 
-    // insertion will completed in two comparations
+    // insertion will be completed in two comparations
     auto insert_into_first_three = [&amp;](char c) {
         if (less_than(c, cs[1])) {
             if (less_than(c, cs[0])) cs.insert(cs.begin(), c);
@@ -199,7 +199,7 @@ void ford_johnson(string &amp;s, int n) {
     
     insert_into_first_three(s[4]);
     // always sorted {s[0], s[1], s[4]} &lt; s[3] or s[0] &lt; s[1] &lt; s[3] &lt; s[4]
-    // so the first three element is enough
+    // so the first three elements are enough
     insert_into_first_three(s[2]);
 
     s = string(cs.begin(), cs.end());
@@ -282,7 +282,7 @@ int main() {
     <p>
       <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
       {
-        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.25.1</a>,
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.26</a>,
         <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
       }
       {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
