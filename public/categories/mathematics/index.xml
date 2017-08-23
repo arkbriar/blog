@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mathematics on crazy.ark</title>
-    <link>https://arkbriar.tk/categories/mathematics/</link>
+    <link>https://blog.crazyark.me/categories/mathematics/</link>
     <description>Recent content in Mathematics on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 21 Aug 2017 23:58:42 +0800</lastBuildDate>
     
-	<atom:link href="https://arkbriar.tk/categories/mathematics/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.crazyark.me/categories/mathematics/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Polynomial Hash and Theu-Morse Sequence</title>
-      <link>https://arkbriar.tk/posts/transaction_certificates/</link>
+      <link>https://blog.crazyark.me/posts/transaction_certificates/</link>
       <pubDate>Mon, 21 Aug 2017 23:58:42 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/posts/transaction_certificates/</guid>
+      <guid>https://blog.crazyark.me/posts/transaction_certificates/</guid>
       <description>前两天刷 Hackerrank 上的 Contest，给了两天时间，没想到被最后一题卡成🐶，谨记录思考和收获。 原题目在 https://www.hackerrank.com/contests/gs-codesprint/challenges/transaction-certificates ，就不在此赘述了。 思考过程 首先，题目其实就是</description>
     </item>
     

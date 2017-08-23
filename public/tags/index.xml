@@ -2,147 +2,147 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on crazy.ark</title>
-    <link>https://arkbriar.tk/tags/</link>
+    <link>https://blog.crazyark.me/tags/</link>
     <description>Recent content in Tags on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 05 Aug 2017 22:14:01 +0800</lastBuildDate>
     
-	<atom:link href="https://arkbriar.tk/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.crazyark.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algorithm</title>
-      <link>https://arkbriar.tk/tags/algorithm/</link>
+      <link>https://blog.crazyark.me/tags/algorithm/</link>
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/algorithm/</guid>
+      <guid>https://blog.crazyark.me/tags/algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Atcoder</title>
-      <link>https://arkbriar.tk/tags/atcoder/</link>
+      <link>https://blog.crazyark.me/tags/atcoder/</link>
       <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/atcoder/</guid>
+      <guid>https://blog.crazyark.me/tags/atcoder/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Boyer Moore Majority Vote Algorithm</title>
-      <link>https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/</link>
+      <link>https://blog.crazyark.me/tags/boyer-moore-majority-vote-algorithm/</link>
       <pubDate>Fri, 28 Jul 2017 21:08:02 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/</guid>
+      <guid>https://blog.crazyark.me/tags/boyer-moore-majority-vote-algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Design Pattern</title>
-      <link>https://arkbriar.tk/tags/design-pattern/</link>
+      <link>https://blog.crazyark.me/tags/design-pattern/</link>
       <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/design-pattern/</guid>
+      <guid>https://blog.crazyark.me/tags/design-pattern/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Distributed System</title>
-      <link>https://arkbriar.tk/tags/distributed-system/</link>
+      <link>https://blog.crazyark.me/tags/distributed-system/</link>
       <pubDate>Wed, 26 Jul 2017 16:59:26 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/distributed-system/</guid>
+      <guid>https://blog.crazyark.me/tags/distributed-system/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dynamic Proxy</title>
-      <link>https://arkbriar.tk/tags/dynamic-proxy/</link>
+      <link>https://blog.crazyark.me/tags/dynamic-proxy/</link>
       <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/dynamic-proxy/</guid>
+      <guid>https://blog.crazyark.me/tags/dynamic-proxy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Graph Theory</title>
-      <link>https://arkbriar.tk/tags/graph-theory/</link>
+      <link>https://blog.crazyark.me/tags/graph-theory/</link>
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/graph-theory/</guid>
+      <guid>https://blog.crazyark.me/tags/graph-theory/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hackerrank</title>
-      <link>https://arkbriar.tk/tags/hackerrank/</link>
+      <link>https://blog.crazyark.me/tags/hackerrank/</link>
       <pubDate>Mon, 21 Aug 2017 23:58:42 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/hackerrank/</guid>
+      <guid>https://blog.crazyark.me/tags/hackerrank/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java</title>
-      <link>https://arkbriar.tk/tags/java/</link>
+      <link>https://blog.crazyark.me/tags/java/</link>
       <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/java/</guid>
+      <guid>https://blog.crazyark.me/tags/java/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Leetcode</title>
-      <link>https://arkbriar.tk/tags/leetcode/</link>
+      <link>https://blog.crazyark.me/tags/leetcode/</link>
       <pubDate>Thu, 03 Aug 2017 15:55:02 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/leetcode/</guid>
+      <guid>https://blog.crazyark.me/tags/leetcode/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Math</title>
-      <link>https://arkbriar.tk/tags/math/</link>
+      <link>https://blog.crazyark.me/tags/math/</link>
       <pubDate>Mon, 21 Aug 2017 23:58:42 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/math/</guid>
+      <guid>https://blog.crazyark.me/tags/math/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Min Cut</title>
-      <link>https://arkbriar.tk/tags/min-cut/</link>
+      <link>https://blog.crazyark.me/tags/min-cut/</link>
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/min-cut/</guid>
+      <guid>https://blog.crazyark.me/tags/min-cut/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Paper</title>
-      <link>https://arkbriar.tk/tags/paper/</link>
+      <link>https://blog.crazyark.me/tags/paper/</link>
       <pubDate>Wed, 02 Aug 2017 20:58:55 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/paper/</guid>
+      <guid>https://blog.crazyark.me/tags/paper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Parallel Computing</title>
-      <link>https://arkbriar.tk/tags/parallel-computing/</link>
+      <link>https://blog.crazyark.me/tags/parallel-computing/</link>
       <pubDate>Wed, 26 Jul 2017 16:59:26 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/parallel-computing/</guid>
+      <guid>https://blog.crazyark.me/tags/parallel-computing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Sort</title>
-      <link>https://arkbriar.tk/tags/sort/</link>
+      <link>https://blog.crazyark.me/tags/sort/</link>
       <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/tags/sort/</guid>
+      <guid>https://blog.crazyark.me/tags/sort/</guid>
       <description></description>
     </item>
     

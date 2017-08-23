@@ -2,48 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on crazy.ark</title>
-    <link>https://arkbriar.tk/categories/</link>
+    <link>https://blog.crazyark.me/categories/</link>
     <description>Recent content in Categories on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 05 Aug 2017 22:14:01 +0800</lastBuildDate>
     
-	<atom:link href="https://arkbriar.tk/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.crazyark.me/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algorithm</title>
-      <link>https://arkbriar.tk/categories/algorithm/</link>
+      <link>https://blog.crazyark.me/categories/algorithm/</link>
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/categories/algorithm/</guid>
+      <guid>https://blog.crazyark.me/categories/algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Development</title>
-      <link>https://arkbriar.tk/categories/development/</link>
+      <link>https://blog.crazyark.me/categories/development/</link>
       <pubDate>Mon, 21 Aug 2017 23:58:42 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/categories/development/</guid>
+      <guid>https://blog.crazyark.me/categories/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Mathematics</title>
-      <link>https://arkbriar.tk/categories/mathematics/</link>
+      <link>https://blog.crazyark.me/categories/mathematics/</link>
       <pubDate>Mon, 21 Aug 2017 23:58:42 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/categories/mathematics/</guid>
+      <guid>https://blog.crazyark.me/categories/mathematics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Programming Language</title>
-      <link>https://arkbriar.tk/categories/programming-language/</link>
+      <link>https://blog.crazyark.me/categories/programming-language/</link>
       <pubDate>Sat, 29 Jul 2017 22:44:24 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/categories/programming-language/</guid>
+      <guid>https://blog.crazyark.me/categories/programming-language/</guid>
       <description></description>
     </item>
     

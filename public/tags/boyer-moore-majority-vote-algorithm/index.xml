@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Boyer Moore Majority Vote Algorithm on crazy.ark</title>
-    <link>https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/</link>
+    <link>https://blog.crazyark.me/tags/boyer-moore-majority-vote-algorithm/</link>
     <description>Recent content in Boyer Moore Majority Vote Algorithm on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 28 Jul 2017 21:08:02 +0800</lastBuildDate>
     
-	<atom:link href="https://arkbriar.tk/tags/boyer-moore-majority-vote-algorithm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.crazyark.me/tags/boyer-moore-majority-vote-algorithm/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Boyer-Moore Majority Voting Algorithm</title>
-      <link>https://arkbriar.tk/posts/majority_voting_al/</link>
+      <link>https://blog.crazyark.me/posts/majority_voting_al/</link>
       <pubDate>Fri, 28 Jul 2017 21:08:02 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/posts/majority_voting_al/</guid>
+      <guid>https://blog.crazyark.me/posts/majority_voting_al/</guid>
       <description>&lt;p&gt;刷leetcode时碰到的问题，本篇仅做简要描述，以及记录思考。&lt;/p&gt;
 
 &lt;p&gt;参考自: &lt;a href=&#34;https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html&#34;&gt;https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html&lt;/a&gt;，一篇写的非常好的博客&lt;/p&gt;

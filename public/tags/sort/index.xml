@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sort on crazy.ark</title>
-    <link>https://arkbriar.tk/tags/sort/</link>
+    <link>https://blog.crazyark.me/tags/sort/</link>
     <description>Recent content in Sort on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 04 Aug 2017 14:15:35 +0800</lastBuildDate>
     
-	<atom:link href="https://arkbriar.tk/tags/sort/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.crazyark.me/tags/sort/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ford Johnson Algorithm</title>
-      <link>https://arkbriar.tk/posts/ford_johnson_algorithm/</link>
+      <link>https://blog.crazyark.me/posts/ford_johnson_algorithm/</link>
       <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
       
-      <guid>https://arkbriar.tk/posts/ford_johnson_algorithm/</guid>
+      <guid>https://blog.crazyark.me/posts/ford_johnson_algorithm/</guid>
       <description>偶然发现 AtCoder，上去注册了准备试试，结果卡在practice contest&amp;hellip; 问题倒是很简单： There are N balls labeled with the first N uppercase letters. The balls have pairwise distinct weights. You are allowed to ask at most Q queries. In</description>
     </item>
     
