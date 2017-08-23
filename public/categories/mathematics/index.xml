@@ -6,10 +6,19 @@
     <description>Recent content in Mathematics on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Aug 2017 23:58:42 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 23 Aug 2017 22:02:59 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.crazyark.me/categories/mathematics/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Euler Theorem for Non-coprime</title>
+      <link>https://blog.crazyark.me/posts/euler_theorem_for_noncoprime/</link>
+      <pubDate>Wed, 23 Aug 2017 22:02:59 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/euler_theorem_for_noncoprime/</guid>
+      <description>刚遇到一道可怕的题目，迭代次幂(tetration)在超级大的范围下快速求解对某个模数的幂，模数范围在 1 到 1e18 之间。 OK，这道题其实思路很清晰</description>
+    </item>
     
     <item>
       <title>Polynomial Hash and Theu-Morse Sequence</title>
