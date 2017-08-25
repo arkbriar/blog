@@ -125,7 +125,7 @@ long mulmod(long a, long b, long m) {
 
 整个流程保证了所有操作数都在64位以内，递归深度最大为 min(128, b - 1)。
 
-算法代码托管在 https://github.com/arkbriar/hackerrank-projecteuler/blob/master/188.cc 。
+算法代码托管在 https://github.com/arkbriar/hackerrank-projecteuler/blob/master/cpp/188.cc 。
 
 
 ### References
