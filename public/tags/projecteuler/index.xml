@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projecteuler on crazy.ark</title>
+    <link>https://blog.crazyark.me/tags/projecteuler/</link>
+    <description>Recent content in Projecteuler on crazy.ark</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 25 Aug 2017 21:32:26 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.crazyark.me/tags/projecteuler/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Project Euler #188 -- The Hyperexponentiation of A Number</title>
+      <link>https://blog.crazyark.me/posts/projecteuler_188/</link>
+      <pubDate>Fri, 25 Aug 2017 21:32:26 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/projecteuler_188/</guid>
+      <description>接上次的博文，我们来解决大整数分解问题，并最终解决 Project Euler #188。 回忆一下，问题要求解的是 $a\uparrow\uparrow b \ (\textrm{mod} \ m)$，其中 $1 \le a, b, m \le 10^{18}$。</description>
+    </item>
+    
+  </channel>
+</rss>
