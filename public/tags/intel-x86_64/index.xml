@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Intel X86_64 on crazy.ark</title>
+    <link>https://blog.crazyark.me/tags/intel-x86_64/</link>
+    <description>Recent content in Intel X86_64 on crazy.ark</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 27 Aug 2017 17:38:37 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.crazyark.me/tags/intel-x86_64/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SIGFPE When Doing DivQ</title>
+      <link>https://blog.crazyark.me/posts/cpp_sigfpe/</link>
+      <pubDate>Sun, 27 Aug 2017 17:38:37 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/cpp_sigfpe/</guid>
+      <description>第一次遇到了除0以外的SIGFPE，记录一下。 症状 在使用以下函数的时候，假定 a = 1e18, b = 1e18, m = 1e9 + 7 就会触发 SIGFPE。 long mulmod(long a, long b, long m) { long res;</description>
+    </item>
+    
+  </channel>
+</rss>

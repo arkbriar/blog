@@ -6,10 +6,19 @@
     <description>Recent content in Development on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 25 Aug 2017 21:32:26 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 Aug 2017 17:38:37 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.crazyark.me/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SIGFPE When Doing DivQ</title>
+      <link>https://blog.crazyark.me/posts/cpp_sigfpe/</link>
+      <pubDate>Sun, 27 Aug 2017 17:38:37 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/cpp_sigfpe/</guid>
+      <description>第一次遇到了除0以外的SIGFPE，记录一下。 症状 在使用以下函数的时候，假定 a = 1e18, b = 1e18, m = 1e9 + 7 就会触发 SIGFPE。 long mulmod(long a, long b, long m) { long res;</description>
+    </item>
     
     <item>
       <title>Project Euler #188 -- The Hyperexponentiation of A Number</title>
