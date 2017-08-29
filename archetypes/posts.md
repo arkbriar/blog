@@ -1,5 +1,5 @@
 ---
-title: "{{ replace .TranslationBaseName "-" " " | title }}"
+title: "{{ replace .TranslationBaseName "_" " " | title }}"
 date: {{ .Date }}
 draft: true
 categories: []
