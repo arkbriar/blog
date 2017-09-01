@@ -94,7 +94,9 @@ int LIS(vector<int> nums) {
 
 > In the city of Nevermore, there are 10e8 streets and 10e8 avenues, both numbered from 0 to 10e8 − 1. All streets run straight from west to east, and all avenues run straight from south to north. The distance between neighboring streets and between neighboring avenues is exactly 100 meters.
 Every street intersects every avenue. Every intersection can be described by pair (x,y), where x is avenue ID and y is street ID.
-There are N fountains in the city, situated at intersections (Xi,Yi). Unlike normal intersections, there's a circle with radius 10 meters centered at the intersection, and there are no road parts inside this circle.
+
+
+> There are N fountains in the city, situated at intersections (Xi,Yi). Unlike normal intersections, there's a circle with radius 10 meters centered at the intersection, and there are no road parts inside this circle.
 The picture below shows an example of how a part of the city with roads and fountains may look like.
 
 ![city](/img/posts/1f931bf0c98ec6f07e612b0282cdb094.png)
