@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Longest Increasing Subsequence &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
+<link rel="stylesheet" href="https://blog.crazyark.me/css/github.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://blog.crazyark.me/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/external/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/posts">~/posts</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#dp">DP</a></li>
+<li><a href="#sort-lcs">Sort + LCS</a></li>
+<li><a href="#dp-bs">DP + BS</a></li>
+<li><a href="#atcoder-grand-contest-019c">AtCoder Grand Contest 019C</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://blog.crazyark.me/posts/longest_increasing_subsequence/">Longest Increasing Subsequence</a></h1>
+      <span class="post-date">Sep 1, 2017 </span>
+      <div class="post-content">
+        
+
+<p>最长递增子序列算法，原本以为已经记住了最快的算法，看来是记性太差，今天碰到一道题目又忘记了怎么做 🙄</p>
+
+<p>三种做法：DP，Sort + LCS，DP + BS，我只记得第一种DP了 &hellip;</p>
+
+<p>然后咱们顺便把某道题目做了 🤣</p>
+
+<h3 id="dp">DP</h3>
+
+<p>很显然，以第i个元素为结尾的最长递增子序列的长度是 max{dp[j] + 1}, j &lt;  i &amp;&amp; arr[j] &lt; arr[i]，所以DP空间复杂度 O(n)，时间复杂度 O(n^2)。</p>
+
+<pre><code class="language-cpp">int LIS(vector&lt;int&gt; nums) {
+    int n = nums.size();
+    int dp[n];
+    int res = 0;
+    for (int i = 0; i &lt; n; ++ i) {
+        dp[n] = 1;
+        for (int j = 0; j &lt; i; ++ j) {
+            if (nums[j] &lt; nums[i]) 
+                dp[i] = max(dp[i], dp[j] + 1);
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+</code></pre>
+
+<h3 id="sort-lcs">Sort + LCS</h3>
+
+<p>原数组的递增子序列一定是<strong>排序后</strong>数组和原来数组的公共子序列，所以排完序找最长公共子序列就行了。</p>
+
+<p>空间复杂度 O(n^2)，时间复杂度 O(n^2)。</p>
+
+<pre><code class="language-cpp">int LCS(vector&lt;int&gt; a, vector&lt;int&gt; b) {
+    assert(a.size() == b.size());
+    
+    int n = a.size();
+    int dp[n + 1][n + 1];
+    for (int i = 0; i &lt; n; ++ i) {
+        for (int j = 0; j &lt; n; ++ j) {
+            if (i == 0 || j == 0) 
+                dp[i][j] = 0;
+            else if (a[i - 1] == b[j - 1]) 
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    return dp[n][n];
+}
+
+int LIS(vector&lt;int&gt; nums) {
+    auto sorted = nums;
+    sort(sorted.begin(), sorted.end());
+    return LCS(nums, sorted);
+}
+</code></pre>
+
+<h3 id="dp-bs">DP + BS</h3>
+
+<p>这是最快的一个算法，也是我到现在都还没记住的算法 🙄，关键思想为维护一个数组，数组中第l项(1-based) 为长度为l的递增子序列的最大(最后)元素的最小值，然后不断维护这个数组直到结束，最终数组的有效长度即为LIS的结果。</p>
+
+<p>由于第l项为长度为l的递增子序列的最大元素的最小值，所以该数组一定为一个递增数组。当下一个数n需要能够成为某个递增子序列的结尾时，我们在该数组中查找第一个不比n小的数，假设位置为l，那么我们就知道我们能以n结尾构建一个最长为l的递增子序列 (想想为什么？很简单)，此时我们就将l位置的数组值更新为n。有一个特殊情况即数组中不存在位置l，那么就在数组最后添加n。</p>
+
+<p>这里查找可以使用二分查找的方式，从而空间复杂度为 O(n)，时间复杂度为 O(nlgn)。</p>
+
+<pre><code class="language-cpp">int LIS(vector&lt;int&gt; nums) {
+    vector&lt;int&gt; dp;
+    for (auto n : nums) {
+        auto it = lower_bound(dp.begin(), dp.end(), n);
+        if (it == dp.end()) dp.push_back(n);
+        else *it = n;
+    }
+    return dp.size();
+}
+</code></pre>
+
+<p>其实我发现&hellip;，我都不用手写BS，STL还是解决了很多问题的，除了没有Fibonacci Heap之外感觉好像也没啥缺点了 (笑</p>
+
+<h3 id="atcoder-grand-contest-019c">AtCoder Grand Contest 019C</h3>
+
+<p>题目：</p>
+
+<blockquote>
+<p>In the city of Nevermore, there are 10e8 streets and 10e8 avenues, both numbered from 0 to 10e8 − 1. All streets run straight from west to east, and all avenues run straight from south to north. The distance between neighboring streets and between neighboring avenues is exactly 100 meters.
+Every street intersects every avenue. Every intersection can be described by pair (x,y), where x is avenue ID and y is street ID.
+There are N fountains in the city, situated at intersections (Xi,Yi). Unlike normal intersections, there&rsquo;s a circle with radius 10 meters centered at the intersection, and there are no road parts inside this circle.
+The picture below shows an example of how a part of the city with roads and fountains may look like.</p>
+</blockquote>
+
+<p><img src="/img/posts/1f931bf0c98ec6f07e612b0282cdb094.png" alt="city" /></p>
+
+<p>约束:</p>
+
+<blockquote>
+<ul>
+<li>0≤x1,y1,x2,y2&lt;10e8</li>
+<li>1≤N≤200,000</li>
+<li>0≤Xi,Yi&lt;10e8</li>
+<li>Xi≠Xj for i≠j</li>
+<li>Yi≠Yj for i≠j</li>
+<li>Intersections (x1,y1) and (x2,y2) are different and don&rsquo;t contain fountains.</li>
+<li>All input values are integers.</li>
+</ul>
+</blockquote>
+
+<p>输入:</p>
+
+<blockquote>
+<p>x1 y1 x2 y2
+N
+X1 Y1
+X2 Y2
+:
+XN YN</p>
+</blockquote>
+
+<p>输出:</p>
+
+<blockquote>
+<p>Print the shortest possible distance one needs to cover in order to get from intersection (x1,y1) to intersection (x2,y2), in meters. Your answer will be considered correct if its absolute or relative error doesn&rsquo;t exceed 10e−11.</p>
+</blockquote>
+
+<p>Samples:</p>
+
+<blockquote>
+<p>I: 1 1 6 5
+3
+3 2
+5 3
+2 4</p>
+
+<p>O: 891.415926535897938</p>
+</blockquote>
+
+<p><br/></p>
+
+<blockquote>
+<p>I: 3 5 6 4
+3
+3 2
+5 3
+2 4</p>
+
+<p>O: 400.000000000000000</p>
+</blockquote>
+
+<p><br/></p>
+
+<blockquote>
+<p>I: 4 2 2 2
+3
+3 2
+5 3
+2 4</p>
+
+<p>O: 211.415926535897938</p>
+</blockquote>
+
+<p>Ok，一个网格给定两个点，那么不考虑喷泉的走法是固定的，长度为 abs(x1 - x2) + abs(y1 - y2)。</p>
+
+<p>由对称性，我们不妨设 x1 &lt;= x2, y1 &lt;= y2，考虑喷泉的情况下，从喷泉处转角能够少走一些路，而直走经过喷泉会多走一些路。</p>
+
+<p>假设我们的走法是绕远路贪转角少走，或是避免直走，即走出{(x1, y1), (x2, y2)}所构成的矩形的情况，由于每行每列仅有一个喷泉，所以多远离矩形一格会导致多走200m，而最多只能少走 (2 * r - pi * r / 2) 大约为4.5m的距离，或者少走(pi * r - 2 * r) 大约为 11.4m 的距离，所以显然是不可能的。</p>
+
+<p>所以走法一定是在{(x1, y1), (x2, y2)}矩形内部，贪最多的转角。</p>
+
+<p>显然，在 (x1, y1) 到 (x2, y2) 的路程中，最多只有 c = min(x2 - x1, y2 - y1) 次转角，最多有 c + 1 个喷泉。</p>
+
+<p>假设喷泉是按照x的大小进行排列的，那么我们能过的最多的温泉等于温泉y值数组的最长递增子序列，假设长度为k。</p>
+
+<p>那么有两种情况，</p>
+
+<ol>
+<li>k &lt;= c, 那么就一定有一种走法，使得我们经过这个子序列中每个温泉的时候都是转角</li>
+<li>k == c + 1，那么一定存在一个喷泉需要经过，所以走法是走c个角，并经过剩余的一个。</li>
+</ol>
+
+<p>所以关键即求最长递增子序列，放代码</p>
+
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+pair&lt;long long, long long&gt; p[200000];
+
+const double PI = 3.14159265358979323846;
+const double R = 10.0;
+const double quarter_circle = PI * R / 2;
+const double edge = 100.0;
+
+using PLL = pair&lt;long long, long long&gt;;
+int dp[200000];
+
+int main() {
+    long long x1, y1, x2, y2;
+    scanf(&quot;%lld %lld %lld %lld&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
+
+    if (x1 &gt; x2) {
+        swap(x1, x2);
+        swap(y1, y2);
+    }
+
+    long long y_min = min(y1, y2), y_max = max(y1, y2);
+
+    // drop those not used
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (int i = 0; i &lt; n;) {
+        scanf(&quot;%lld %lld&quot;, &amp;p[i].first, &amp;p[i].second);
+        if (p[i].first &lt; x1 || p[i].first &gt; x2 || p[i].second &lt; y_min || p[i].second &gt; y_max) {
+            n--;
+        } else {
+            ++i;
+        }
+    }
+
+    // x1 &lt;= x2
+    double res = edge * (x2 - x1 + y_max - y_min);
+    sort(p, p + n, [&amp;](const PLL&amp; a, const PLL&amp; b) { return a.first &lt; b.first; });
+    if (y1 &gt; y2) {
+        for (int i = 0; i &lt; n; ++i) {
+            p[i].second = -p[i].second;
+        }
+    }
+
+    int len = 0;
+    for (int i = 0; i &lt; n; ++i) {
+        auto it = lower_bound(dp, dp + len, p[i].second);
+        *it = p[i].second;
+        if (it == dp + len) {
+            len ++;
+        }
+    }
+
+    int max_corner = min(x2 - x1, y_max - y_min);
+
+    if (len &lt; max_corner + 1)
+        res += len * (quarter_circle - 2 * R);
+    else
+        res += max_corner * (quarter_circle - 2 * R) + (2 * quarter_circle - 2 * R);
+
+    printf(&quot;%.15f\n&quot;, res);
+
+    return 0;
+}
+</code></pre>
+
+<h3 id="总结">总结</h3>
+
+<p>一天不刷题就会忘记算法，还有 atcoder 的题还真是难&hellip;</p>
+
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://blog.crazyark.me/posts/cpp_sigfpe/"> SIGFPE When Doing DivQ </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://blog.crazyark.me/posts/longest_increasing_subsequence/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.26</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<style type="text/css" media="screen">
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax();
+    all.forEach(function(e) {
+        e.SourceElement().parentNode.className += ' has-jax';
+    });
+});
+</script>
+
+  
+  <script src="https://blog.crazyark.me/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>

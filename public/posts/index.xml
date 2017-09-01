@@ -6,10 +6,19 @@
     <description>Recent content in Posts on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Aug 2017 17:38:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 01 Sep 2017 15:41:22 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.crazyark.me/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Longest Increasing Subsequence</title>
+      <link>https://blog.crazyark.me/posts/longest_increasing_subsequence/</link>
+      <pubDate>Fri, 01 Sep 2017 15:41:22 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/longest_increasing_subsequence/</guid>
+      <description>最长递增子序列算法，原本以为已经记住了最快的算法，看来是记性太差，今天碰到一道题目又忘记了怎么做 🙄 三种做法：DP，Sort + LCS，DP + B</description>
+    </item>
     
     <item>
       <title>SIGFPE When Doing DivQ</title>

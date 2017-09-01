@@ -10,7 +10,7 @@ disqusShortname = "crazyark"
 pygmentsCodeFencesGuessSyntax = true
 pygmentsstyle = "colorful"
 
-paginate = 12
+paginate = 10
 
 [menu]
   [[menu.main]]
