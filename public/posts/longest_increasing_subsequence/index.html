@@ -63,9 +63,12 @@
 <ul>
 <li>
 <ul>
+<li><a href="#algorithms-for-lis">Algorithms for LIS</a>
+<ul>
 <li><a href="#dp">DP</a></li>
 <li><a href="#sort-lcs">Sort + LCS</a></li>
 <li><a href="#dp-bs">DP + BS</a></li>
+</ul></li>
 <li><a href="#atcoder-grand-contest-019c">AtCoder Grand Contest 019C</a></li>
 <li><a href="#总结">总结</a></li>
 </ul></li>
@@ -85,7 +88,9 @@
 
 <p>然后咱们顺便把某道题目做了 🤣</p>
 
-<h3 id="dp">DP</h3>
+<h3 id="algorithms-for-lis">Algorithms for LIS</h3>
+
+<h4 id="dp">DP</h4>
 
 <p>很显然，以第i个元素为结尾的最长递增子序列的长度是 max{dp[j] + 1}, j &lt;  i &amp;&amp; arr[j] &lt; arr[i]，所以DP空间复杂度 O(n)，时间复杂度 O(n^2)。</p>
 
@@ -105,7 +110,7 @@
 }
 </code></pre>
 
-<h3 id="sort-lcs">Sort + LCS</h3>
+<h4 id="sort-lcs">Sort + LCS</h4>
 
 <p>原数组的递增子序列一定是<strong>排序后</strong>数组和原来数组的公共子序列，所以排完序找最长公共子序列就行了。</p>
 
@@ -135,7 +140,7 @@ int LIS(vector&lt;int&gt; nums) {
 }
 </code></pre>
 
-<h3 id="dp-bs">DP + BS</h3>
+<h4 id="dp-bs">DP + BS</h4>
 
 <p>这是最快的一个算法，也是我到现在都还没记住的算法 🙄，关键思想为维护一个数组，数组中第l项(1-based) 为长度为l的递增子序列的最大(最后)元素的最小值，然后不断维护这个数组直到结束，最终数组的有效长度即为LIS的结果。</p>
 
