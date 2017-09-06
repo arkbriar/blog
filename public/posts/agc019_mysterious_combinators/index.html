@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> AGC019-F Mysterious Combinators &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
+<link rel="stylesheet" href="https://blog.crazyark.me/css/github.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://blog.crazyark.me/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/external/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/posts">~/posts</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#正确答案">正确答案</a></li>
+<li><a href="#归纳证明">归纳证明</a></li>
+<li><a href="#头疼的问题">头疼的问题</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://blog.crazyark.me/posts/agc019_mysterious_combinators/">AGC019-F Mysterious Combinators</a></h1>
+      <span class="post-date">Sep 6, 2017 </span>
+      <div class="post-content">
+        
+
+<p>原题目在 AtCoder Grand Contest 019，F - Yes or No。</p>
+
+<p>把它改成数学题，题目大意如下：</p>
+
+<blockquote>
+<p>假设你有M+N个问题要回答，每个问题的回答不是Yes就是No。你知道其中有N个Yes，M个No，但是并不知道顺序。你将按顺序一个一个回答问题，并且答完一道题后立刻就能知道这道题的正确答案。
+假设你每次回答问题都采取最大化期望正确题目数的方式，请问期望正确题目数是多少？</p>
+</blockquote>
+
+<h3 id="正确答案">正确答案</h3>
+
+<p>令 <code>$E(M, N)$</code> 表示已知(M, N)x(Yes, No)的期望正确题目数。</p>
+
+<p>则</p>
+
+<p><code>$E(M, N) = E(N, M)$</code>，且</p>
+
+<p><code>$E(M, N) = \dfrac{\sum\limits_{k = 1}^{k = N}\binom{2k}{k}\binom{M + N - 2k}{N - k}}{2\binom{M + N}{N}} + M, M \ge N$</code></p>
+
+<h3 id="归纳证明">归纳证明</h3>
+
+<p>显然，所谓最大化期望的方式就是选当前答案多的那个，所以有</p>
+
+<ol>
+<li><p><code>$E(M, N) = \dfrac{M}{M + N}\left(E(M - 1, N) + 1\right) + \dfrac{N}{M + N}E(M, N - 1), M \ge N$</code></p></li>
+
+<li><p><code>$E(M, 0) = M$</code></p></li>
+</ol>
+
+<p>由两条及对称性 <code>$E(M, N) = E(N, M)$ 可以推出任何 $E(M, N)$</code>。</p>
+
+<p>令 <code>$F(M, N) = E(M, N) - M, M \ge N$，以及 $F(M, N) = F(N, M)$</code></p>
+
+<p>我们有</p>
+
+<ol>
+<li><code>$F(M, N) = \dfrac{M}{M + N}F(M - 1, N) + \dfrac{N}{M + N}F(M, N - 1), M \gt N$</code></li>
+<li><code>$F(N, N) = F(N, N - 1) + \dfrac{1}{2}$</code></li>
+</ol>
+
+<p>令 <code>$G(M, N) = \binom{M + N}{N}F(M, N), M \ge N$，同样有 $G(M, N) = G(N, M)$</code></p>
+
+<p>同时下两式成立</p>
+
+<ol>
+<li><code>$G(M, N) = G(M - 1, N) + G(M, N - 1), M \gt N$</code></li>
+<li><code>$G(N, N) = \dfrac{1}{2}\binom{2N}{N} + 2G(N, N-1)$</code></li>
+</ol>
+
+<p>所以我们只需要验证 <code>$G(M, N) = \dfrac{\sum\limits_{k = 1}^{k = N}\binom{2k}{k}\binom{M + N - 2k}{N - k}}{2} = \sum\limits_{k = 1}^{k = N}\binom{2k - 1}{k}\binom{M + N - 2k}{N - k}, M\ge N$</code> 即可。</p>
+
+<p>首先显然 <code>$G(M, 0) = 0$</code> 成立。</p>
+
+<p>令 <code>$M = N = 1$，有$G(1, 1) = 1 + 2G(1, 0) = 1$，且 $G(M, 1) = G(M - 1, 1) + G(M, 0), M \gt 1$，所以 $G(M, 1) = 1, M \ge 1$</code> 成立。</p>
+
+<p>假设对 <code>$\forall n.n \le N - 1, \forall m.m\ge n$, 都有 $G(m, n) = \sum\limits_{k = 1}^{k = n}\binom{2k - 1}{k}\binom{m + n - 2k}{n - k}$</code>, 则有</p>
+
+<p><code>$G(N, N) = \binom{2N - 1}{N - 1} + 2\sum\limits_{k = 1}^{k = N - 1}\binom{2k - 1}{k}\binom{2N - 1 - 2k}{N - k}$</code>
+<code>$ = \binom{2N - 1}{N - 1} + \sum\limits_{k = 1}^{k = N - 1}\binom{2k - 1}{k}\binom{2N - 1 - 2k}{N - 1 - k}$</code>
+<code>$=\sum\limits_{k = 1}^{k = N}\binom{2k - 1}{k}\binom{2N - 2k}{N - k}$</code></p>
+
+<p>假设 <code>$\forall m. m \le M, m \ge n$</code>, 上式同样成立，则有</p>
+
+<p><code>$G(M + 1, N) = G(M, N) + G(M + 1, N - 1)$</code>
+<code>$= \sum\limits_{k = 1}^{k = N}\binom{2k - 1}{k}\binom{M + N - 2k}{N - k} + \sum\limits_{k = 1}^{k = N - 1}\binom{2k - 1}{k}\binom{M + N - 2k}{N - 1- k}$</code>
+<code>$ = \sum\limits_{k = 1}^{k = N - 1}\binom{2k - 1}{k}\left(\binom{M + N - 2k}{N - k} + \binom{M + N- 2k}{N - 1- k}\right) + \binom{2N-1}{N}$</code>
+<code>$ = \sum\limits_{k = 1}^{k = N - 1}\binom{2k - 1}{k}\binom{M + N + 1 - 2k}{N - k}+  \binom{2N-1}{N} = \sum\limits_{k = 1}^{k = N}\binom{2k - 1}{k}\binom{M + N + 1 - 2k}{N - k}$</code></p>
+
+<p>所以 <code>$\forall n.n\le N, \forall m.m\ge n$</code>，上式成立。</p>
+
+<p>所以 <code>$\forall m, \forall n.m \ge n$</code>，上式成立。</p>
+
+<p>证毕。</p>
+
+<h3 id="头疼的问题">头疼的问题</h3>
+
+<p>看这个解的形式，感觉上去像是可以有构造解，但是我绞尽脑汁也想不出来。而且更关键的是，在不知道解形式的情况下，根本不能完成上述归纳证明&hellip;</p>
+
+<p>我想我得求助下老朋友&hellip;或者发个邮件问下解题的大佬了&hellip;</p>
+
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://blog.crazyark.me/posts/longest_increasing_subsequence/"> Longest Increasing Subsequence </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://blog.crazyark.me/posts/agc019_mysterious_combinators/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.26</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<style type="text/css" media="screen">
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax();
+    all.forEach(function(e) {
+        e.SourceElement().parentNode.className += ' has-jax';
+    });
+});
+</script>
+
+  
+  <script src="https://blog.crazyark.me/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>
