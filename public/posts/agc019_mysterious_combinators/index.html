@@ -66,6 +66,16 @@
 <li><a href="#正确答案">正确答案</a></li>
 <li><a href="#归纳证明">归纳证明</a></li>
 <li><a href="#头疼的问题">头疼的问题</a></li>
+<li><a href="#构造解">构造解</a>
+<ul>
+<li><a href="#问题映射">问题映射</a></li>
+<li><a href="#问题求解">问题求解</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#附录">附录</a>
+<ul>
+<li><a href="#小结论">小结论</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -156,6 +166,98 @@
 <p>看这个解的形式，感觉上去像是可以有构造解，但是我绞尽脑汁也想不出来。而且更关键的是，在不知道解形式的情况下，根本不能完成上述归纳证明&hellip;</p>
 
 <p>我想我得求助下老朋友&hellip;或者发个邮件问下解题的大佬了&hellip;</p>
+
+<h3 id="构造解">构造解</h3>
+
+<p>结果刚洗完澡就研究出来了&hellip;难道是传说中的洗澡解题法？？？</p>
+
+<h4 id="问题映射">问题映射</h4>
+
+<p>假设我们有一个MxN的矩形格子，我们把格子放置在坐标系第一象限，格子左下角在(0, 0)，右上角在(M, N)。</p>
+
+<p>那么，一共存在 <code>$\binom{M + N}{N}$</code> 条不同的路径能够连通左下角和右上角，(从左下到右上为M次向右和N次向上的排列)。</p>
+
+<p><strong>下述所有路径构造过程均从右上角(M,N)至左下角(0,0)，且 M &gt;= N，提前声明。</strong></p>
+
+<p>下面定义一条路径到答题方式的映射：</p>
+
+<ol>
+<li>当处于格点 (x, y) 时，表明当前还剩 x + y 题，其中 x 题为Yes，y题为No</li>
+<li>当处于格点 (x, y) 时
+
+<ul>
+<li>如果 x &gt;= y，那么路径向左(x - 1, y)表明(答Yes，正确)，向下(x, y - 1)表明(答Yes，错误)</li>
+<li>如果 x &lt; y, 则向左(x - 1, y)表明(答No，错误)，向下表明(答No，正确)</li>
+</ul></li>
+</ol>
+
+<p>显然，通过上述表示映射，<strong>一条路径唯一地确定出题和答题方式，反之亦然。</strong></p>
+
+<p>那么原问题中正确答案的数目怎么计算呢？可以看到，路径经过格点(x, y)时，正确或是错误是由路径走向唯一确定的，也就是由边唯一确定的</p>
+
+<ol>
+<li>所有 x &gt;= y, (x, y)-(x - 1, y) 的边计数为1，(x, y)-(x, y - 1)的边计数为0</li>
+<li>所有 x &lt; y, (x, y)-(x - 1, y) 的边计数为0，(x, y)-(x, y - 1)为1</li>
+</ol>
+
+<p>我们将计数标到格子的所有边上，那么我们正确答案的计数就等于所有路径上所经过的边权和。</p>
+
+<h4 id="问题求解">问题求解</h4>
+
+<p>这里我不画图，大家还是在稿纸上画一下。</p>
+
+<p>令 <code>$w(x, y, 1)$</code> 代表(x,y)-(x-1,y)边上的权，<code>$w(x, y, 0)$</code>代表(x, y-1)边上的权，那么</p>
+
+<ol>
+<li><code>$x \ne y, w(x, y, 1) = w(y, x, 0)$</code></li>
+<li><code>$x = y, w(x, y, 1) = 1, w(x, y, 0) = 0$</code></li>
+</ol>
+
+<p>这个脑补出来就是除了(x, x)格点出来的边，其余边都关于<code>$y = x$</code>对称。</p>
+
+<p>假设任意一条路径S，其在格子内与y=x对称得到的路径为S&rsquo; (可以对称的部分对称)。</p>
+
+<p>令<code>$w(S)$</code>表示S上所有边的加权和，可以证明：</p>
+
+<p><code>$w(S) + w(S')= 2M + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)$</code></p>
+
+<p>证明如下：</p>
+
+<p>显然，假设 S 与 <code>$y = x$</code> 第一次相交于 (X, X)，那么到达 (X, X)之前权和总共为 (M - X)；</p>
+
+<p>从 (X, X) 开始到 (0, 0)，两条路径 S + S&rsquo; 的加权和为 <code>$2X + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)$</code>：</p>
+
+<p>因为假设 <code>$w(x,x,1)=w(x,x,0)=0$</code>，那么边关于<code>$y=x$</code>就完全对称，我们将S所有路径全部翻到<code>$y=x$</code>之上不影响路径权和，则向下永远为1，向左永远为0，权和为X。而 S + S&rsquo; 中 <code>$w(x,x,1)$</code>和<code>$w(x,x,0)$</code> 都只能获得一次，所以上式成立。</p>
+
+<p>所以对于所有路径，边权和为 <code>$W = \sum\limits_{S}w(S) = \sum\limits_{S}\dfrac{2M + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)}{2}$</code>，也就是</p>
+
+<p><code>$W = M\binom{M + N}{N} + \frac{\sum\limits_{S}{\sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)}}{2}$</code>，我们只需要再计算每个(x,x)点被被多少条路径经过，再加和就行。</p>
+
+<p>对于一个点(x,y)，经过的路径数为<code>$\binom{x + y}{x}\binom{M + N - x - y}{N - y}$</code>，超级显然&hellip;</p>
+
+<p>所以，<code>$W = M\binom{M + N}{N} + \frac{\sum\limits_{k = 1}^{N}\binom{2k}{k}\binom{M + N - 2k}{N - k}}{2}$</code>。</p>
+
+<p>所以期望为 <code>$\dfrac{W}{\binom{M + N}{N}} = M + \frac{\sum\limits_{k = 1}^{N}\binom{2k}{k}\binom{M + N - 2k}{N - k}}{2\binom{M + N}{N}}$</code>，终于证毕。</p>
+
+<h3 id="总结">总结</h3>
+
+<p>脑子不好使的时候，我选择洗澡🛀（误</p>
+
+<p>这题的解法构造十分巧妙，没图解释/理解起来会很累，大家看的时候还是自己画一画图比较好。</p>
+
+<p>我花了三天时间才想出来，期间还看了editorial，提示了我格子构造法&hellip;如果答题没什么时间想，我大概就直接O(MN)的dp了&hellip;</p>
+
+<h3 id="附录">附录</h3>
+
+<h4 id="小结论">小结论</h4>
+
+<p>这次研究题目还有一个小结论，假设 <code>$p$</code> 是质数，<code>$a, b, c, d$</code> 与 <code>$p$</code> 均互质，且存在 <code>$x, y \lt p$</code>，使得 <code>$a \equiv bx \ (\textrm{mod} \ p)$</code>，<code>$c \equiv dy \ (\textrm{mod} \ p)$</code>。</p>
+
+<p>那么 <code>$ad + bc \equiv (x + y)bd \ (\textrm{mod} \ p)$</code>，证明如下</p>
+
+<p><code>$ad + bc \equiv xbd^pb^{p - 1} + ydb^pd^{p - 1} \ (\textrm{mod} \ p) \equiv (bd)^p(x + y) \ (\textrm{mod} \ p) \equiv bd(x + y) \ (\textrm{mod} \ p)$</code>，证毕。</p>
+
+<p>用于分数 <code>$\frac{a}{b}$</code> 对于 <code>$p$</code> 的模数 <code>$ab^{-1} \ (\textrm{mod} \ p)$</code> 的加和。</p>
 
       </div>
     </section>
