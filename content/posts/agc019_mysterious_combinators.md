@@ -58,7 +58,7 @@ comments: true
 假设对 `$\forall n.n \le N - 1, \forall m.m\ge n$, 都有 $G(m, n) = \sum\limits_{k = 1}^{k = n}\binom{2k - 1}{k}\binom{m + n - 2k}{n - k}$`, 则有
 
 `$G(N, N) = \binom{2N - 1}{N - 1} + 2\sum\limits_{k = 1}^{k = N - 1}\binom{2k - 1}{k}\binom{2N - 1 - 2k}{N - k}$`
-`$ = \binom{2N - 1}{N - 1} + \sum\limits_{k = 1}^{k = N - 1}\binom{2k - 1}{k}\binom{2N - 1 - 2k}{N - 1 - k}$`
+`$ = \binom{2N - 1}{N - 1} + \sum\limits_{k = 1}^{k = N - 1}\binom{2k - 1}{k}\binom{2N - 2k}{N - 1 - k}$`
 `$=\sum\limits_{k = 1}^{k = N}\binom{2k - 1}{k}\binom{2N - 2k}{N - k}$` 
 
 假设 `$\forall m. m \le M, m \ge n$`, 上式同样成立，则有
