@@ -124,25 +124,27 @@ comments: true
 
 令`$w(S)$`表示S上所有边的加权和，可以证明：
 
-`$w(S) + w(S')= 2M + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)$`
+`$w(S) + w(S')= 2M + |S \cap \{(x, y) | y = x\}|$`
 
 证明如下：
 
 显然，假设 S 与 `$y = x$` 第一次相交于 (X, X)，那么到达 (X, X)之前权和总共为 (M - X)；
 
-从 (X, X) 开始到 (0, 0)，两条路径 S + S' 的加权和为 `$2X + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)$`：
+从 (X, X) 开始到 (0, 0)，两条路径 S + S' 的加权和为 `$2X + |S \cap \{(x, y) | y = x\}|$`：
 
 因为假设 `$w(x,x,1)=w(x,x,0)=0$`，那么边关于`$y=x$`就完全对称，我们将S所有路径全部翻到`$y=x$`之上不影响路径权和，则向下永远为1，向左永远为0，权和为X。而 S + S' 中 `$w(x,x,1)$`和`$w(x,x,0)$` 都只能获得一次，所以上式成立。
 
-所以对于所有路径，边权和为 `$W = \sum\limits_{S}w(S) = \sum\limits_{S}\dfrac{2M + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)}{2}$`，也就是
+所以对于所有路径，边权和为 `$W = \sum\limits_{S}w(S) = \sum\limits_{S}\dfrac{2M + |S \cap \{(x, y) | y = x\}|}{2}$`，也就是
 
-`$W = M\binom{M + N}{N} + \frac{\sum\limits_{S}{\sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)}}{2}$`，我们只需要再计算每个(x,x)点被被多少条路径经过，再加和就行。
+`$W = M\binom{M + N}{N} + \frac{\sum\limits_{S}{|S \cap \{(x, y) | y = x\}|}}{2}$`，我们只需要再计算每个(x,x)点被被多少条路径经过，再加和就行。
 
 对于一个点(x,y)，经过的路径数为`$\binom{x + y}{x}\binom{M + N - x - y}{N - y}$`，超级显然...
 
 所以，`$W = M\binom{M + N}{N} + \frac{\sum\limits_{k = 1}^{N}\binom{2k}{k}\binom{M + N - 2k}{N - k}}{2}$`。
 
 所以期望为 `$\dfrac{W}{\binom{M + N}{N}} = M + \frac{\sum\limits_{k = 1}^{N}\binom{2k}{k}\binom{M + N - 2k}{N - k}}{2\binom{M + N}{N}}$`，终于证毕。
+
+在证明过程中可以发现一个很有意思的事实，在回答问题的过程中，如果当前剩余的M=N，直接放弃答题并查看答案，那么答对的题目数永远是M。
 
 ### 总结
 

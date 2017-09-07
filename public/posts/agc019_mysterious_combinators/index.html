@@ -219,25 +219,27 @@
 
 <p>令<code>$w(S)$</code>表示S上所有边的加权和，可以证明：</p>
 
-<p><code>$w(S) + w(S')= 2M + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)$</code></p>
+<p><code>$w(S) + w(S')= 2M + |S \cap \{(x, y) | y = x\}|$</code></p>
 
 <p>证明如下：</p>
 
 <p>显然，假设 S 与 <code>$y = x$</code> 第一次相交于 (X, X)，那么到达 (X, X)之前权和总共为 (M - X)；</p>
 
-<p>从 (X, X) 开始到 (0, 0)，两条路径 S + S&rsquo; 的加权和为 <code>$2X + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)$</code>：</p>
+<p>从 (X, X) 开始到 (0, 0)，两条路径 S + S&rsquo; 的加权和为 <code>$2X + |S \cap \{(x, y) | y = x\}|$</code>：</p>
 
 <p>因为假设 <code>$w(x,x,1)=w(x,x,0)=0$</code>，那么边关于<code>$y=x$</code>就完全对称，我们将S所有路径全部翻到<code>$y=x$</code>之上不影响路径权和，则向下永远为1，向左永远为0，权和为X。而 S + S&rsquo; 中 <code>$w(x,x,1)$</code>和<code>$w(x,x,0)$</code> 都只能获得一次，所以上式成立。</p>
 
-<p>所以对于所有路径，边权和为 <code>$W = \sum\limits_{S}w(S) = \sum\limits_{S}\dfrac{2M + \sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)}{2}$</code>，也就是</p>
+<p>所以对于所有路径，边权和为 <code>$W = \sum\limits_{S}w(S) = \sum\limits_{S}\dfrac{2M + |S \cap \{(x, y) | y = x\}|}{2}$</code>，也就是</p>
 
-<p><code>$W = M\binom{M + N}{N} + \frac{\sum\limits_{S}{\sum\limits_{p, p \in S \cap \{(x, y) | y = x\}}w(p)}}{2}$</code>，我们只需要再计算每个(x,x)点被被多少条路径经过，再加和就行。</p>
+<p><code>$W = M\binom{M + N}{N} + \frac{\sum\limits_{S}{|S \cap \{(x, y) | y = x\}|}}{2}$</code>，我们只需要再计算每个(x,x)点被被多少条路径经过，再加和就行。</p>
 
 <p>对于一个点(x,y)，经过的路径数为<code>$\binom{x + y}{x}\binom{M + N - x - y}{N - y}$</code>，超级显然&hellip;</p>
 
 <p>所以，<code>$W = M\binom{M + N}{N} + \frac{\sum\limits_{k = 1}^{N}\binom{2k}{k}\binom{M + N - 2k}{N - k}}{2}$</code>。</p>
 
 <p>所以期望为 <code>$\dfrac{W}{\binom{M + N}{N}} = M + \frac{\sum\limits_{k = 1}^{N}\binom{2k}{k}\binom{M + N - 2k}{N - k}}{2\binom{M + N}{N}}$</code>，终于证毕。</p>
+
+<p>在证明过程中可以发现一个很有意思的事实，在回答问题的过程中，如果当前剩余的M=N，直接放弃答题并查看答案，那么答对的题目数永远是M。</p>
 
 <h3 id="总结">总结</h3>
 
