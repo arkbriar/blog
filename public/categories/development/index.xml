@@ -6,10 +6,19 @@
     <description>Recent content in Development on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 Sep 2017 12:58:11 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 08 Sep 2017 22:23:50 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.crazyark.me/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Binary Indexed Tree</title>
+      <link>https://blog.crazyark.me/posts/binary_indexed_tree/</link>
+      <pubDate>Fri, 08 Sep 2017 22:23:50 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/binary_indexed_tree/</guid>
+      <description>Binary Indexed Tree的树构成方式我一直很疑惑，总是似懂非懂。现在终于弄清楚了它的节点的父子关系，记录下来防止忘记。 Binary Indexed Tree 二叉索引树用一个数组表示底层</description>
+    </item>
     
     <item>
       <title>Segment Tree</title>

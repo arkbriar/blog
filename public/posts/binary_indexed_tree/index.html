@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Binary Indexed Tree &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
+<link rel="stylesheet" href="https://blog.crazyark.me/css/github.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://blog.crazyark.me/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/external/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/posts">~/posts</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#binary-indexed-tree">Binary Indexed Tree</a>
+<ul>
+<li><a href="#direct-parent">Direct Parent</a></li>
+<li><a href="#direct-childrens">Direct Childrens</a></li>
+<li><a href="#how-to-get-nodes-for-interval-1-i">How to get nodes for interval [1, i]</a></li>
+<li><a href="#how-to-get-intervals-cover-i">How to get intervals cover i</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://blog.crazyark.me/posts/binary_indexed_tree/">Binary Indexed Tree</a></h1>
+      <span class="post-date">Sep 8, 2017 </span>
+      <div class="post-content">
+        
+
+<p>Binary Indexed Tree的树构成方式我一直很疑惑，总是似懂非懂。现在终于弄清楚了它的节点的父子关系，记录下来防止忘记。</p>
+
+<h3 id="binary-indexed-tree">Binary Indexed Tree</h3>
+
+<p>二叉索引树用一个数组表示底层数组，这个数组的大小和原数组相同，我们假设为n。</p>
+
+<p>BIT数组里的第i项（1-based）记录了原数组第 i - (i &amp; -i) + 1 到第 i 项的和，其中(i &amp; -i) 是 i 的最低位1表示的数。</p>
+
+<p>我们定义节点i的直接父节点为第一个大于i的j，并且节点j表示的范围包含i的范围。</p>
+
+<h4 id="direct-parent">Direct Parent</h4>
+
+<p>假设我们有节点i，也就是包含了原数组[i - L(i) + 1, i]的和，这里L(i)表示i的最低位1。那么节点i的直接父节点为 i + L(i)，很容易证明。</p>
+
+<p>重要性质：</p>
+
+<ul>
+<li><p><strong>节点i到它的直接父节点之间的节点，与节点i不会有交集。</strong> 这个很显然。</p></li>
+
+<li><p><strong>除了节点i的父节点，其余节点不会与该节点有交集</strong>。证明如下：</p></li>
+</ul>
+
+<p>假设节点j有：</p>
+
+<ol>
+<li>1个1，也就是j是2的幂，j&gt;i，则j一定是i的父节点。</li>
+<li>2个以上1，那么j与i一定有公共前缀，并且剩余部分一定构成父子关系，从而显然j一定是i的父节点，证明如下：
+
+<ul>
+<li>j的最高位1大于i的最高位，那么 <code>j - (j &amp; -j)</code> 不影响最高位一定大于i</li>
+<li>所以最高位相同，令 <code>j_ = j - 1 &lt;&lt; (fls(j) - 1)</code>, <code>i_ = i - 1 &lt;&lt; (fls(i) - 1)</code>，那么 <code>j - (j &amp; -j) &lt; i</code> 等价于 <code>j_ - (j_ &amp; -j_) &lt; i_</code>，这里<code>fls</code>表示二进制最高位的索引(1-based)。</li>
+<li>此时我们减少了以为，再次循环上述过程，直到j只剩一个1, 或者i等于0
+
+<ul>
+<li>i等于0，不存在这样的j</li>
+<li>j只剩一个1，那么此时任意0&lt;i&lt;j都符合条件，这样的j一定是i的父节点，j - (j &amp; -j) = 0。</li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h4 id="direct-childrens">Direct Childrens</h4>
+
+<p>假设节点j是节点i的直接父节点，我将i称为j的直接子节点。</p>
+
+<p>假设我们有节点i，那么可以通过以下过程获取所有直接子节点。</p>
+
+<pre><code class="language-cpp">int z = i - (i &amp; -i);
+int j = i - 1;
+while (j != z) {
+    // here j is a direct children of i
+    j = j - (j &amp; -j);
+}
+</code></pre>
+
+<p>上述过程即把 i - 1 的末尾的连续的1一步步移除。</p>
+
+<p>所有直接子节点所表示的范围不交，且父节点的区间与所有直接子节点表示的区间的并的差为[i, i]。</p>
+
+<h4 id="how-to-get-nodes-for-interval-1-i">How to get nodes for interval [1, i]</h4>
+
+<p>通过以下过程：</p>
+
+<pre><code class="language-cpp">for (int j = i; j &gt; 0; j -= (j &amp; -j)) {
+    // all node j shows here
+}
+</code></pre>
+
+<p>显然，各个区间不交。</p>
+
+<h4 id="how-to-get-intervals-cover-i">How to get intervals cover i</h4>
+
+<p>通过以下过程，获得所有覆盖i的节点，也就是所有节点i的父节点：</p>
+
+<pre><code class="language-cpp">for (int j = i; j &lt; n; j += (j &amp; -j)) {
+    // here we get all parents of node i,
+    // which is equal to the nodes cover i
+}
+</code></pre>
+
+<p>证明如下：</p>
+
+<p>第一个覆盖i的节点是i;
+所有比i大的非父节点与节点i都不交，所以比i的节点覆盖i的就是所有父节点;
+而所有小于i的节点都不与节点i交于[i, i]。</p>
+
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://blog.crazyark.me/posts/segment_tree/"> Segment Tree </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://blog.crazyark.me/posts/binary_indexed_tree/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.26</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<style type="text/css" media="screen">
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax();
+    all.forEach(function(e) {
+        e.SourceElement().parentNode.className += ' has-jax';
+    });
+});
+</script>
+
+  
+  <script src="https://blog.crazyark.me/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>
