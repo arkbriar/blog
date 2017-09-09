@@ -190,8 +190,8 @@ private:
     void push(int i, int tl, int tr) {
         max_val[i] += to_add[i];
         if (tl != tr - 1) {
-            max_val[2 * i + 1] += to_add[i];
-            max_val[2 * i + 2] += to_add[i];
+            to_add[2 * i + 1] += to_add[i];
+            to_add[2 * i + 2] += to_add[i];
         }
         to_add[i] = 0;
     }
