@@ -110,9 +110,9 @@
 
 <p>我们简记区间 <code>$[i, j]$</code> 上对函数 <code>$f$</code> 的查询为 <code>$f(a[i..j])$</code>。</p>
 
-<p>那么 Sparse Table 将生成这样一个二维数组，这个二维数组的大小为 <code>$N(\lfloor\log N\rfloor + 1)$</code>。数组的第 <code>$(i, j)$</code> 项代表了区间结果 <code>$f(a[i, i + 2^j - 1])$</code>，记为 <code>$b_{i,j}$</code>。</p>
+<p>那么 Sparse Table 将生成这样一个二维数组，这个二维数组的大小为 <code>$N(\lfloor\log N\rfloor + 1)$</code>。数组的第 <code>$(i, j)$</code> 项代表了区间结果 <code>$f(a[i..i + 2^j - 1])$</code>，记为 <code>$b_{i,j}$</code>。</p>
 
-<p>生成一个这样的二维数组是很简单的，因为 <code>$f(a[i, i + 2^j - 1]) = f(f(a[i,i+2^{j-1} - 1]), f(a[i + 2^{j-1}, i + 2^j - 1]))$</code>，而后面这两个分别是第 <code>$(i, j - 1)$</code> 项和第 <code>$(i + 2^{j - 1}, j - 1)$</code>项，并且 <code>$f(i, i) = a_i$</code>，所以我们一层层递推就行，过程如下</p>
+<p>生成一个这样的二维数组是很简单的，因为 <code>$f(a[i..i + 2^j - 1]) = f(f(a[i..i+2^{j-1} - 1]), f(a[i + 2^{j-1}..i + 2^j - 1]))$</code>，而后面这两个分别是第 <code>$(i, j - 1)$</code> 项和第 <code>$(i + 2^{j - 1}, j - 1)$</code>项，并且 <code>$f([i..i]) = a_i$</code>，所以我们一层层递推就行，过程如下</p>
 
 <pre><code class="language-pascal">// assuming Arr is indexed from 0
 for i=0..N-1: 
@@ -142,7 +142,7 @@ for i=k..0:
 
 <p>假设我们的函数 <code>$f$</code> 同时是幂等的，也就是说 <code>$f(x, x) = x$</code> 对所有定义域内的数都成立，那么我们马上就能得到</p>
 
-<p><code>$f(a[i..j]) = f(f(a[i..s], f(a[t..j])), i \le t, s \le j, t \le s + 1$</code>。</p>
+<p><code>$f(a[i..j]) = f(f(a[i..s],f(a[t..j])), i \le t, s \le j, t \le s + 1$</code>。</p>
 
 <p><strong>这条性质允许我们不用精确地只覆盖该区域一次，这是加速到 O(1) 的关键。</strong></p>
 
