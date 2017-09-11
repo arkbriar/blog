@@ -208,6 +208,25 @@ struct min_f {
 template <class T, T v, typename R>
 constexpr const T min_f<T, v, R>::default_value;
 
+uint64_t gcd(uint64_t a, uint64_t b) {
+    if (a < b) swap(a, b);
+    while (b != 0) {
+        auto t = b;
+        b = a % b;
+        a = t;
+    }
+    return a;
+}
+
+template <class T, T v = T{}, typename = typename enable_if<numeric_limits<T>::is_integer>::type>
+struct gcd_f {
+    static constexpr T default_value = v;
+    static constexpr bool idempotent = true;
+    T operator()(const T& a, const T& b) const { return gcd(a, b); }
+};
+template <class T, T v, typename R>
+constexpr const T gcd_f<T, v, R>::default_value;
+
 template <class T, class F = max_f<T>>
 using SparseTable = st_impl::SparseTable<T, F>;
 
@@ -232,7 +251,7 @@ void random_test(string target_func) {
     cout << "Begin random test on " << target_func << "!" << endl;
     int t = 10;
     for (int i = 0; i < t; ++i) {
-        int l = uniform_dist(eng) % n, r = l + uniform_dist(eng) % (n - l);
+        int l = uniform_dist(eng) % n, r = l + ((uniform_dist(eng) % (n - l)) >> (i / 2));
         auto to_verify = st_test.rangeQuery(l, r);
         auto expected = decltype(f)::default_value;
 
@@ -245,10 +264,36 @@ void random_test(string target_func) {
     cout << "Test passed!" << endl;
 }
 
+void regular_test() {
+    SparseTable<int> st_max({3, 1, 2, 5, 2, 10, 8});
+
+    assert(st_max.rangeQuery(0, 2) == 3);
+    assert(st_max.rangeQuery(3, 6) == 10);
+    assert(st_max.rangeQuery(0, 6) == 10);
+    assert(st_max.rangeQuery(2, 4) == 5);
+
+    SparseTable<int, min_f<int>> st_min({3, 1, 2, 5, 2, 10, 8});
+
+    assert(st_min.rangeQuery(0, 2) == 1);
+    assert(st_min.rangeQuery(3, 6) == 2);
+    assert(st_min.rangeQuery(0, 6) == 1);
+    assert(st_min.rangeQuery(2, 4) == 2);
+
+    SparseTable<int, sum_f<int>> st_sum({3, 1, 2, 5, 2, 10, 8});
+
+    assert(st_sum.rangeQuery(0, 2) == 6);
+    assert(st_sum.rangeQuery(3, 6) == 25);
+    assert(st_sum.rangeQuery(0, 6) == 31);
+    assert(st_sum.rangeQuery(2, 4) == 9);
+}
+
 int main() {
+    regular_test();
+
     random_test<max_f<int>>("max");
     random_test<min_f<int>>("min");
     random_test<sum_f<int>>("sum");
+    random_test<gcd_f<int>>("gcd");
 
     return 0;
 }

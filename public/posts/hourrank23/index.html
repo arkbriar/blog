@@ -284,6 +284,25 @@ struct min_f {
 template &lt;class T, T v, typename R&gt;
 constexpr const T min_f&lt;T, v, R&gt;::default_value;
 
+uint64_t gcd(uint64_t a, uint64_t b) {
+    if (a &lt; b) swap(a, b);
+    while (b != 0) {
+        auto t = b;
+        b = a % b;
+        a = t;
+    }
+    return a;
+}
+
+template &lt;class T, T v = T{}, typename = typename enable_if&lt;numeric_limits&lt;T&gt;::is_integer&gt;::type&gt;
+struct gcd_f {
+    static constexpr T default_value = v;
+    static constexpr bool idempotent = true;
+    T operator()(const T&amp; a, const T&amp; b) const { return gcd(a, b); }
+};
+template &lt;class T, T v, typename R&gt;
+constexpr const T gcd_f&lt;T, v, R&gt;::default_value;
+
 template &lt;class T, class F = max_f&lt;T&gt;&gt;
 using SparseTable = st_impl::SparseTable&lt;T, F&gt;;
 
@@ -308,7 +327,7 @@ void random_test(string target_func) {
     cout &lt;&lt; &quot;Begin random test on &quot; &lt;&lt; target_func &lt;&lt; &quot;!&quot; &lt;&lt; endl;
     int t = 10;
     for (int i = 0; i &lt; t; ++i) {
-        int l = uniform_dist(eng) % n, r = l + uniform_dist(eng) % (n - l);
+        int l = uniform_dist(eng) % n, r = l + ((uniform_dist(eng) % (n - l)) &gt;&gt; (i / 2));
         auto to_verify = st_test.rangeQuery(l, r);
         auto expected = decltype(f)::default_value;
 
@@ -321,10 +340,36 @@ void random_test(string target_func) {
     cout &lt;&lt; &quot;Test passed!&quot; &lt;&lt; endl;
 }
 
+void regular_test() {
+    SparseTable&lt;int&gt; st_max({3, 1, 2, 5, 2, 10, 8});
+
+    assert(st_max.rangeQuery(0, 2) == 3);
+    assert(st_max.rangeQuery(3, 6) == 10);
+    assert(st_max.rangeQuery(0, 6) == 10);
+    assert(st_max.rangeQuery(2, 4) == 5);
+
+    SparseTable&lt;int, min_f&lt;int&gt;&gt; st_min({3, 1, 2, 5, 2, 10, 8});
+
+    assert(st_min.rangeQuery(0, 2) == 1);
+    assert(st_min.rangeQuery(3, 6) == 2);
+    assert(st_min.rangeQuery(0, 6) == 1);
+    assert(st_min.rangeQuery(2, 4) == 2);
+
+    SparseTable&lt;int, sum_f&lt;int&gt;&gt; st_sum({3, 1, 2, 5, 2, 10, 8});
+
+    assert(st_sum.rangeQuery(0, 2) == 6);
+    assert(st_sum.rangeQuery(3, 6) == 25);
+    assert(st_sum.rangeQuery(0, 6) == 31);
+    assert(st_sum.rangeQuery(2, 4) == 9);
+}
+
 int main() {
+    regular_test();
+
     random_test&lt;max_f&lt;int&gt;&gt;(&quot;max&quot;);
     random_test&lt;min_f&lt;int&gt;&gt;(&quot;min&quot;);
     random_test&lt;sum_f&lt;int&gt;&gt;(&quot;sum&quot;);
+    random_test&lt;gcd_f&lt;int&gt;&gt;(&quot;gcd&quot;);
 
     return 0;
 }
