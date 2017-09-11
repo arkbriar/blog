@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hourrank on crazy.ark</title>
+    <link>https://blog.crazyark.me/tags/hourrank/</link>
+    <description>Recent content in Hourrank on crazy.ark</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Sep 2017 01:06:11 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.crazyark.me/tags/hourrank/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Two Algorithms -- Sparse Table, Parallel Binary Search</title>
+      <link>https://blog.crazyark.me/posts/hourrank23/</link>
+      <pubDate>Sun, 10 Sep 2017 01:06:11 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/hourrank23/</guid>
+      <description>不刷题不知道自己菜，越刷题越发现自己🙄 —— 记 HourRank23 被虐。 Sparse Table 还记得上两篇线段树和BIT都讲到了区间查找的问题，我们来回忆一下。 线段树空间支持各种</description>
+    </item>
+    
+  </channel>
+</rss>

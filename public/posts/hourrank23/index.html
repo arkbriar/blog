@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Two Algorithms -- Sparse Table, Parallel Binary Search &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.26" />
+
+
+<link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
+<link rel="stylesheet" href="https://blog.crazyark.me/css/github.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://blog.crazyark.me/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/external/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/posts">~/posts</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#sparse-table">Sparse Table</a>
+<ul>
+<li><a href="#核心原理">核心原理</a></li>
+</ul></li>
+<li><a href="#parallel-binary-search">Parallel Binary Search</a>
+<ul>
+<li><a href="#motivation-problem">Motivation Problem</a></li>
+<li><a href="#solution">Solution</a></li>
+</ul></li>
+<li><a href="#reference">Reference</a></li>
+<li><a href="#appendix">Appendix</a>
+<ul>
+<li><a href="#impl-st-c">Impl ST/C++</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://blog.crazyark.me/posts/hourrank23/">Two Algorithms -- Sparse Table, Parallel Binary Search</a></h1>
+      <span class="post-date">Sep 10, 2017 </span>
+      <div class="post-content">
+        
+
+<p>不刷题不知道自己菜，越刷题越发现自己🙄 —— 记 HourRank23 被虐。</p>
+
+<h3 id="sparse-table">Sparse Table</h3>
+
+<p>还记得上两篇线段树和BIT都讲到了区间查找的问题，我们来回忆一下。</p>
+
+<p>线段树空间支持各种函数(Associative，需要满足结合律)的区间更新和区间查询，空间复杂度是 O(nlgn)，更新和查询的时间复杂度都是 O(lgn)。</p>
+
+<p>BIT 支持任意群上加运算的单点更新/区间查询、区间更新/单点查询、区间查询/区间查询，空间复杂度是 O(n)，更新和查询的时间复杂度也都是 O(lgn) (其实取决于逆元构造速度)。</p>
+
+<p>而这里所要讲的 Sparse Table 是另一种支持区间查询的数据结构，针对的是<strong>不变的（immutable）的数组</strong>，其空间复杂度为 O(nlgn)。</p>
+
+<p>Sparse Table 同样支持各种函数，只要是满足结合律的函数一律都是支持的，对所有这样的函数，其时间复杂度为 O(nlgn)，而且思想和编码都非常简单易懂。</p>
+
+<p>更进一步地，如果<strong>函数是幂等 (Idemponent) 的，Sparse Table可以在O(1)内得到区间查询的结果</strong>。</p>
+
+<h4 id="核心原理">核心原理</h4>
+
+<p>假设有一个长度为 <code>$N$ 的数组 $\{a_0, ..., a_{N - 1}\}$</code>，并有一个二元函数 <code>$f$</code>，满足结合律 <code>$f(a, f(b, c)) = f(f(a, b), c)$</code>。</p>
+
+<p>我们简记区间 <code>$[i, j]$</code> 上对函数 <code>$f$</code> 的查询为 <code>$f(a[i..j])$</code>。</p>
+
+<p>那么 Sparse Table 将生成这样一个二维数组，这个二维数组的大小为 <code>$N(\lfloor\log N\rfloor + 1)$</code>。数组的第 <code>$(i, j)$</code> 项代表了区间结果 <code>$f(a[i, i + 2^j - 1])$</code>，记为 <code>$b_{i,j}$</code>。</p>
+
+<p>生成一个这样的二维数组是很简单的，因为 <code>$f(a[i, i + 2^j - 1]) = f(f(a[i,i+2^{j-1} - 1]), f(a[i + 2^{j-1}, i + 2^j - 1]))$</code>，而后面这两个分别是第 <code>$(i, j - 1)$</code> 项和第 <code>$(i + 2^{j - 1}, j - 1)$</code>项，并且 <code>$f(i, i) = a_i$</code>，所以我们一层层递推就行，过程如下</p>
+
+<pre><code class="language-pascal">// assuming Arr is indexed from 0
+for i=0..N-1: 
+  Table[i][0] = Arr[i]
+  
+// assuming N &lt; 2^(k+1)
+for j=1..k: 
+  for i=0..N-2^j:
+    Table[i][j] = F(Table[i][j - 1], Table[i + 2^(j - 1)][j - 1])
+</code></pre>
+
+<p>那么我们如何进行查询呢？因为对于一个区间 <code>$[i, j]$</code> 来说，区间长度 <code>$L = j - i + 1 \le N$</code> 恒成立，所以如果我们将 <code>$L$</code> 表示成二进制形式，<code>$L = 2^{q_k} + 2^{q_{k - 1}} + ... + 2^{q_0}$</code>，
+那么有</p>
+
+<p><code>$j = (\cdots((i + 2^{q_k} - 1) + 2^{q_{k - 1}} - 1) + ... + 2^{q_0}) - 1$</code>，这个表示形式是不是提醒你了呢？</p>
+
+<p>所以用以下过程我们可以在 O(lgN) 时间内得到准确结果:</p>
+
+<pre><code class="language-pascal">answer = ZERO 
+L’ = L
+for i=k..0:
+  if L’ + 2^i - 1 &lt;= R:
+    // F is associative, so this operation is meaningful
+    answer = F(answer, Table[L’][i]) 
+    L’ += 2^i
+</code></pre>
+
+<p>假设我们的函数 <code>$f$</code> 同时是幂等的，也就是说 <code>$f(x, x) = x$</code> 对所有定义域内的数都成立，那么我们马上就能得到</p>
+
+<p><code>$f(a[i..j]) = f(f(a[i..s], f(a[t..j])), i \le t, s \le j, t \le s + 1$</code>。</p>
+
+<p><strong>这条性质允许我们不用精确地只覆盖该区域一次，这是加速到 O(1) 的关键。</strong></p>
+
+<p>令 <code>$t$</code> 是满足 <code>$2^t \le (j - i + 1)$</code> 的最大的 <code>$t$</code>，也就是 <code>$2^{t + 1} &gt; (j - i + 1)$</code>。那么显然 <code>$i + 2^t - 1 \le j$，$j - 2^t + 1 \ge i$</code>，并且有 <code>$j - 2^t + 1 \le (i + 2^t - 1) + 1$</code> 恒成立。</p>
+
+<p>所以 <code>$f(a[i..j]) = f(f(i..i + 2^t - 1), f(j - 2^t + 1..j))$，后面两项就是 $b_{i, t}$ 和 $b_{j - 2^t, t}$</code>。</p>
+
+<p>至此原理介绍完毕，实现的代码在最后 Appendix 中。</p>
+
+<h3 id="parallel-binary-search">Parallel Binary Search</h3>
+
+<p>这是一个将二分查找运用到极致的算法。接下来的部分大量参考了codeforces上的博客，原文链接在文章的末尾，有兴趣的同学可以前去学习。</p>
+
+<h4 id="motivation-problem">Motivation Problem</h4>
+
+<p>TODO</p>
+
+<h4 id="solution">Solution</h4>
+
+<p>TODO</p>
+
+<h3 id="reference">Reference</h3>
+
+<p>[1] <a href="https://www.hackerearth.com/practice/notes/sparse-table/">https://www.hackerearth.com/practice/notes/sparse-table/</a></p>
+
+<p>[2] <a href="https://www.topcoder.com/community/data-science/data-science-tutorials/range-minimum-query-and-lowest-common-ancestor/#Sparse_Table_(ST)_algorithm">https://www.topcoder.com/community/data-science/data-science-tutorials/range-minimum-query-and-lowest-common-ancestor/#Sparse_Table_(ST)_algorithm</a></p>
+
+<p>[3] <a href="http://codeforces.com/blog/entry/45578">http://codeforces.com/blog/entry/45578</a></p>
+
+<p>[4] <a href="https://ideone.com/tTO9bD">https://ideone.com/tTO9bD</a></p>
+
+<h3 id="appendix">Appendix</h3>
+
+<h4 id="impl-st-c">Impl ST/C++</h4>
+
+<pre><code class="language-cpp">#include &lt;vector&gt;
+#include &lt;cassert&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+#include &lt;limits&gt;
+#include &lt;type_traits&gt;
+#include &lt;random&gt;
+using namespace std;
+
+namespace st_impl {
+
+template &lt;class T, class F&gt;
+class SparseTable {
+public:
+    typedef F func_type;
+    typedef unsigned size_type;
+    typedef T value_type;
+
+    SparseTable(const vector&lt;T&gt;&amp; init) : _size(init.size()), _idx_size(flsl(_size)) {
+        table.resize(_size);
+        for (auto&amp; row : table) {
+            row.resize(_idx_size, func_type::default_value);
+        }
+
+        // initialize sparse table
+        for (size_type i = 0; i &lt; _size; ++i) {
+            table[i][0] = init[i];
+        }
+        for (size_type j = 1; j &lt; _idx_size; ++j) {
+            for (size_type i = 0; i &lt;= _size - (1 &lt;&lt; j); ++i) {
+                table[i][j] = f(table[i][j - 1], table[i + (1 &lt;&lt; (j - 1))][j - 1]);
+            }
+        }
+    }
+
+    SparseTable(const initializer_list&lt;T&gt;&amp; init) : SparseTable(vector&lt;T&gt;(init)) {}
+
+    SparseTable(const vector&lt;T&gt;&amp; init, F f) : SparseTable(init) { this-&gt;f = f; }
+    SparseTable(const initializer_list&lt;T&gt;&amp; init, F f) : SparseTable(vector&lt;T&gt;(init), f) {}
+
+    T rangeQuery(size_type l, size_type r) const {
+        if (!(l &lt;= r &amp;&amp; r &lt; _size)) {
+            throw std::out_of_range(&quot;Bad query!&quot;);
+        }
+
+        // if the function is idempotent, which means f(x, x) = x holds for
+        // all x with definition, then we can deduce that
+        // f(range(l, s), range(t, r)) == f(range(l, r)) always
+        // holds for all l, s, t, r which satisfies l &lt;= t &amp;&amp; s &lt;= r &amp;&amp; t &lt;= s + 1
+        // then rangeQuery will be executed in O(1).
+        // otherwise it should be finished in O(lgN).
+        if (func_type::idempotent) {
+            size_type idx = flsl(r - l + 1) - 1;
+            return f(table[l][idx], table[r - (1 &lt;&lt; idx) + 1][idx]);
+        } else {
+            T res = func_type::default_value;
+            for (size_type i = 0; i &lt; _idx_size; ++i) {
+                size_type idx = _idx_size - 1 - i;
+                if (l + (1 &lt;&lt; idx) - 1 &lt;= r) {
+                    res = f(res, table[l][idx]);
+                    l += 1 &lt;&lt; idx;
+                }
+            }
+            return res;
+        }
+    }
+
+private:
+    func_type f;
+
+    size_type _size;
+    size_type _idx_size;
+    vector&lt;vector&lt;T&gt;&gt; table;
+};
+
+}  // namespace st_impl
+
+template &lt;class T, T v = T{}&gt;
+struct sum_f {
+    static constexpr T default_value = v;
+    static constexpr bool idempotent = false;
+    T operator()(const T&amp; a, const T&amp; b) const { return a + b; }
+};
+template &lt;class T, T v&gt;
+constexpr const T sum_f&lt;T, v&gt;::default_value;
+
+template &lt;class T, T v = numeric_limits&lt;T&gt;::min(),
+          typename = typename enable_if&lt;numeric_limits&lt;T&gt;::is_specialized&gt;::type&gt;
+struct max_f {
+    static constexpr T default_value = v;
+    static constexpr bool idempotent = true;
+    T operator()(const T&amp; a, const T&amp; b) const { return max(a, b); }
+};
+template &lt;class T, T v, typename R&gt;
+constexpr const T max_f&lt;T, v, R&gt;::default_value;
+
+template &lt;class T, T v = numeric_limits&lt;T&gt;::max(),
+          typename = typename enable_if&lt;numeric_limits&lt;T&gt;::is_specialized&gt;::type&gt;
+struct min_f {
+    static constexpr T default_value = v;
+    static constexpr bool idempotent = true;
+    T operator()(const T&amp; a, const T&amp; b) const { return min(a, b); }
+};
+template &lt;class T, T v, typename R&gt;
+constexpr const T min_f&lt;T, v, R&gt;::default_value;
+
+template &lt;class T, class F = max_f&lt;T&gt;&gt;
+using SparseTable = st_impl::SparseTable&lt;T, F&gt;;
+
+template &lt;class F&gt;
+void random_test(string target_func) {
+    int n = 400;
+    vector&lt;int&gt; test(n);
+
+    // generate random numbers
+    random_device r;
+    default_random_engine eng(r());
+    uniform_int_distribution&lt;int&gt; uniform_dist(0, 2000);
+
+    for (int i = 0; i &lt; n; ++i) {
+        test[i] = uniform_dist(eng);
+    }
+
+    // query and verify
+    F f;
+    SparseTable&lt;int, F&gt; st_test(test, f);
+
+    cout &lt;&lt; &quot;Begin random test on &quot; &lt;&lt; target_func &lt;&lt; &quot;!&quot; &lt;&lt; endl;
+    int t = 10;
+    for (int i = 0; i &lt; t; ++i) {
+        int l = uniform_dist(eng) % n, r = l + uniform_dist(eng) % (n - l);
+        auto to_verify = st_test.rangeQuery(l, r);
+        auto expected = decltype(f)::default_value;
+
+        for (int j = l; j &lt;= r; ++j) {
+            expected = f(expected, test[j]);
+        }
+        assert(to_verify == expected);
+        cout &lt;&lt; &quot; + query range(&quot; &lt;&lt; l &lt;&lt; &quot;,&quot; &lt;&lt; r &lt;&lt; &quot;)\t= &quot; &lt;&lt; to_verify &lt;&lt; endl;
+    }
+    cout &lt;&lt; &quot;Test passed!&quot; &lt;&lt; endl;
+}
+
+int main() {
+    random_test&lt;max_f&lt;int&gt;&gt;(&quot;max&quot;);
+    random_test&lt;min_f&lt;int&gt;&gt;(&quot;min&quot;);
+    random_test&lt;sum_f&lt;int&gt;&gt;(&quot;sum&quot;);
+
+    return 0;
+}
+</code></pre>
+
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://blog.crazyark.me/posts/binary_indexed_tree/"> Binary Indexed Tree </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://blog.crazyark.me/posts/hourrank23/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.26</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<style type="text/css" media="screen">
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax();
+    all.forEach(function(e) {
+        e.SourceElement().parentNode.className += ' has-jax';
+    });
+});
+</script>
+
+  
+  <script src="https://blog.crazyark.me/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>
