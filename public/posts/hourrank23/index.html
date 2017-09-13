@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="generator" content="Hugo 0.26" />
+<meta name="generator" content="Hugo 0.27" />
 
 
 <link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
@@ -66,6 +66,7 @@
 <li><a href="#sparse-table">Sparse Table</a>
 <ul>
 <li><a href="#核心原理">核心原理</a></li>
+<li><a href="#st-lca">ST &amp; LCA</a></li>
 </ul></li>
 <li><a href="#parallel-binary-search">Parallel Binary Search</a>
 <ul>
@@ -151,6 +152,12 @@ for i=k..0:
 <p>所以 <code>$f(a[i..j]) = f(f(i..i + 2^t - 1), f(j - 2^t + 1..j))$，后面两项就是 $b_{i, t}$ 和 $b_{j - 2^t, t}$</code>。</p>
 
 <p>至此原理介绍完毕，实现的代码在最后 Appendix 中。</p>
+
+<h4 id="st-lca">ST &amp; LCA</h4>
+
+<p>Sparse Table 不仅可以用于计算各种区间查询，还可以用于计算树上两个节点的最近公共祖先。使用ST可以在 O(2lgH) 的时间内计算出任意两个几点的最近公共祖先，空间复杂度还是 O(NlgN)，这里 N 是树上节点数，H 是树高度。</p>
+
+<p>其主要思想是用数组存放节点 i 的第 2^j 个祖先，然后搜索，具体细节有兴趣的同学可以参考 topcoder 上关于RMQ和LCA的那篇文章，链接在引用中，这里不再赘述。</p>
 
 <h3 id="parallel-binary-search">Parallel Binary Search</h3>
 
@@ -408,7 +415,7 @@ int main() {
     <p>
       <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
       {
-        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.26</a>,
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.27</a>,
         <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
       }
       {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
