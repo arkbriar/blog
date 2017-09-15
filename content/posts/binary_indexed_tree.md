@@ -67,8 +67,7 @@ for (int j = i; j > 0; j -= (j & -j)) {
 
 ```cpp
 for (int j = i; j < n; j += (j & -j)) {
-    // here we get all parents of node i,
-    // which is equal to the nodes cover i
+    // node j covers [i, i]
 }
 ```
 

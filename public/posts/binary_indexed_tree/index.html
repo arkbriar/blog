@@ -142,8 +142,7 @@ for (int j = i; j &gt; 0; j -= (j &amp; -j)) {
 <p>通过以下过程，获得所有覆盖区间[i, i]的节点，同时它们是节点i在补码中的父节点，稍后证明：</p>
 
 <pre><code class="language-cpp">for (int j = i; j &lt; n; j += (j &amp; -j)) {
-    // here we get all parents of node i,
-    // which is equal to the nodes cover i
+    // node j covers [i, i]
 }
 </code></pre>
 
