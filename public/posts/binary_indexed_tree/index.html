@@ -67,6 +67,7 @@
 <ul>
 <li><a href="#parent">Parent</a></li>
 <li><a href="#siblings">Siblings</a></li>
+<li><a href="#point-get">Point Get</a></li>
 <li><a href="#prefix-sum">Prefix Sum</a></li>
 <li><a href="#intervals-covers-i-i">Intervals Covers [i, i]</a></li>
 <li><a href="#parant-in-2-s-complement">Parant in 2&rsquo;s Complement</a></li>
@@ -101,17 +102,28 @@
 
 <h4 id="siblings">Siblings</h4>
 
-<p>假设我们有节点i，那么可以通过以下过程获取所有兄弟节点（父节点为同一个节点）。</p>
+<p>通过以下过程可以获得所有兄弟节点:</p>
 
-<pre><code class="language-cpp">int z = i - (i &amp; -i);
+<pre><code class="language-cpp">for (int j = 1; j &lt; (i &amp; -i); j &lt;&lt;= 1) {
+    // z is a sibling of i
+    int z = i + j;
+}
+</code></pre>
+
+<h4 id="point-get">Point Get</h4>
+
+<p>假设我们有节点i，那么可以通过以下过程获取数组i的值：</p>
+
+<pre><code class="language-cpp">int res = bit[i];
+int z = i - (i &amp; -i);
 int j = i - 1;
 while (j != z) {
-    // here j is a direct children of i
+    res -= bit[j];
     j = j - (j &amp; -j);
 }
 </code></pre>
 
-<p>上述过程即把 i - 1 的末尾的连续的1一步步移除。</p>
+<p>上述过程即把 i - 1 的末尾的连续的1一步步移除，也就是求了 sum(i - (i &amp; -i), i - 1)，然后用i节点的和减去就得到了数组项i的值。</p>
 
 <h4 id="prefix-sum">Prefix Sum</h4>
 
@@ -145,13 +157,13 @@ for (int j = i; j &gt; 0; j -= (j &amp; -j)) {
 
 <p>不妨设这里是32位的环境，大家还记得负数 -i 的二进制表示么？对，就是 2^32 - i，所以我们有 i &amp; -i = i &amp; (2^32 - i)，这样我们可以从有符号数转换到无符号数的操作。</p>
 
-<p>还记得上述获取兄弟节点的操作，i + (i &amp; -i)，我们用 j = 2^32 - i 来重新组织一下这个式子：</p>
+<p>还记得上述获取下一个覆盖i的节点的操作，i + (i &amp; -i)，我们用 j = 2^32 - i 来重新组织一下这个式子：</p>
 
 <p>i + (i &amp; -i) = 2^32 - (j - (j &amp; (2 ^32 - j))),</p>
 
 <p>我们把它也映射成补码，2^32 - i - (i &amp; -i) = j - (j &amp; (2 ^32 - j))</p>
 
-<p>十分熟悉了吧？就是j去掉最后一位1的操作，我们也可以把它看做一个找父节点的操作，公共祖先也是0。现在就可以清楚地看到了，其实 i + (i &amp; -i) 的操作在补码中是一个对称的求父节点操作，原来的求父节点操作 i - (i &amp; -i) 同理为兄弟节点的对称操作。</p>
+<p>十分熟悉了吧？就是j去掉最后一位1的操作，我们也可以把它看做一个找父节点的操作，公共祖先也是0。现在就可以清楚地看到了，其实 i + (i &amp; -i) 的操作在补码中是一个对称的求父节点操作，原来的求父节点操作 i - (i &amp; -i) 同理为对称操作。</p>
 
 <h4 id="suffix-bit">Suffix BIT</h4>
 
