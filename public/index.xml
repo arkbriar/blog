@@ -6,10 +6,19 @@
     <description>Recent content on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Sep 2017 01:06:11 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 26 Sep 2017 22:26:08 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.crazyark.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Maximum Matching</title>
+      <link>https://blog.crazyark.me/posts/maximum_matching/</link>
+      <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/maximum_matching/</guid>
+      <description>上几篇博文主要是关于范围更新和范围查询的几个数据结构，接下去的主题是图论和图算法，希望能够学习和回忆起大部分图算法。 今天遇到一个问题，可以转</description>
+    </item>
     
     <item>
       <title>Sparse Table &amp; Parallel Binary Search</title>

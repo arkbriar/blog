@@ -102,6 +102,15 @@
     </item>
     
     <item>
+      <title>Graph</title>
+      <link>https://blog.crazyark.me/tags/graph/</link>
+      <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/tags/graph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Graph Theory</title>
       <link>https://blog.crazyark.me/tags/graph-theory/</link>
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
@@ -120,11 +129,38 @@
     </item>
     
     <item>
+      <title>Halls Marriage Theorem</title>
+      <link>https://blog.crazyark.me/tags/halls-marriage-theorem/</link>
+      <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/tags/halls-marriage-theorem/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hopcraft Karp Algorithm</title>
+      <link>https://blog.crazyark.me/tags/hopcraft-karp-algorithm/</link>
+      <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/tags/hopcraft-karp-algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Hourrank</title>
       <link>https://blog.crazyark.me/tags/hourrank/</link>
       <pubDate>Sun, 10 Sep 2017 01:06:11 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/tags/hourrank/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hungarian Algorithm</title>
+      <link>https://blog.crazyark.me/tags/hungarian-algorithm/</link>
+      <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/tags/hungarian-algorithm/</guid>
       <description></description>
     </item>
     
@@ -170,6 +206,15 @@
       <pubDate>Wed, 06 Sep 2017 21:16:06 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/tags/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Maximum Matching</title>
+      <link>https://blog.crazyark.me/tags/maximum-matching/</link>
+      <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/tags/maximum-matching/</guid>
       <description></description>
     </item>
     
