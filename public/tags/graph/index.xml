@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>Maximum Matching</title>
-      <link>https://blog.crazyark.me/posts/maximum_matching/</link>
+      <title>Maximum Matching in Bipartite Graph</title>
+      <link>https://blog.crazyark.me/posts/maximum_matching_in_bipartite_graph/</link>
       <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
       
-      <guid>https://blog.crazyark.me/posts/maximum_matching/</guid>
+      <guid>https://blog.crazyark.me/posts/maximum_matching_in_bipartite_graph/</guid>
       <description>上几篇博文主要是关于范围更新和范围查询的几个数据结构，接下去的主题是图论和图算法，希望能够学习和回忆起大部分图算法。 今天遇到一个问题，可以转</description>
     </item>
     

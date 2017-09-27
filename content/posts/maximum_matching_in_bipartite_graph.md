@@ -1,9 +1,9 @@
 ---
-title: "Maximum Matching"
+title: "Maximum Matching in Bipartite Graph"
 date: 2017-09-26T22:26:08+08:00
 draft: false
 categories: ["Development", "Algorithm", "Graph Theory"]
-tags: ["maximum matching", "graph", "hungarian algorithm", "hopcraft-karp algorithm", "hall's marriage theorem"]
+tags: ["maximum matching", "graph", "hungarian algorithm", "hopcraft-karp algorithm", "hall's marriage theorem", "bipartite graph"]
 toc: true
 comments: true
 ---
@@ -31,18 +31,9 @@ comments: true
 首先，因为 `$G$` 是连通图，所以 `$\forall u \in X, deg(u) >= 1$`。
 那么 `$\forall W \subset X$`， `$\max\limits_{u \in W}\{deg(u)\} \ge |S|$`，满足 Hall's Marriage Theorem，得证。
 
-### Hungarian Algorithm
+### Edmonds-Karp Algorithm
 
-匈牙利算法本质上来说是解一个任务分配问题的算法(Assignment Problem)，其对应的图模型为带权完全二部图，求解目标为最小完美匹配。
-
-
-TODO 
-
-#### Alternating Path & Augmenting Path
-
-
-#### Match is Maximum iff. No Augmenting Path
-
+Edmonds-Karp 算法是
 
 #### Pseudocode
 
@@ -129,7 +120,7 @@ function Hopcroft-Karp
 
 假如我们一条一条添加，也就是按照耗时顺序添加，那么最坏情况一共要判定 `$n^2$` 次，这太高了，这里数据比较小还可以，但是万一n大到1000就难说了。
 
-还记得之前我们提过的减小判定次数的方式嘛？对，二分查找，一共判定 `$\log n$` 次。
+还记得之前我们提过的减小判定次数的方式嘛？对，二分查找，一共判定 `$2\log n$` 次。
 
 在这里，我们同时也存在模拟复杂度，这里模拟为构造对应的二部图，每次构造的最坏时间复杂度为 `$n^2$`，所以总计时间复杂度为 `$\mathcal{O}(n^3\log n)$` 或者 `$\mathcal{O}(n^2\sqrt{n}\log n)$`。
 
@@ -141,9 +132,13 @@ function Hopcroft-Karp
 
 [2] https://math.stackexchange.com/questions/1204270/bipartite-graph-has-perfect-matching
 
-[3] https://www.topcoder.com/community/data-science/data-science-tutorials/assignment-problem-and-hungarian-algorithm/
+[3] https://en.wikipedia.org/wiki/Matching_(graph_theory)
 
 [4] https://en.wikipedia.org/wiki/Hopcroft%E2%80%93Karp_algorithm
+
+[5] https://www.topcoder.com/community/data-science/data-science-tutorials/maximum-flow-augmenting-path-algorithms-comparison/
+
+[6] http://www.csl.mtu.edu/cs4321/www/Lectures/Lecture%2022%20-%20Maximum%20Matching%20in%20Bipartite%20Graph.htm
 
 ### Appendix
 
@@ -334,7 +329,8 @@ int main() {
     sort(d, d + n * n);
     int l = 0, r = n * n - 1;
     // binary search
-    // time complexity: O(n^3lgn)
+    // time complexity: O(n^3lgn) for hungarian,
+    // O(n^2√n * lgn) for hopcroft-karp
     while (l < r && d[l].first != d[r].first) {
         // replay
         rep(i, n) { edges[i].clear(); }
