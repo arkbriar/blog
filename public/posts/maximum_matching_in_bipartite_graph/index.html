@@ -67,8 +67,10 @@
 <ul>
 <li><a href="#deduction-1-1">Deduction 1 [1]</a></li>
 </ul></li>
-<li><a href="#edmonds-karp-algorithm">Edmonds-Karp Algorithm</a>
+<li><a href="#hungarian-algorithm">Hungarian Algorithm</a>
 <ul>
+<li><a href="#alternating-path-augmenting-path">Alternating Path &amp; Augmenting Path</a></li>
+<li><a href="#theorem-of-augmenting-path">Theorem of Augmenting Path</a></li>
 <li><a href="#pseudocode">Pseudocode</a></li>
 </ul></li>
 <li><a href="#hopcroft-karp-algorithm">Hopcroft-Karp Algorithm</a>
@@ -115,11 +117,83 @@
 <p>首先，因为 <code>$G$</code> 是连通图，所以 <code>$\forall u \in X, deg(u) &gt;= 1$</code>。
 那么 <code>$\forall W \subset X$</code>， <code>$\max\limits_{u \in W}\{deg(u)\} \ge |S|$</code>，满足 Hall&rsquo;s Marriage Theorem，得证。</p>
 
-<h3 id="edmonds-karp-algorithm">Edmonds-Karp Algorithm</h3>
+<h3 id="hungarian-algorithm">Hungarian Algorithm</h3>
 
-<p>Edmonds-Karp 算法是</p>
+<p>事实上，我对照着找了半天，并没有找到一个叫匈牙利算法 (Hungarian Algorithm) 的用于二部图最大匹配的算法，唯一找到的 Hungarian Algorithm 是用于任务分配问题 (Assignment Problem)，也就是带权二部图的最大匹配。</p>
+
+<p>由于最大匹配问题与最大流问题能够很容易的互相转换，所以同时我也找到了许多思想类似甚至一致的算法，如 Ford-Fulkerson Algorihtm，Edmonds-Karp Algorithm 等。</p>
+
+<p>至于匈牙利算法这个名字是哪本书上提出的，我已经记不太清了 &hellip; 应该是某本学习过的图论书，在此主要讲一下它的具体思想和证明。</p>
+
+<h4 id="alternating-path-augmenting-path">Alternating Path &amp; Augmenting Path</h4>
+
+<p>假设我们有一个二部图 <code>$G(U + V, E)$</code>，现在有一个匹配 <code>$M \subset E$</code>，此时如果 <code>$M$</code> 中的边上的点集中不存在一个点，我们就说该点是未匹配的，未匹配边的定义类似。</p>
+
+<p>交替路径 (alternating path)：从一个未匹配点出发，经过未匹配边、匹配边、未匹配边&hellip;这样交替的路径叫做交替路径。
+增广路径 (augmenting path)：从 <code>$U$</code> 中一个未匹配点出发，到达 <code>$V$</code> 中一个未匹配点的<strong>交替路</strong>叫做增广路径。</p>
+
+<p>显然，由增广路径的定义，可以知道增广路径上未匹配边比匹配边要多一条，并且将这条路径上所有未匹配边改为匹配边，匹配边改为未匹配边，则修改后的匹配 <code>$M'$</code> 比原来大1。</p>
+
+<h4 id="theorem-of-augmenting-path">Theorem of Augmenting Path</h4>
+
+<p>一个匹配 <code>$M$</code> 是最大匹配当且仅当那么在图 <code>$G$</code> 上不存在增广路径。</p>
+
+<p>证明如下：</p>
+
+<p>假设存在一条增广路径，<code>$M$</code> 显然不是最大的。所以我们只需要证明当不存在增广路径时，<code>$M$</code> 是最大的。</p>
+
+<p>假设存在一个匹配 <code>$M$</code>，不存在增广路径并且 <code>$M$</code> 不是最大匹配，我们令 <code>$M^*$</code> 为 <code>$G$</code> 上的一个最大匹配，显然 <code>$|M^*| &gt; |M|$</code>。</p>
+
+<p>所以同时有 <code>$|M^* - M| &gt; |M - M^*|$</code>。</p>
+
+<p>考察所有在 <code>$M^*$</code> 和 <code>$M$</code> 对称差 (<code>$M^* \cup M - M^* \cap M$</code>) 中的边，令 <code>$G'$</code> 是由点 <code>$U + V$</code> 和上述边构成的图。</p>
+
+<p>因为 <code>$G'$</code> 中的边是来自两个匹配，所以 <code>$G'$</code> 上任意一个点最多与两条边相连。</p>
+
+<p>因此，对于 <code>$G'$</code> 上的任意联通分支，只可能是一条路或者一个环，并且边的数目是偶数，并且路或者环上对于 <code>$M^* - M$</code> 或者 <code>$M - M^*$</code> 一定构成交替路。</p>
+
+<p>因为 <code>$|M^* - M| &gt; |M - M^*|$</code> 并且环都是偶数条边，所以一定有一条路，它的边，它的起点和终点都在 <code>$M^* - M$</code> 中，且 <code>$M^* - M$</code> 和 <code>$M - M^*$</code> 交替构成，显然这条路对于 <code>$M$</code> 构成增广路径，矛盾！</p>
+
+<p>得证。</p>
 
 <h4 id="pseudocode">Pseudocode</h4>
+
+<p>匈牙利算法有两种实现，分别基于 DFS 和 BFS，时间复杂度都是 <code>$\mathcal{O}(|V||E|)$</code>。</p>
+
+<p>下面是 BFS 版本的伪代码：</p>
+
+<pre><code class="language-pascal">Algorithm MaximumBigartiteMatching(G)
+    initialize set M of edges // can be the empty set
+    initialize queue Q with all the free vertices in V
+    while not Empty(Q) do
+        w ← Front(Q)
+        if w ε V then
+            for every vertex u adjacent to w do // u must be in U
+                if u is free then // augment
+                    M ← M union (w, u)
+                    v ← w
+                    while v is labeled do // follow the augmenting path
+                        u ← label of v
+                        M ← M - (v, u)  // (v, u) was in previous M
+                        v ← label of u
+                        M ← M union (v, u) // add the edge to the path
+                    // start over
+                    remove all vertex labels
+                    reinitialize Q with all the free vertices in V
+                    break // exit the for loop
+                else // u is matched
+                    if (w, u) not in M and u is unlabeled then
+                    label u with w // represents an edge in E-M
+                    Enqueue(Q, u)
+                    // only way for a U vertex to enter the queue
+         
+        else // w ε U and therefore is matched with v
+            v  ←  w's mate // (w, v) is in M
+            label v with w // represents in M
+            Enqueue(Q, v) // only way for a mated v to enter Q
+</code></pre>
+
+<p>相比于 BFS，DFS 版本的匈牙利算法更容易实现，它 C++ 代码可以参考附录。</p>
 
 <h3 id="hopcroft-karp-algorithm">Hopcroft-Karp Algorithm</h3>
 

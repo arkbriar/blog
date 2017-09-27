@@ -31,11 +31,84 @@ comments: true
 首先，因为 `$G$` 是连通图，所以 `$\forall u \in X, deg(u) >= 1$`。
 那么 `$\forall W \subset X$`， `$\max\limits_{u \in W}\{deg(u)\} \ge |S|$`，满足 Hall's Marriage Theorem，得证。
 
-### Edmonds-Karp Algorithm
+### Hungarian Algorithm
 
-Edmonds-Karp 算法是
+事实上，我对照着找了半天，并没有找到一个叫匈牙利算法 (Hungarian Algorithm) 的用于二部图最大匹配的算法，唯一找到的 Hungarian Algorithm 是用于任务分配问题 (Assignment Problem)，也就是带权二部图的最大匹配。
+
+由于最大匹配问题与最大流问题能够很容易的互相转换，所以同时我也找到了许多思想类似甚至一致的算法，如 Ford-Fulkerson Algorihtm，Edmonds-Karp Algorithm 等。
+
+至于匈牙利算法这个名字是哪本书上提出的，我已经记不太清了 ... 应该是某本学习过的图论书，在此主要讲一下它的具体思想和证明。
+
+#### Alternating Path & Augmenting Path
+
+假设我们有一个二部图 `$G(U + V, E)$`，现在有一个匹配 `$M \subset E$`，此时如果 `$M$` 中的边上的点集中不存在一个点，我们就说该点是未匹配的，未匹配边的定义类似。
+
+交替路径 (alternating path)：从一个未匹配点出发，经过未匹配边、匹配边、未匹配边...这样交替的路径叫做交替路径。
+增广路径 (augmenting path)：从 `$U$` 中一个未匹配点出发，到达 `$V$` 中一个未匹配点的**交替路**叫做增广路径。
+
+显然，由增广路径的定义，可以知道增广路径上未匹配边比匹配边要多一条，并且将这条路径上所有未匹配边改为匹配边，匹配边改为未匹配边，则修改后的匹配 `$M'$` 比原来大1。
+
+#### Theorem of Augmenting Path
+
+一个匹配 `$M$` 是最大匹配当且仅当那么在图 `$G$` 上不存在增广路径。
+
+证明如下：
+
+假设存在一条增广路径，`$M$` 显然不是最大的。所以我们只需要证明当不存在增广路径时，`$M$` 是最大的。
+
+假设存在一个匹配 `$M$`，不存在增广路径并且 `$M$` 不是最大匹配，我们令 `$M^*$` 为 `$G$` 上的一个最大匹配，显然 `$|M^*| > |M|$`。
+
+所以同时有 `$|M^* - M| > |M - M^*|$`。
+
+考察所有在 `$M^*$` 和 `$M$` 对称差 (`$M^* \cup M - M^* \cap M$`) 中的边，令 `$G'$` 是由点 `$U + V$` 和上述边构成的图。
+
+因为 `$G'$` 中的边是来自两个匹配，所以 `$G'$` 上任意一个点最多与两条边相连。
+
+因此，对于 `$G'$` 上的任意联通分支，只可能是一条路或者一个环，并且边的数目是偶数，并且路或者环上对于 `$M^* - M$` 或者 `$M - M^*$` 一定构成交替路。
+
+因为 `$|M^* - M| > |M - M^*|$` 并且环都是偶数条边，所以一定有一条路，它的边，它的起点和终点都在 `$M^* - M$` 中，且 `$M^* - M$` 和 `$M - M^*$` 交替构成，显然这条路对于 `$M$` 构成增广路径，矛盾！
+
+得证。
 
 #### Pseudocode
+
+匈牙利算法有两种实现，分别基于 DFS 和 BFS，时间复杂度都是 `$\mathcal{O}(|V||E|)$`。
+
+下面是 BFS 版本的伪代码：
+
+```pascal
+Algorithm MaximumBigartiteMatching(G)
+    initialize set M of edges // can be the empty set
+    initialize queue Q with all the free vertices in V
+    while not Empty(Q) do
+        w ← Front(Q)
+        if w ε V then
+            for every vertex u adjacent to w do // u must be in U
+                if u is free then // augment
+                    M ← M union (w, u)
+                    v ← w
+                    while v is labeled do // follow the augmenting path
+                        u ← label of v
+                        M ← M - (v, u)  // (v, u) was in previous M
+                        v ← label of u
+                        M ← M union (v, u) // add the edge to the path
+                    // start over
+                    remove all vertex labels
+                    reinitialize Q with all the free vertices in V
+                    break // exit the for loop
+                else // u is matched
+                    if (w, u) not in M and u is unlabeled then
+                    label u with w // represents an edge in E-M
+                    Enqueue(Q, u)
+                    // only way for a U vertex to enter the queue
+         
+        else // w ε U and therefore is matched with v
+            v  ←  w's mate // (w, v) is in M
+            label v with w // represents in M
+            Enqueue(Q, v) // only way for a mated v to enter Q
+```
+
+相比于 BFS，DFS 版本的匈牙利算法更容易实现，它 C++ 代码可以参考附录。
 
 ### Hopcroft-Karp Algorithm
 
