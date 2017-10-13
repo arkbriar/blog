@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Game Theory &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.29" />
+
+
+<link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
+<link rel="stylesheet" href="https://blog.crazyark.me/css/github.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://blog.crazyark.me/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/external/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/posts">~/posts</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#take-away-games">Take-Away Games</a>
+<ul>
+<li><a href="#a-simple-take-away-game">A Simple Take-Away Game</a></li>
+<li><a href="#combinatorial-game">Combinatorial Game</a></li>
+<li><a href="#p-positions-n-positions">P-positions，N-positions</a></li>
+<li><a href="#subtraction-games">Subtraction Games</a></li>
+</ul></li>
+<li><a href="#the-game-of-nim">The Game of Nim</a>
+<ul>
+<li><a href="#nim-sum-bouton-s-theorem">Nim-Sum &amp; Bouton&rsquo;s Theorem</a></li>
+<li><a href="#mis-ere-nim">Mis`ere Nim</a></li>
+</ul></li>
+<li><a href="#graph-games">Graph Games</a>
+<ul>
+<li><a href="#sprague-grundy-function">Sprague-Grundy Function</a></li>
+<li><a href="#the-use-of-the-sprague-grundy-function">The Use of the Sprague-Grundy Function</a></li>
+</ul></li>
+<li><a href="#sums-of-combinatorial-games">Sums of Combinatorial Games</a>
+<ul>
+<li><a href="#the-sprague-grundy-theorem">The Sprague-Grundy Theorem</a></li>
+</ul></li>
+<li><a href="#green-hackenbush">Green Hackenbush</a></li>
+<li><a href="#a-problem">A Problem</a></li>
+<li><a href="#references">References</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://blog.crazyark.me/posts/game_theory/">Game Theory</a></h1>
+      <span class="post-date">Oct 11, 2017 </span>
+      <div class="post-content">
+        
+
+<p>上回说到接下来都是图算法&hellip; 这个，我食个言 🙃</p>
+
+<p>做题目碰到了博弈论，对这方面我真是完全不了解，还是要学习一个。本篇文章主要介绍组合游戏中的 Impartial Combinatorial Games，结构和内容均参考自 CMU Thomas S. Ferguson 教授的博弈论讲稿，结合我自己的思考。</p>
+
+<h3 id="take-away-games">Take-Away Games</h3>
+
+<p>组合游戏是指一种两个玩家的游戏，每个玩家都有着完全的信息，不存在随机动作，游戏的结果总是赢或者输。游戏的每一个步骤由一个移动构成，通常玩家会交替地进行移动，直到达到终止状态。终止状态是指从该状态不存在任何一个状态移动方式的状态。</p>
+
+<p>显然，游戏的结果从一开始就被决定了，结果由游戏的状态集合、游戏初始状态以及玩家的先后手完全确定。</p>
+
+<p>组合游戏的形式有两种，这里我们主要讨论其中的一种游戏形式 Impartial Combinatorial Games，以下简称 ICG。ICG 是指在游戏中，两个玩家所能进行的移动是完全相同的。对应的另一种形式 Partizan Combinatorial Games 就是指两个玩家分别有不同的移动，比如说我们熟知的象棋。</p>
+
+<h4 id="a-simple-take-away-game">A Simple Take-Away Game</h4>
+
+<p>我们来看一个简单的小游戏：</p>
+
+<ol>
+<li>假设我们有两个玩家，标记为 I 和 II</li>
+<li>假设桌子上有一堆碎片，总计21个</li>
+<li>每一次移动对应于从碎片堆中取出1或2或3个碎片</li>
+<li>从玩家 I 开始，两个玩家轮流移动</li>
+<li>最后一个移走碎片的玩家获胜</li>
+</ol>
+
+<p>这个游戏足够简单，很容易就得知玩家I总是能获胜。但是如果我们把碎片数目改成 n，我们是否也能确定最终是谁获胜呢？</p>
+
+<p>显然，如果n在1到3之间，玩家 I 总是能获胜。假设现在场上的碎片数是n，并且是玩家 I 的回合。那么假设玩家 I 取走了m片碎片，场上剩余 n - m 片碎片。</p>
+
+<p>显然，如果玩家 II 能够确定对所有合法的 m，他能够在所有 n - m 的情况下都必胜，那么玩家 I 必败，否则玩家 I 必胜。</p>
+
+<p>注意到这里玩家 II 和玩家 I 一样拥有完全的信息，其实也就是问先手条件下的玩家 I 能不能对所有 n - m 都必胜，那么显然一个 bottom-up 或者 top-down 的动态规划能很容易地回答上述问题。</p>
+
+<h4 id="combinatorial-game">Combinatorial Game</h4>
+
+<p>现在我们来形式化地定义一个组合游戏：</p>
+
+<ol>
+<li>两个玩家构成的游戏</li>
+<li>游戏有一个状态集合，表示游戏过程中所有可能状态，通常是有穷的</li>
+<li>游戏的规则描述了在某个状态下玩家移动到下一个状态的合法移动，如果规则对两个玩家是相同的，就是 impartial 的，否则是 partizan 的</li>
+<li>玩家交替移动</li>
+<li>当玩家移动到一个状态，下一个移动的玩家没有可行的移动时，游戏结束；
+
+<ul>
+<li>在通常的游戏规则下，最后一个移动的玩家获胜</li>
+<li>另一种规则叫做 mis`ere play rule，最后一个移动的玩家失败；这个规则极大地提高的分析的难度</li>
+</ul></li>
+<li>游戏无论怎么进行，始终能在有限步内结束</li>
+</ol>
+
+<p>注意游戏假设两个玩家都是足够聪明的玩家，不允许任何随机移动的存在。</p>
+
+<h4 id="p-positions-n-positions">P-positions，N-positions</h4>
+
+<p>在上述简单的 Take-Away 游戏里，游戏的状态就是桌子上剩余的碎片数。可以看到，桌子上剩余的碎片数决定了哪个玩家能够最终获胜。更普遍的，游戏的当前状态决定了玩家的获胜情况。</p>
+
+<p>对于一个游戏状态，我们定义它为</p>
+
+<ol>
+<li>P-position，在该状态，上一个移动的玩家(<strong>P</strong>revious player)能够获胜，也就是后手必胜</li>
+<li>N-position，在该状态，下一个移动的玩家(<strong>N</strong>ext player)能够获胜，也就是先手必胜</li>
+</ol>
+
+<p>上述游戏中，1、2、3、5、6 &hellip; 都是 N-position，0、4、8、12、16 &hellip;都是 P-position。</p>
+
+<p>显然，由定义可知：</p>
+
+<ol>
+<li>对于每一个 P-position，对于任何一个合法的移动下的下一个状态一定是一个 N-position</li>
+<li>对于每一个 N-position，一定存在一个合法移动，使得下一个状态是 P-position</li>
+</ol>
+
+<p>对于上述的游戏，状态对应的 N、P 如下：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">x</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+<th align="center">&hellip;</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">position</td>
+<td align="center">P</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">P</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">P</td>
+<td align="center">N</td>
+<td align="center">&hellip;</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="subtraction-games">Subtraction Games</h4>
+
+<p>我们来看一个更难一点的问题。令 S 是一个正整数的集合，n 是一个比较大的正整数。假设桌上有一堆碎片，总计n个，两个玩家轮流从中取出x个，这里x必须是S中的某个数，最后取的玩家获胜。</p>
+
+<p>通过状态对应的 N、P 分析，我们可以轻松的得出所有状态下结果。</p>
+
+<h3 id="the-game-of-nim">The Game of Nim</h3>
+
+<p>Take-Away 游戏中最出名的一类游戏叫做 Nim 游戏，它的游戏规则如下：</p>
+
+<ol>
+<li>假设现在有三堆碎片，分别为 x1，x2, x3</li>
+<li>两个玩家轮流取碎片，每次必须从其中的一堆取至少一个碎片，最多不能超过选择的堆</li>
+<li>最后一个取碎片的玩家获胜</li>
+</ol>
+
+<p>Nim 游戏不一定是三堆的，可以使其他的数目，为了方便起见，我们用三堆的特例来分析。</p>
+
+<p>我们将状态表示为一个三元对 (a, b, c)，每个数表示对应的堆剩余的碎片数。</p>
+
+<p>显然，终止状态是 (0, 0, 0)，它是一个 P-pos。</p>
+
+<ol>
+<li><p>对于只剩一个一堆的 Nim 游戏 (0, 0, x), x &gt; 0，显然先手必胜，也就是一个 N-pos。</p></li>
+
+<li><p>对于两堆的 Nim 游戏，所有 (0, x, x) 的点都是 N-pos，其余点都是 P-pos：假设初始状态为 (0, x, x)，也就是说两堆相等，先手的玩家必须取走一些碎片，使得场上碎片数不相等，后手的玩家通过取走另一堆里相同数目的碎片可以恢复场上相等的条件，最终后手玩家一定胜利。</p></li>
+
+<li><p>对于三堆的 Nim 游戏，就很难做一个简单分析了，接下去我们将介绍一个优美的分析方法，它将轻易的分析任意 Nim 游戏。</p></li>
+</ol>
+
+<h4 id="nim-sum-bouton-s-theorem">Nim-Sum &amp; Bouton&rsquo;s Theorem</h4>
+
+<p>对于一个有 m 个堆的 Nim 游戏，假设场上碎片数为 x1, x2, x3 &hellip; xm，那么 (x1, x2, x3 &hellip; xm) 是一个 P-pos 当且仅当 x1 ^ x2 ^ x3 &hellip; ^ xm = 0，这里 ^ 为异或操作，异或和在这里被称为是 <strong>Nim-Sum</strong>。</p>
+
+<p>上述定理被称为是 <strong>Bouton&rsquo;s Theorem</strong>。</p>
+
+<p>这里先介绍几个异或操作的性质：</p>
+
+<ol>
+<li>自反，x ^ x = 0</li>
+<li>结合律，a ^ (b ^ c) = (a ^ b) ^ c</li>
+<li>交换律 a ^ b = b ^ a</li>
+</ol>
+
+<p>下面我们来证明上述定理。对该定理的证明，我们只需要验证上述 P、N -pos 的几个条件就可以了：</p>
+
+<ol>
+<li>所有终止点都是 P-pos，因为我们只有终止点 (0, 0, &hellip; 0)，所以显然。</li>
+<li>对每个 N-pos，存在一个移动使得下一个状态时是P-pos。假设当前状态为 (x1, x2, x3 &hellip;, xm), Nim-Sum 为 a = x1 ^ x2 ^ x3 &hellip; ^ xm，且 a 不等于 0。假设 a 的二进制最高位为第 k 位，那么 x1, x2 &hellip; xm 所有数中第 k 位为 1 的数的个数是奇数，也就是说其中一定存在一个数，第 k 位为 1。不失一般性，假设是 x1。那么令 x1&rsquo; 为 x1 在 k 之后的高位、k位 为 0、a 在 k 之后的地位拼接而成的数，显然 x1&rsquo; &lt; x1，所以 (x1, x2, x3 &hellip;, xm) 到 (x1&rsquo;, x2, x3 &hellip;, xm) 是一个合法的移动。此时 x1&rsquo; ^ x2 ^ x3 &hellip; ^ xm = a ^ x1&rsquo; ^ x1 = 0，(x1&rsquo;, x2, x3 &hellip;, xm) 是一个 P-pos。</li>
+<li>对每个 P-pos，每一个移动都是到 N-pos。这里反证就行。</li>
+</ol>
+
+<p>证毕。</p>
+
+<h4 id="mis-ere-nim">Mis`ere Nim</h4>
+
+<p>对于 Mis`ere 规则下的 Nim 游戏，Bouton 给出了玩法：</p>
+
+<ol>
+<li>当前场上还有至少两堆大于1的碎片时，和正常规则一样移动</li>
+<li>否则场上只剩一堆大于1的碎片，从这一堆里取，使得堆里剩余0或者1个碎片，从而保证场上还剩奇数个堆，每个堆只有一个1碎片，从而必胜。</li>
+</ol>
+
+<h3 id="graph-games">Graph Games</h3>
+
+<p>终于介绍到这里了，这一节将介绍一种 Impartial Combinatorial Games 中的重要的分析手段，叫做 Sprague-Grundy function。</p>
+
+<p>首先我们先把游戏转换成一个有向图G(X, F)，其中 X 是游戏中所有状态的集合，F 表示状态之间的移动关系，令 x 表示一个状态，那么 F(x) 表示在 x 状态下的下一个合法状态，也就代表了移动的集合。</p>
+
+<p>如果对于节点x，F(x) 是空集，那么 x 就是一个终止节点。</p>
+
+<p>为了分析方便起见，我们假设这样的图游戏是<strong>渐进有界</strong>的：存在一个整数n，使得图上任何一条路径是的长度不超过n。</p>
+
+<h4 id="sprague-grundy-function">Sprague-Grundy Function</h4>
+
+<p>定义图 G(X,F) 上的 SG-函数为如下形式：</p>
+
+<p><code>$g(x) = \min{\{n \ge 0: n \ne g(y)\ \textrm{for}\ y \in F(x)\}}$</code></p>
+
+<p>也就是说，g(x) 代表了在 x 的后继节点的 SG-函数中没有出现的第一个非负整数。我们定义一个操作叫做 minimal excludant, 简写为 mex，为给出不出现在一个非负整数集合中的第一个非负整数，那么 g(x) 可以写成如下形式：</p>
+
+<p><code>$g(x) = \mathrm{mex}{\{g(y): y \in F(x)\}}$</code></p>
+
+<p>注意到 g(x) 是递归定义的，对终止节点x，g(x) = 0。</p>
+
+<h4 id="the-use-of-the-sprague-grundy-function">The Use of the Sprague-Grundy Function</h4>
+
+<p>令 g 为图游戏 G(X, F) 上的 SG-函数，我们有如下性质：</p>
+
+<ol>
+<li>x是终止节点，那么 g(x) = 0</li>
+<li>g(x) = 0，那么对于 x 每个后继节点 y，g(y) != 0</li>
+<li>g(x) != 0，那么存在一个 x 的后继节点 y，g(y) = 0</li>
+</ol>
+
+<p>根据 g 的定义，上述三条结论是显然的。</p>
+
+<p>现在我们可以说，对于任意 g(x) = 0 的节点，x 对应的状态为一个 P-pos，其余的节点都为 N-pos。</p>
+
+<p>事实上，SG-函数给出了获胜的路径：当前状态的 GF-函数交替变为 0。</p>
+
+<p>该理论也可以推广到<strong>渐进有穷</strong>的的图上：图的每一条路径都是有穷的。</p>
+
+<h3 id="sums-of-combinatorial-games">Sums of Combinatorial Games</h3>
+
+<p>假设我们现在有几个组合游戏，我们打算把它合并成一个大游戏：</p>
+
+<ol>
+<li>玩家的移动变为：选择其中一个未终止的游戏，进行一次合法移动</li>
+<li>终止状态为：所有游戏都终止了</li>
+</ol>
+
+<p>这样合并出来的游戏被称为游戏的 disjunctive sum。</p>
+
+<p>假设我们所合并的游戏分别表示为图 G1(X1, F1)，G2(X2, F2) &hellip;，Gn(Xn, Fn)，我们可以把它们合并成一张新的图 G(X, F)，其中 <code>$X = X_1 \times X_2 \times \cdots \times X_n$</code> 为笛卡尔乘积；令 x = (x1, &hellip; xn)
+，则
+<code>$F(x) = F(x_1, ..., x_n) = F_1(x_1) \times \{x_2\} \times \cdots \{x_n\} \cup \{x_1\} \times F_2(x_2) \times \cdots\{x_n\} \cup \cdots \{x_1\} \times \{x_2\} \times \cdots F_n(x_n)$</code></p>
+
+<h4 id="the-sprague-grundy-theorem">The Sprague-Grundy Theorem</h4>
+
+<p>合并后的图游戏中，我们可以通过以下方式给出图上的 SG-函数 g：假设原来游戏的 SG-函数分别为 g1, g2, &hellip;, gn，那么对于 x = (x1, x2, &hellip;, xn)，g(x) = g1(x1) ^ g2(x2) ^ &hellip; gn(xn)，也就是子游戏当前状态的 SG-函数的 Nim-和。</p>
+
+<p>令 x = (x1, x2, &hellip;, xn) 为图上任意一点，b = g1(x1) ^ g2(x2) ^ &hellip; gn(xn) ，事实上我们只需要证明如下两点就可以得出上述结论：</p>
+
+<ol>
+<li>对每个非负整数 a &lt; b，存在一个 x 的后继 y，使得 g(y) = a</li>
+<li>任意 x 的后继不为 b</li>
+</ol>
+
+<p>此处证明与上一节 Nim 和的证明类似，就留作习题吧。</p>
+
+<h3 id="green-hackenbush">Green Hackenbush</h3>
+
+<p>TODO</p>
+
+<h3 id="a-problem">A Problem</h3>
+
+<p>这里给出一个具体的算法问题 Bob&rsquo;s Game，原题在 <a href="https://www.hackerrank.com/contests/university-codesprint-3/challenges/bobs-game/problem。">https://www.hackerrank.com/contests/university-codesprint-3/challenges/bobs-game/problem。</a></p>
+
+<p>题目大意：</p>
+
+<blockquote>
+<p>Bob 发明了一个新游戏，这个游戏在一个 n x n 的棋盘上进行。游戏的规则如下：</p>
+
+<ul>
+<li>一开始，棋盘上有一些国王。一个格子中可以存在多个国王。</li>
+<li>国王只允许向<strong>上、左、左上</strong>移动</li>
+<li>棋盘上有些格子损坏了，国王不能移动到损坏的格子上</li>
+<li>国王不能移出棋盘</li>
+<li>游戏由两个玩家进行，他们交替进行操作</li>
+<li>玩家每次操作移动一个国王</li>
+<li>最后一个移动的玩家获胜</li>
+</ul>
+
+<p>Bob 和他的好朋友 Alice 玩这个游戏，Bob 先手。假设给定棋盘的初始状态，给出 Bob 一定能获胜的第一步移动的数目；如果 Bob 必败，输出 LOSE。</p>
+</blockquote>
+
+<p>假设棋盘上只有一个国王，这个游戏通过 SG-函数很容易分析 Bob 是否必胜，以及必胜的第一步操作。</p>
+
+<p>现在场上存在多个国王，但是国王之间互相不干扰，所以这个游戏是由多个单国王的游戏合并而成的。应用 Sprague-Grundy 定理，我们可以推导出这个游戏的 SG-函数。</p>
+
+<h3 id="references">References</h3>
+
+<p>[1] <a href="http://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/comb.pdf">http://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/comb.pdf</a></p>
+
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://blog.crazyark.me/posts/maximum_matching_in_bipartite_graph/"> Maximum Matching in Bipartite Graph </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://blog.crazyark.me/posts/game_theory/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.29</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<style type="text/css" media="screen">
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax();
+    all.forEach(function(e) {
+        e.SourceElement().parentNode.className += ' has-jax';
+    });
+});
+</script>
+
+  
+  <script src="https://blog.crazyark.me/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>

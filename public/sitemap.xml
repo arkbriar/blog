@@ -3,8 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.crazyark.me/posts/game_theory/</loc>
+    <lastmod>2017-10-11T00:40:22+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.crazyark.me/posts/maximum_matching_in_bipartite_graph/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
   </url>
   
   <url>
@@ -106,7 +111,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/categories/algorithm/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -130,7 +135,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/tags/bipartite-graph/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -142,7 +147,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/categories/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -165,7 +170,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/categories/development/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -188,8 +193,20 @@
   </url>
   
   <url>
+    <loc>https://blog.crazyark.me/tags/game-theory/</loc>
+    <lastmod>2017-10-11T00:40:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.crazyark.me/categories/game-theory/</loc>
+    <lastmod>2017-10-11T00:40:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.crazyark.me/tags/graph/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -201,7 +218,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/categories/graph-theory/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -213,13 +230,13 @@
   
   <url>
     <loc>https://blog.crazyark.me/tags/halls-marriage-theorem/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/hopcraft-karp-algorithm/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -231,7 +248,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/tags/hungarian-algorithm/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -261,19 +278,19 @@
   
   <url>
     <loc>https://blog.crazyark.me/tags/math/</loc>
-    <lastmod>2017-09-07T11:45:40+08:00</lastmod>
+    <lastmod>2017-10-11T00:40:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/categories/mathematics/</loc>
-    <lastmod>2017-09-07T11:45:40+08:00</lastmod>
+    <lastmod>2017-10-11T00:40:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/maximum-matching/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -303,7 +320,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/posts/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-10-11T00:40:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -345,7 +362,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/</loc>
-    <lastmod>2017-09-27T16:49:06+08:00</lastmod>
+    <lastmod>2017-10-11T00:40:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   

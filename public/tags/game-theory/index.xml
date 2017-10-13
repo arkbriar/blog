@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Game Theory on crazy.ark</title>
+    <link>https://blog.crazyark.me/tags/game-theory/</link>
+    <description>Recent content in Game Theory on crazy.ark</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Oct 2017 00:40:08 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.crazyark.me/tags/game-theory/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Game Theory</title>
+      <link>https://blog.crazyark.me/posts/game_theory/</link>
+      <pubDate>Wed, 11 Oct 2017 00:40:08 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/game_theory/</guid>
+      <description>上回说到接下来都是图算法&amp;hellip; 这个，我食个言 🙃 做题目碰到了博弈论，对这方面我真是完全不了解，还是要学习一个。本篇文章主要介绍组合游</description>
+    </item>
+    
+  </channel>
+</rss>

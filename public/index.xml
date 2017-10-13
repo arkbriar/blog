@@ -6,10 +6,19 @@
     <description>Recent content on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Sep 2017 22:26:08 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Oct 2017 00:40:08 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.crazyark.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Game Theory</title>
+      <link>https://blog.crazyark.me/posts/game_theory/</link>
+      <pubDate>Wed, 11 Oct 2017 00:40:08 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/game_theory/</guid>
+      <description>上回说到接下来都是图算法&amp;hellip; 这个，我食个言 🙃 做题目碰到了博弈论，对这方面我真是完全不了解，还是要学习一个。本篇文章主要介绍组合游</description>
+    </item>
     
     <item>
       <title>Maximum Matching in Bipartite Graph</title>
