@@ -196,7 +196,7 @@ TODO
 
 ### A Problem
 
-这里给出一个具体的算法问题 Bob's Game，原题在 https://www.hackerrank.com/contests/university-codesprint-3/challenges/bobs-game/problem。
+这里给出一个具体的算法问题 Bob's Game，原题在 https://www.hackerrank.com/contests/university-codesprint-3/challenges/bobs-game/problem 。
 
 题目大意：
 
