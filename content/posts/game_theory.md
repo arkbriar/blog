@@ -1,5 +1,5 @@
 ---
-title: "Game Theory"
+title: "Game Theory -- Impartial Combinatorial Games"
 date: 2017-10-11T00:40:08+08:00
 draft: false
 categories: ["Mathematics", "Game Theory"]
