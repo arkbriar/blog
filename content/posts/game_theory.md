@@ -190,9 +190,60 @@ Nim 游戏不一定是三堆的，可以使其他的数目，为了方便起见�
 
 此处证明与上一节 Nim 和的证明类似，就留作习题吧。
 
+事实上，Nim 游戏中，显然每堆的 SG-函数 g(n) = n，所以 Nim 游戏判断 N、P-pos 是 Sprague-Grundy 的一个特例。
+
+也可以说，**任意ICG都等价于某个Nim游戏**。
+
 ### Green Hackenbush
 
-TODO
+下面介绍一个组合游戏，叫做 Hackenbush ，这个游戏的大意是从一个有根的图上砍下一些边，并移除不接地的部分。额，直译有点难，这里hack翻译为砍，bush是灌木，从 Hackenbush 这个游戏名的字面上理解就行了，就是砍灌木丛的游戏。
+
+这个游戏的 impartial 版本叫做 Green Hackenbush：图上的每条边都是绿色的，两个玩家都能砍任意边。Partizan 版本的游戏叫做 Blue-Red Hackenbush，其中图上的边有蓝色和红色之分，玩家 I 只能砍蓝色的，而玩家 II 只能砍红色的。更为一般的版本中，边有上述三种，绿色是都能砍的。
+
+#### Bamboo Stalks
+
+先看一个简单的 Green Hackenbush 的特例，这个特例里，每个有根的联通分支都是一条直线，就跟柱子一样，如下图所示：
+
+![Bamboo Stalks](/img/posts/bamboo_stalks.png)
+
+每一次移动就是选取其中一条边，砍断它并移除所有不连到地面的部分。玩家交替进行移动，最后一个移动的玩家胜利。
+
+显然，有n根柱子的这个游戏和有n堆的nim游戏是等价的。
+
+#### Green Hackenbush on Trees
+
+顾名思义，每棵灌木长的和树一样：
+
+![Green Hackenbush on Trees](/img/posts/green_hackenbush_on_trees.png)
+
+由上一节的定理，这个游戏等价于某个版本的 Bamboo Stalks。我们可以通过以下原则来进行转换，更为普遍地，叫做 Colon Principle：
+
++ 当分支交汇于某个顶点时，可以用一条长度为**分支长度 nim-和**的杆来代替
+
+![Colon Principle](/img/posts/colon_principle.png)
+
+Colon Principle 的证明应该比较简单，这里留作思考。
+
+#### Green Hackenbush on general rooted graphs
+
+现在我们来考虑任意的图，这些图中可能存在环等，如下所示：
+
+![Arbitrary Green Hackenbush](/img/posts/arbitrary_green_hackenbush.png)
+
+这图看着复杂，其实同样对于每个联通分支都可以转换为 Nim 游戏中的一个堆。考虑如果能将每个分支转换成一棵树，那就可以用上面的方法转换成等价的堆了。
+
+这里介绍一种转换方式，叫做 Fusion Principle：
+在不改变图上 SG-函数值的情况下，回路上的点可以进行合并。
+
+如下图所示，我们可以将门形状的回路转换为长度为1的杆：
+
+![Fusion Principle Example](/img/posts/fusion_principle_ex1.png)
+
+首先，地上的两个点事实上可以合并成一个点；然后应用fusion principle，这个三角形等价于三个独立的自环；而每个自环又等价于一个大小为1的nim堆，最终合并为一个大小为1的堆。
+
+更一般地，奇数长度的回路都可以转换为一条边，偶数长度的回路转换为一个点。
+
+关于 fusion principle 的证明比较长，有兴趣的同学可以参考 _**《Winning Ways》**_ 的第七章。
 
 ### A Problem
 
