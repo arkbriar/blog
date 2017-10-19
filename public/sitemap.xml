@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
     <loc>https://blog.crazyark.me/posts/game_theory/</loc>
-    <lastmod>2017-10-15T16:25:43+08:00</lastmod>
+    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
   </url>
   
   <url>
@@ -194,13 +193,13 @@
   
   <url>
     <loc>https://blog.crazyark.me/tags/game-theory/</loc>
-    <lastmod>2017-10-15T16:25:43+08:00</lastmod>
+    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/categories/game-theory/</loc>
-    <lastmod>2017-10-15T16:25:43+08:00</lastmod>
+    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -278,13 +277,13 @@
   
   <url>
     <loc>https://blog.crazyark.me/tags/math/</loc>
-    <lastmod>2017-10-15T16:25:43+08:00</lastmod>
+    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/categories/mathematics/</loc>
-    <lastmod>2017-10-15T16:25:43+08:00</lastmod>
+    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -320,7 +319,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/posts/</loc>
-    <lastmod>2017-10-15T16:25:43+08:00</lastmod>
+    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -362,7 +361,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/</loc>
-    <lastmod>2017-10-15T16:25:43+08:00</lastmod>
+    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
     <priority>0</priority>
   </url>
   
