@@ -3,73 +3,78 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.crazyark.me/posts/mweb_with_hugo/</loc>
+    <lastmod>2017-11-01T19:35:08+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.crazyark.me/posts/game_theory/</loc>
-    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/maximum_matching_in_bipartite_graph/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/hourrank23/</loc>
-    <lastmod>2017-09-14T19:34:23+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/binary_indexed_tree/</loc>
-    <lastmod>2017-09-15T14:06:12+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/segment_tree/</loc>
-    <lastmod>2017-09-10T01:16:22+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/agc019_mysterious_combinators/</loc>
-    <lastmod>2017-09-07T11:45:40+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/longest_increasing_subsequence/</loc>
-    <lastmod>2017-09-01T17:06:59+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/cpp_sigfpe/</loc>
-    <lastmod>2017-08-27T21:54:06+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/projecteuler_188/</loc>
-    <lastmod>2017-08-25T23:57:13+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/euler_theorem_for_noncoprime/</loc>
-    <lastmod>2017-08-24T19:52:22+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/transaction_certificates/</loc>
-    <lastmod>2017-08-22T01:31:33+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/stoer_wagner_al/</loc>
-    <lastmod>2017-08-07T19:57:55+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/ford_johnson_algorithm/</loc>
-    <lastmod>2017-08-11T13:59:04+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/posts/monotonic_queue/</loc>
-    <lastmod>2017-08-05T22:15:32+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
   </url>
   
   <url>
@@ -99,43 +104,43 @@
   
   <url>
     <loc>https://blog.crazyark.me/tags/algorightm/</loc>
-    <lastmod>2017-09-01T17:06:59+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/algorithm/</loc>
-    <lastmod>2017-09-14T19:34:23+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/categories/algorithm/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/assembly/</loc>
-    <lastmod>2017-08-27T21:54:06+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/categories/assembly/</loc>
-    <lastmod>2017-08-27T21:54:06+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/atcoder/</loc>
-    <lastmod>2017-08-11T13:59:04+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/bipartite-graph/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -147,13 +152,13 @@
   
   <url>
     <loc>https://blog.crazyark.me/categories/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/combination/</loc>
-    <lastmod>2017-09-07T11:45:40+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -170,7 +175,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/categories/development/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -187,74 +192,86 @@
   </url>
   
   <url>
+    <loc>https://blog.crazyark.me/tags/editor/</loc>
+    <lastmod>2017-11-01T19:35:08+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.crazyark.me/tags/euler-theorem/</loc>
-    <lastmod>2017-08-24T19:52:22+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/game-theory/</loc>
-    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/categories/game-theory/</loc>
-    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/graph/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/graph-theory/</loc>
-    <lastmod>2017-08-07T19:57:55+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/categories/graph-theory/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/hackerrank/</loc>
-    <lastmod>2017-09-14T19:34:23+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/halls-marriage-theorem/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/hopcraft-karp-algorithm/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/hourrank/</loc>
-    <lastmod>2017-09-14T19:34:23+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.crazyark.me/tags/hugo/</loc>
+    <lastmod>2017-11-01T19:35:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/hungarian-algorithm/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/intel-x86_64/</loc>
-    <lastmod>2017-08-27T21:54:06+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -265,44 +282,62 @@
   </url>
   
   <url>
+    <loc>https://blog.crazyark.me/categories/kits/</loc>
+    <lastmod>2017-11-01T19:35:08+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.crazyark.me/tags/leetcode/</loc>
-    <lastmod>2017-08-05T22:15:32+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/lis/</loc>
-    <lastmod>2017-09-01T17:06:59+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.crazyark.me/tags/markdown/</loc>
+    <lastmod>2017-11-01T19:35:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/math/</loc>
-    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/categories/mathematics/</loc>
-    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/maximum-matching/</loc>
-    <lastmod>2017-09-27T21:23:21+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/min-cut/</loc>
-    <lastmod>2017-08-07T19:57:55+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.crazyark.me/tags/mweb/</loc>
+    <lastmod>2017-11-01T19:35:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/non-coprime/</loc>
-    <lastmod>2017-08-24T19:52:22+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -320,7 +355,7 @@
   
   <url>
     <loc>https://blog.crazyark.me/posts/</loc>
-    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
+    <lastmod>2017-11-01T19:35:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -332,37 +367,37 @@
   
   <url>
     <loc>https://blog.crazyark.me/categories/project-euler/</loc>
-    <lastmod>2017-08-25T23:57:13+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/projecteuler/</loc>
-    <lastmod>2017-08-25T23:57:13+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/segment-tree/</loc>
-    <lastmod>2017-09-10T01:16:22+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/sort/</loc>
-    <lastmod>2017-08-11T13:59:04+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/tags/</loc>
-    <lastmod>2017-09-01T17:06:59+08:00</lastmod>
+    <lastmod>2017-11-01T17:17:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.crazyark.me/</loc>
-    <lastmod>2017-10-15T17:10:11+08:00</lastmod>
+    <lastmod>2017-11-01T19:35:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   

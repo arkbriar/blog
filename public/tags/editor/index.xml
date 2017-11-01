@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Editor on crazy.ark</title>
+    <link>https://blog.crazyark.me/tags/editor/</link>
+    <description>Recent content in Editor on crazy.ark</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 Nov 2017 18:34:30 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.crazyark.me/tags/editor/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MWeb With Hugo</title>
+      <link>https://blog.crazyark.me/posts/mweb_with_hugo/</link>
+      <pubDate>Wed, 01 Nov 2017 18:34:30 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/mweb_with_hugo/</guid>
+      <description>前两天发现了一个好用的 markdown 编辑器叫 MWeb，支持好多Blog的直接发布，同时对两种静态网页生成器有直接的支持 (hexo/jelly)，然而对 hugo</description>
+    </item>
+    
+  </channel>
+</rss>
