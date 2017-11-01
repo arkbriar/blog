@@ -17,7 +17,11 @@
       <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/maximum_matching_in_bipartite_graph/</guid>
-      <description>上几篇博文主要是关于范围更新和范围查询的几个数据结构，接下去的主题是图论和图算法，希望能够学习和回忆起大部分图算法。 今天遇到一个问题，可以转</description>
+      <description>&lt;p&gt;上几篇博文主要是关于范围更新和范围查询的几个数据结构，接下去的主题是图论和图算法，希望能够学习和回忆起大部分图算法。&lt;/p&gt;
+
+&lt;p&gt;今天遇到一个问题，可以转化成二部图(bipartite graph)上的完美匹配的存在性问题，我们先来看一下完美匹配的理论，Hall&amp;rsquo;s Marriage theorem；然后介绍两个算法，用于解决完美匹配的超集——最大匹配问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -26,7 +30,9 @@
       <pubDate>Sun, 10 Sep 2017 01:06:11 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/hourrank23/</guid>
-      <description>不刷题不知道自己菜，越刷题越发现自己🙄 —— 记 HourRank23 被虐。 Sparse Table 还记得上两篇线段树和BIT都讲到了区间查找的问题，我们来回忆一下。 线段树空间支持各种</description>
+      <description>&lt;p&gt;不刷题不知道自己菜，越刷题越发现自己🙄 —— 记 HourRank23 被虐。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -35,7 +41,9 @@
       <pubDate>Fri, 08 Sep 2017 22:23:50 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/binary_indexed_tree/</guid>
-      <description>Binary Indexed Tree/Fenwick tree 的树构成方式我一直很疑惑，总是似懂非懂。现在终于弄清楚了它的节点的父子关系，记录下来防止忘记。 Binary Indexed Tree BIT 通常用于存储前缀和，或者存储数</description>
+      <description>&lt;p&gt;Binary Indexed Tree/Fenwick tree 的树构成方式我一直很疑惑，总是似懂非懂。现在终于弄清楚了它的节点的父子关系，记录下来防止忘记。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -44,7 +52,11 @@
       <pubDate>Fri, 08 Sep 2017 12:58:11 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/segment_tree/</guid>
-      <description>本篇为WCIPEG上关于SegmentTree的翻译稿，除了删去了几个小节，其余行文结构将完全一致。 线段树是一种非常灵活的数据结构，它可以帮</description>
+      <description>&lt;p&gt;本篇为WCIPEG上关于SegmentTree的翻译稿，除了删去了几个小节，其余行文结构将完全一致。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;线段树&lt;/strong&gt;是一种非常灵活的数据结构，它可以帮助我们高效地完成对底层数组区间查询或是修改。顾名思义，线段树可以被想象成底层数组区间构成的一棵树，它的基本思想是分治。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -53,7 +65,13 @@
       <pubDate>Fri, 01 Sep 2017 15:41:22 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/longest_increasing_subsequence/</guid>
-      <description>最长递增子序列算法，原本以为已经记住了最快的算法，看来是记性太差，今天碰到一道题目又忘记了怎么做 🙄 三种做法：DP，Sort + LCS，DP + B</description>
+      <description>&lt;p&gt;最长递增子序列算法，原本以为已经记住了最快的算法，看来是记性太差，今天碰到一道题目又忘记了怎么做 🙄&lt;/p&gt;
+
+&lt;p&gt;三种做法：DP，Sort + LCS，DP + BS，我只记得第一种DP了 &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;然后咱们顺便把某道题目做了 🤣&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -62,7 +80,13 @@
       <pubDate>Fri, 25 Aug 2017 21:32:26 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/projecteuler_188/</guid>
-      <description>接上次的博文，我们来解决大整数分解问题，并最终解决 Project Euler #188。 回忆一下，问题要求解的是 $a\uparrow\uparrow b \ (\textrm{mod} \ m)$，其中 $1 \le a, b, m \le 10^{18}$。</description>
+      <description>&lt;p&gt;接上次的博文，我们来解决大整数分解问题，并最终解决 Project Euler #188。&lt;/p&gt;
+
+&lt;p&gt;回忆一下，问题要求解的是 &lt;code&gt;$a\uparrow\uparrow b \ (\textrm{mod} \ m)$&lt;/code&gt;，其中 &lt;code&gt;$1 \le a, b, m \le 10^{18}$&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;其实这里的整数在整数分解领域并不算太大，之前并没有学习过这类的算法，正好也算是补上了。在这里我使用了 Pollard Rho 算法，其他的算法还有 Fermat Rho 和 Quadratic Sieve 算法。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -71,7 +95,9 @@
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/stoer_wagner_al/</guid>
-      <description>最近碰到一道题目，求一个图的全局最小割，可惜图论博主学的不太好，至今只记得一个求s-t最大流/最小割的 ford-fulkerson。想了想总</description>
+      <description>&lt;p&gt;最近碰到一道题目，求一个图的全局最小割，可惜图论博主学的不太好，至今只记得一个求s-t最大流/最小割的 ford-fulkerson。想了想总不能做&lt;code&gt;$n^2$&lt;/code&gt;次最大流吧，最终还是求助了维基百科 🤣&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -80,7 +106,32 @@
       <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/ford_johnson_algorithm/</guid>
-      <description>偶然发现 AtCoder，上去注册了准备试试，结果卡在practice contest&amp;hellip; 问题倒是很简单： There are N balls labeled with the first N uppercase letters. The balls have pairwise distinct weights. You are allowed to ask at most Q queries. In</description>
+      <description>&lt;p&gt;偶然发现 AtCoder，上去注册了准备试试，结果卡在practice contest&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;问题倒是很简单：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;There are N balls labeled with the first N uppercase letters. The balls have pairwise distinct weights.
+You are allowed to ask at most Q queries. In each query, you can compare the weights of two balls (see Input/Output section for details).
+Sort the balls in the ascending order of their weights.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Constraints&lt;/strong&gt;
+(N,Q)=(26,1000), (26,100), or (5,7).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Partial Score&lt;/strong&gt;
+There are three testsets. Each testset is worth 100 points.
+In testset 1, N=26 and Q=1000.
+In testset 2, N=26 and Q=100.
+In testset 3, N=5 and Q=7.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;通过比较排序，一共三种数据，其中 (26, 1000) 的情况用任何比较都能过，但是可能会 TLE，(26, 100) 的用 worst-case &lt;code&gt;$O(nlgn)$&lt;/code&gt; 的 merge sort 能过，唯一难受的是 (5, 7)。这个样例 merge sort 的 worst case 是比较8次。&lt;/p&gt;
+
+&lt;p&gt;我和某网友一样，尝试用 STL 的 sort 来解决，结果发现 WA 了更多 🙄&lt;/p&gt;
+
+&lt;p&gt;You must be kidding!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -89,7 +140,21 @@
       <pubDate>Thu, 03 Aug 2017 15:55:02 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/monotonic_queue/</guid>
-      <description>Leetcode 上有一道题叫 Sliding Window Maximum，虽然不是今天刷的，但是解法非常有意思，就记录一下。 问题描述： Given an array nums, there is a sliding window of size k which is moving from the very left of the array to</description>
+      <description>&lt;p&gt;Leetcode 上有一道题叫 Sliding Window Maximum，虽然不是今天刷的，但是解法非常有意思，就记录一下。&lt;/p&gt;
+
+&lt;p&gt;问题描述：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.&lt;/p&gt;
+
+&lt;p&gt;For example, Given nums = [1,3,-1,-3,5,3,6,7], and k = 3.&lt;/p&gt;
+
+&lt;p&gt;Therefore, return the max sliding window as [3,3,5,5,6,7].&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这道题可以用优先队列、自平衡BST等方法得到一个 O(nlgn) 的解法，但其实这道题有另一种 O(n) 的解法，基本思想是在过程中维持一个单调队列。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>

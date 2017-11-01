@@ -17,7 +17,20 @@
       <pubDate>Sun, 27 Aug 2017 17:38:37 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/cpp_sigfpe/</guid>
-      <description>第一次遇到了除0以外的SIGFPE，记录一下。 症状 在使用以下函数的时候，假定 a = 1e18, b = 1e18, m = 1e9 + 7 就会触发 SIGFPE。 long mulmod(long a, long b, long m) { long res;</description>
+      <description>&lt;p&gt;第一次遇到了除0以外的SIGFPE，记录一下。&lt;/p&gt;
+
+&lt;h3 id=&#34;症状&#34;&gt;症状&lt;/h3&gt;
+
+&lt;p&gt;在使用以下函数的时候，假定 a = 1e18, b = 1e18, m = 1e9 + 7 就会触发 SIGFPE。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;long mulmod(long a, long b, long m) {
+    long res;
+    asm(&amp;quot;mulq %2; divq %3&amp;quot; : &amp;quot;=d&amp;quot;(res), &amp;quot;+a&amp;quot;(a) : &amp;quot;S&amp;quot;(b), &amp;quot;c&amp;quot;(m));
+    return res;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

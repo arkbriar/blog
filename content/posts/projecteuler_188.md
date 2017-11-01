@@ -14,6 +14,8 @@ comments: true
 
 其实这里的整数在整数分解领域并不算太大，之前并没有学习过这类的算法，正好也算是补上了。在这里我使用了 Pollard Rho 算法，其他的算法还有 Fermat Rho 和 Quadratic Sieve 算法。
 
+<!--more-->
+
 ### Pollard Rho
 
 #### 算法伪代码
@@ -131,3 +133,5 @@ long mulmod(long a, long b, long m) {
 ### References
 
 [1] https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm
+
+

@@ -17,7 +17,9 @@
       <pubDate>Sun, 10 Sep 2017 01:06:11 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/hourrank23/</guid>
-      <description>不刷题不知道自己菜，越刷题越发现自己🙄 —— 记 HourRank23 被虐。 Sparse Table 还记得上两篇线段树和BIT都讲到了区间查找的问题，我们来回忆一下。 线段树空间支持各种</description>
+      <description>&lt;p&gt;不刷题不知道自己菜，越刷题越发现自己🙄 —— 记 HourRank23 被虐。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -26,7 +28,13 @@
       <pubDate>Fri, 25 Aug 2017 21:32:26 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/projecteuler_188/</guid>
-      <description>接上次的博文，我们来解决大整数分解问题，并最终解决 Project Euler #188。 回忆一下，问题要求解的是 $a\uparrow\uparrow b \ (\textrm{mod} \ m)$，其中 $1 \le a, b, m \le 10^{18}$。</description>
+      <description>&lt;p&gt;接上次的博文，我们来解决大整数分解问题，并最终解决 Project Euler #188。&lt;/p&gt;
+
+&lt;p&gt;回忆一下，问题要求解的是 &lt;code&gt;$a\uparrow\uparrow b \ (\textrm{mod} \ m)$&lt;/code&gt;，其中 &lt;code&gt;$1 \le a, b, m \le 10^{18}$&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;其实这里的整数在整数分解领域并不算太大，之前并没有学习过这类的算法，正好也算是补上了。在这里我使用了 Pollard Rho 算法，其他的算法还有 Fermat Rho 和 Quadratic Sieve 算法。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -35,7 +43,11 @@
       <pubDate>Mon, 21 Aug 2017 23:58:42 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/transaction_certificates/</guid>
-      <description>前两天刷 Hackerrank 上的 Contest，给了两天时间，没想到被最后一题卡成🐶，谨记录思考和收获。 原题目在 https://www.hackerrank.com/contests/gs-codesprint/challenges/transaction-certificates ，就不在此赘述了。 思考过程 首先，题目其实就是</description>
+      <description>&lt;p&gt;前两天刷 Hackerrank 上的 &lt;a href=&#34;https://www.hackerrank.com/contests/gs-codesprint/challenges&#34;&gt;Contest&lt;/a&gt;，给了两天时间，没想到被最后一题卡成🐶，谨记录思考和收获。&lt;/p&gt;
+
+&lt;p&gt;原题目在 &lt;a href=&#34;https://www.hackerrank.com/contests/gs-codesprint/challenges/transaction-certificates&#34;&gt;https://www.hackerrank.com/contests/gs-codesprint/challenges/transaction-certificates&lt;/a&gt; ，就不在此赘述了。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

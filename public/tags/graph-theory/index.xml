@@ -17,7 +17,9 @@
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/stoer_wagner_al/</guid>
-      <description>最近碰到一道题目，求一个图的全局最小割，可惜图论博主学的不太好，至今只记得一个求s-t最大流/最小割的 ford-fulkerson。想了想总</description>
+      <description>&lt;p&gt;最近碰到一道题目，求一个图的全局最小割，可惜图论博主学的不太好，至今只记得一个求s-t最大流/最小割的 ford-fulkerson。想了想总不能做&lt;code&gt;$n^2$&lt;/code&gt;次最大流吧，最终还是求助了维基百科 🤣&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

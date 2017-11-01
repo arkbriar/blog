@@ -10,6 +10,8 @@ comments: true
 
 Binary Indexed Tree/Fenwick tree 的树构成方式我一直很疑惑，总是似懂非懂。现在终于弄清楚了它的节点的父子关系，记录下来防止忘记。
 
+<!--more-->
+
 ### Binary Indexed Tree
 
 BIT 通常用于存储前缀和，或者存储数组本身(用前缀和trick)。BIT 用一个数组来表示树，空间复杂度为 O(n)。BIT 支持两个操作，update和query，用于单点更新和前缀和查询，它们的时间复杂度都为严格的 O(lgn)。
@@ -313,3 +315,5 @@ int main() {
     return 0;
 }
 ```
+
+

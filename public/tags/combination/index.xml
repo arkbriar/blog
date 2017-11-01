@@ -17,7 +17,16 @@
       <pubDate>Wed, 06 Sep 2017 21:16:06 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/agc019_mysterious_combinators/</guid>
-      <description>原题目在 AtCoder Grand Contest 019，F - Yes or No。 把它改成数学题，题目大意如下： 假设你有M+N个问题要回答，每个问题的回答不是Yes就是No。你知道其中有</description>
+      <description>&lt;p&gt;原题目在 AtCoder Grand Contest 019，F - Yes or No。&lt;/p&gt;
+
+&lt;p&gt;把它改成数学题，题目大意如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;假设你有M+N个问题要回答，每个问题的回答不是Yes就是No。你知道其中有N个Yes，M个No，但是并不知道顺序。你将按顺序一个一个回答问题，并且答完一道题后立刻就能知道这道题的正确答案。
+假设你每次回答问题都采取最大化期望正确题目数的方式，请问期望正确题目数是多少？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

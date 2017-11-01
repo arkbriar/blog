@@ -14,6 +14,8 @@ comments: true
 
 然后咱们顺便把某道题目做了 🤣
 
+<!--more-->
+
 ### Algorithms for LIS
 
 #### DP

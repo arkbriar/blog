@@ -17,6 +17,8 @@ OK，这道题其实思路很清晰，用欧拉定理降幂，但是最难的部
 
 我们先把m的质因数分解放一放 (其实还没解决)... 先来解决第二个问题。
 
+<!--more-->
+
 ### Euler Theorem & Fermat's Little/Last Theorem
 
 设m是大于1的整数，`$(a, m) = 1$`，则
@@ -111,3 +113,5 @@ $$a^{\phi(m)} \equiv 1 \ (\textrm{mod}\ m)$$
 ### Reference
 
 [1] 《初等数轮》(第三版)，高等教育出版社
+
+

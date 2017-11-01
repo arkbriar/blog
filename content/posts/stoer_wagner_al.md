@@ -10,6 +10,8 @@ categories: ["Development", "Algorithm"]
 
 最近碰到一道题目，求一个图的全局最小割，可惜图论博主学的不太好，至今只记得一个求s-t最大流/最小割的 ford-fulkerson。想了想总不能做`$n^2$`次最大流吧，最终还是求助了维基百科 🤣
 
+<!--more-->
+
 ## Stoer-Wagner Algorithm
 
 Stoer-Wagner 算法是一个求**带非负权无向图**中全局最小割的算法，它是在1995年由 Mechthild Stoer 和 Frank Wagner 提出的。
@@ -90,3 +92,5 @@ Stoer-Wagner首先找到一个s-t最小割，然后将s和t合并：
 [1] https://en.wikipedia.org/wiki/Stoer%E2%80%93Wagner_algorithm
 
 [2] http://www.boost.org/doc/libs/1_64_0/libs/graph/doc/stoer_wagner_min_cut.html
+
+

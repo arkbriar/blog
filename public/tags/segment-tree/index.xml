@@ -17,7 +17,11 @@
       <pubDate>Fri, 08 Sep 2017 12:58:11 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/segment_tree/</guid>
-      <description>本篇为WCIPEG上关于SegmentTree的翻译稿，除了删去了几个小节，其余行文结构将完全一致。 线段树是一种非常灵活的数据结构，它可以帮</description>
+      <description>&lt;p&gt;本篇为WCIPEG上关于SegmentTree的翻译稿，除了删去了几个小节，其余行文结构将完全一致。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;线段树&lt;/strong&gt;是一种非常灵活的数据结构，它可以帮助我们高效地完成对底层数组区间查询或是修改。顾名思义，线段树可以被想象成底层数组区间构成的一棵树，它的基本思想是分治。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

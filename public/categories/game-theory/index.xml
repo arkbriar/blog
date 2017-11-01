@@ -17,7 +17,11 @@
       <pubDate>Wed, 11 Oct 2017 00:40:08 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/game_theory/</guid>
-      <description>上回说到接下来都是图算法&amp;hellip; 这个，我食个言 🙃 做题目碰到了博弈论，对这方面我真是完全不了解，还是要学习一个。本篇文章主要介绍组合游</description>
+      <description>&lt;p&gt;上回说到接下来都是图算法&amp;hellip; 这个，我食个言 🙃&lt;/p&gt;
+
+&lt;p&gt;做题目碰到了博弈论，对这方面我真是完全不了解，还是要学习一个。本篇文章主要介绍组合游戏中的 Impartial Combinatorial Games，结构和内容均参考自 CMU Thomas S. Ferguson 教授的博弈论讲稿，结合我自己的思考。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

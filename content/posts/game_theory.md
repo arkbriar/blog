@@ -12,6 +12,8 @@ comments: true
 
 做题目碰到了博弈论，对这方面我真是完全不了解，还是要学习一个。本篇文章主要介绍组合游戏中的 Impartial Combinatorial Games，结构和内容均参考自 CMU Thomas S. Ferguson 教授的博弈论讲稿，结合我自己的思考。
 
+<!--more-->
+
 ### Take-Away Games
 
 组合游戏是指一种两个玩家的游戏，每个玩家都有着完全的信息，不存在随机动作，游戏的结果总是赢或者输。游戏的每一个步骤由一个移动构成，通常玩家会交替地进行移动，直到达到终止状态。终止状态是指从该状态不存在任何一个状态移动方式的状态。
@@ -270,3 +272,5 @@ Colon Principle 的证明应该比较简单，这里留作思考。
 ### References
 
 [1] http://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/comb.pdf
+
+

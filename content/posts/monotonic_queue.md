@@ -20,6 +20,8 @@ Leetcode 上有一道题叫 Sliding Window Maximum，虽然不是今天刷的，
 
 这道题可以用优先队列、自平衡BST等方法得到一个 O(nlgn) 的解法，但其实这道题有另一种 O(n) 的解法，基本思想是在过程中维持一个单调队列。
 
+<!--more-->
+
 ### Monotonic Queue
 
 我们用双端队列来实现这个单调队列，保证这个队列中所有数单调非增，同时一个窗口中的最大的数就在队列的开端。
@@ -61,3 +63,5 @@ vector<int> maxSlidingWindow(vector<int> &nums, int k) {
     return res;
 }
 ```
+
+

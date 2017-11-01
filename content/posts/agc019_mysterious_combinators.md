@@ -15,6 +15,8 @@ comments: true
 > 假设你有M+N个问题要回答，每个问题的回答不是Yes就是No。你知道其中有N个Yes，M个No，但是并不知道顺序。你将按顺序一个一个回答问题，并且答完一道题后立刻就能知道这道题的正确答案。
 > 假设你每次回答问题都采取最大化期望正确题目数的方式，请问期望正确题目数是多少？
 
+<!--more-->
+
 ### 正确答案
 
 令 `$E(M, N)$` 表示已知(M, N)x(Yes, No)的期望正确题目数。
@@ -165,3 +167,5 @@ comments: true
 `$ad + bc \equiv xbd^pb^{p - 1} + ydb^pd^{p - 1} \ (\textrm{mod} \ p) \equiv (bd)^p(x + y) \ (\textrm{mod} \ p) \equiv bd(x + y) \ (\textrm{mod} \ p)$`，证毕。
 
 用于分数 `$\frac{a}{b}$` 对于 `$p$` 的模数 `$ab^{-1} \ (\textrm{mod} \ p)$` 的加和。
+
+

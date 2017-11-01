@@ -75,9 +75,7 @@
       <h1 class="post-title"><a href="https://blog.crazyark.me/posts/cpp_sigfpe/">SIGFPE When Doing DivQ</a></h1>
       <span class="post-date">Aug 27, 2017 </span>
       <div class="post-content">
-        
-
-<p>第一次遇到了除0以外的SIGFPE，记录一下。</p>
+        <p>第一次遇到了除0以外的SIGFPE，记录一下。</p>
 
 <h3 id="症状">症状</h3>
 
@@ -90,6 +88,8 @@
 }
 </code></pre>
 
+<p></p>
+
 <h3 id="原因">原因</h3>
 
 <p>主要是由于 divq S 的执行逻辑是用 128bit 的 %rdx:%rax 除以 S，将商存入 %rax, 余数存入 %rdx，而上面的情况 a * b / m 太大，超过了 64bit，所以 %rax 存不下就触发了 SIGFPE。</p>
@@ -97,7 +97,6 @@
 <h3 id="解决方案">解决方案</h3>
 
 <p>先模再模乘。</p>
-
       </div>
     </section>
     

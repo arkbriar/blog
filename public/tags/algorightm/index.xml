@@ -17,7 +17,13 @@
       <pubDate>Fri, 01 Sep 2017 15:41:22 +0800</pubDate>
       
       <guid>https://blog.crazyark.me/posts/longest_increasing_subsequence/</guid>
-      <description>最长递增子序列算法，原本以为已经记住了最快的算法，看来是记性太差，今天碰到一道题目又忘记了怎么做 🙄 三种做法：DP，Sort + LCS，DP + B</description>
+      <description>&lt;p&gt;最长递增子序列算法，原本以为已经记住了最快的算法，看来是记性太差，今天碰到一道题目又忘记了怎么做 🙄&lt;/p&gt;
+
+&lt;p&gt;三种做法：DP，Sort + LCS，DP + BS，我只记得第一种DP了 &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;然后咱们顺便把某道题目做了 🤣&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

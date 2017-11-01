@@ -32,6 +32,8 @@ In testset 3, N=5 and Q=7.
 
 You must be kidding!
 
+<!--more-->
+
 ## Ford-Johnson
 
 绝望之下只能求助 google，果然找到了一个算法叫 Ford-Johnson Algorithm，是 1959 年被提出来的，是针对比较排序中比较数进行最优化的算法，事实上在提出后的相当长一段时间被认为是比较数的 lower bound。
@@ -168,3 +170,5 @@ int main() {
     return 0;
 }
 ```
+
+

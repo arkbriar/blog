@@ -12,6 +12,8 @@ comments: true
 
 原题目在 https://www.hackerrank.com/contests/gs-codesprint/challenges/transaction-certificates ，就不在此赘述了。
 
+<!--more-->
+
 ### 思考过程
 
 首先，题目其实就是将一个交易链进行hash，并要求给出hash碰撞的两个不同的交易链。

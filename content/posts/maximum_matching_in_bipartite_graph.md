@@ -12,6 +12,8 @@ comments: true
 
 今天遇到一个问题，可以转化成二部图(bipartite graph)上的完美匹配的存在性问题，我们先来看一下完美匹配的理论，Hall's Marriage theorem；然后介绍两个算法，用于解决完美匹配的超集——最大匹配问题。
 
+<!--more-->
+
 ### Hall's Marriage Theorem
 
 令 `$G$` 表示一个二部图，左部和右部分别为 `$X$` 和 `$Y$`。令 `$W \subset X$`, `$N_G(W)$` 为 `$W$` 在 `$Y$` 中的相邻点的集合。
@@ -420,3 +422,5 @@ int main() {
     return 0;
 }
 ```
+
+

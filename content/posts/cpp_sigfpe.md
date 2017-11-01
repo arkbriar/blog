@@ -22,6 +22,8 @@ long mulmod(long a, long b, long m) {
 }
 ```
 
+<!--more-->
+
 ### 原因
 
 主要是由于 divq S 的执行逻辑是用 128bit 的 %rdx:%rax 除以 S，将商存入 %rax, 余数存入 %rdx，而上面的情况 a * b / m 太大，超过了 64bit，所以 %rax 存不下就触发了 SIGFPE。
@@ -29,3 +31,5 @@ long mulmod(long a, long b, long m) {
 ### 解决方案
 
 先模再模乘。
+
+
