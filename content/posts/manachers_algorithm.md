@@ -72,23 +72,27 @@ public:
         for (int i = 2; i < N; ++i) {
             int li = 2 * c - i, r = c + lps[c];
             int to_r = r - i;
-            if (lps[li] < to_r)
-                lps[i] = lps[li];
-            else {
-                lps[i] = min(lps[li], to_r);
-                // expand if we can
-                // i + lps[i] < N - 1 && i - lps[i] > 0 so that there are spaces for expand
-                while (i + lps[i] < N - 1 && i - lps[i] > 0 &&
-                       ((i + lps[i] + 1) % 2 == 0 ||
-                        s[(i - lps[i] - 1) / 2] == s[(i + lps[i] + 1) / 2])) {
-                    lps[i]++;
-                }
 
-                if (i + lps[i] > r) {
-                    c = i;
-                }
+            // set initial lps[i]
+            lps[i] = min(lps[li], to_r);
+
+            /* if (lps[li] >= to_r) { */
+
+            // expand if we can
+            // i + lps[i] < N - 1 && i - lps[i] > 0 so that there are spaces for expand
+            while (
+                i + lps[i] < N - 1 && i - lps[i] > 0 &&
+                ((i + lps[i] + 1) % 2 == 0 || s[(i - lps[i] - 1) / 2] == s[(i + lps[i] + 1) / 2])) {
+                lps[i]++;
             }
 
+            if (i + lps[i] > r) {
+                c = i;
+            }
+
+            /* } */
+
+            // record result
             if (lps[i] > res) {
                 res = lps[i];
                 resi = i;
