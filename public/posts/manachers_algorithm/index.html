@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Longest Palindromic Substring -- Manacher&#39;s Algorithm &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
+<link rel="stylesheet" href="https://blog.crazyark.me/css/github.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://blog.crazyark.me/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/external/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/posts">~/posts</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#简单的算法">简单的算法</a></li>
+<li><a href="#manacher-s-algorithm">Manacher&rsquo;s Algorithm</a>
+<ul>
+<li><a href="#复杂度">复杂度</a></li>
+</ul></li>
+<li><a href="#cpp">Cpp</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://blog.crazyark.me/posts/manachers_algorithm/">Longest Palindromic Substring -- Manacher&#39;s Algorithm</a></h1>
+      <span class="post-date">Apr 13, 2018 </span>
+      <div class="post-content">
+        <p>Emm，这篇其实在 2017 年 9 月就打算写了，到现在才填上，再不填又要忘记了&hellip;</p>
+
+<p>字符串界的明星回文串，总是有各种稀奇古怪难搞的题目，比如说这道最长回文子串 (Longest Palindromic Substring)，显而易见的算法复杂度是 <code>$O(n^2)$</code>，而这个 Manacher&rsquo;s Algorithm 则可以在 <code>$O(n)$</code> 的时间给出答案。</p>
+
+<p></p>
+
+<p>我们用一个简单但是不错的例子来解释这个算法: &ldquo;abababa&rdquo;，它的最长回文子串就是自己。</p>
+
+<h3 id="简单的算法">简单的算法</h3>
+
+<p>简单的算法就是枚举回文核，对于一个长度为 n 的字符串，一共有 2n + 1 个回文核，每个回文核计算回文长度的复杂度为 <code>$O(n)$</code>，所以总计为 <code>$O(n^2)$</code>。</p>
+
+<h3 id="manacher-s-algorithm">Manacher&rsquo;s Algorithm</h3>
+
+<p>Manacher&rsquo;s Algorithm 利用了之前已经计算过的最大回文长度，来加速后面的计算。</p>
+
+<p>首先依旧是标明所有回文核，如下图所示：</p>
+
+<p><img src="/img/15235560287436.jpg" alt="" /></p>
+
+<p>对于每个回文核，我们标号从 0 - 2n，一共 2n + 1 个。偶数号的为偶数长度的回文的核，奇数号的为奇数长度的回文的核。我们使用一个数组 LPS 来记录已经知道的最长回文长度。</p>
+
+<p>毫无疑问，LPS[0] 一定是 0，LPS[1] 一定是 1。假设我们从左往右计算 LPS，当前为标红的 7 号，LPS[7] = 7。</p>
+
+<p><strong>这里有一个很重要的事情，那就是 7 是 i &lt;= 7 中，i + LPS[i] 最大的，也就是右边界最远的那个。i + LPS[i] 一定是偶数。</strong></p>
+
+<p>为什么一定要它呢，我们之后会详细讲。</p>
+
+<p>我们现在要计算 LPS[8] 了，因为 8 关于 7 对称为 6，而 6 上的最大回文串为 0，所以其实在可见范围 [i - LPS[i], i + LPS[i]] = [0, 14] 内，6 上的回文串 [6 - LPS[6], 6 + LPS[6]] = [6, 6] 在 8 上的对称为 [8, 8]，<strong>它整个在 (0, 14) 内，不接触边界</strong>。</p>
+
+<p>由回文串对回文核的对称性，LPS[8] = 0。</p>
+
+<p>但是如果对称到的回文串接触边界或者超出边界？我们已知的长度只能是 min(i + LPS[i] - cur, LPS[2 * i - cur]), 也就是对称那边的 LPS 和右边剩余范围这两个的最小值。那么我们就邻近了一些未知的字符，此时就应该 <strong>向右扫描未知的字符，并逐个和左边匹配</strong>，来准确得到 LPS[cur]。此时右边界扩展了，我们可以更新 i 到 cur。</p>
+
+<p>上述文字可能有点绕，但是也有现成的例子，比如 i = 5, cur = 7 时，对称过去是 3，LPS[3] = 3 = i + LPS[i] - cur，也就是接着右边界了，所以就向右扫描，把右边界扩展到 14，同时更新 i = 7。</p>
+
+<p>重复上述过程，就可以获得所有 LPS[i]，返回其中最大的即可。</p>
+
+<h4 id="复杂度">复杂度</h4>
+
+<p>LPS 的计算，分为两种情况，一是直接计算，而是计算初始值后扩展右边界。</p>
+
+<p>右边界最多扩展到 2 * n，所以是 O(n) 的，而赋值一共 2 * n + 1 次，所以也是 O(n) 的。</p>
+
+<p>所以总计时间复杂度为 O(n)。</p>
+
+<h3 id="cpp">Cpp</h3>
+
+<pre><code class="language-cpp">class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.empty()) return &quot;&quot;;
+        int n = s.size();
+        int res = 1, resi = 1;
+        int N = n * 2 + 1;
+
+        vector&lt;int&gt; lps(N);
+        lps[1] = 1;
+
+        int c = 1;
+        for (int i = 2; i &lt; N; ++i) {
+            int li = 2 * c - i, r = c + lps[c];
+            int to_r = r - i;
+            if (lps[li] &lt; to_r)
+                lps[i] = lps[li];
+            else {
+                lps[i] = min(lps[li], to_r);
+                // expand if we can
+                // i + lps[i] &lt; N - 1 &amp;&amp; i - lps[i] &gt; 0 so that there are spaces for expand
+                while (i + lps[i] &lt; N - 1 &amp;&amp; i - lps[i] &gt; 0 &amp;&amp;
+                       ((i + lps[i] + 1) % 2 == 0 ||
+                        s[(i - lps[i] - 1) / 2] == s[(i + lps[i] + 1) / 2])) {
+                    lps[i]++;
+                }
+
+                if (i + lps[i] &gt; r) {
+                    c = i;
+                }
+            }
+
+            if (lps[i] &gt; res) {
+                res = lps[i];
+                resi = i;
+            }
+        }
+
+        return s.substr((resi - res) / 2, res);
+    }
+};
+</code></pre>
+
+<h3 id="reference">Reference</h3>
+
+<p>[1] <a href="http://articles.leetcode.com/longest-palindromic-substring-part-ii">http://articles.leetcode.com/longest-palindromic-substring-part-ii</a></p>
+
+<p>[2] <a href="https://www.felix021.com/blog/read.php?entryid=2040">https://www.felix021.com/blog/read.php?entryid=2040</a></p>
+
+<p>[3] <a href="https://www.geeksforgeeks.org/manachers-algorithm-linear-time-longest-palindromic-substring-part-1/">https://www.geeksforgeeks.org/manachers-algorithm-linear-time-longest-palindromic-substring-part-1/</a></p>
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://blog.crazyark.me/posts/mweb_with_hugo/"> MWeb With Hugo </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://blog.crazyark.me/posts/manachers_algorithm/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.38.2</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<style type="text/css" media="screen">
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax();
+    all.forEach(function(e) {
+        e.SourceElement().parentNode.className += ' has-jax';
+    });
+});
+</script>
+
+  
+  <script src="https://blog.crazyark.me/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>
