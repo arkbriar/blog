@@ -6,10 +6,21 @@
     <description>Recent content on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 13 Apr 2018 01:50:51 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 16 Apr 2018 13:02:27 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.crazyark.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>布隆过滤器 (Bloom Filter)</title>
+      <link>https://blog.crazyark.me/posts/bloom_filter/</link>
+      <pubDate>Mon, 16 Apr 2018 13:02:27 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/bloom_filter/</guid>
+      <description>&lt;p&gt;布隆过滤器 (Bloom Filter) 是一个空间高效的&lt;strong&gt;概率&lt;/strong&gt;数据结构，它能够用来测试是否一个元素在一个集合中。布隆过滤器存在着 false positive (返回存在，其实不存在），但是不存在 false negative (返回不存在，其实存在)。集合中的元素越多，false positive 的概率就越高。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>最长回文子串 Manacher 算法 (Longest Palindromic Substring -- Manacher&#39;s Algorithm)</title>
