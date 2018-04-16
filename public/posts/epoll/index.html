@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Epoll &middot; crazy.ark </title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
+<link rel="stylesheet" href="https://blog.crazyark.me/css/github.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+<link href="" rel="alternate" type="application/rss+xml" title="crazy.ark" />
+
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://blog.crazyark.me/">/home/crazy.ark</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/about">~/about</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/contact">~/contact</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://ericfu.me">~/external/coding husky</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/posts">~/posts</a>
+      </li>
+      
+  
+      <li class="pull-right"><a href=""><i class="fa fa-rss"></i></a></li>
+    </ul>
+  </nav>
+</header>
+  <div class="content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#epoll-api">Epoll API</a></li>
+<li><a href="#参考文献">参考文献</a></li>
+<li><a href="#代码">代码</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    
+    <section class="post">
+      <h1 class="post-title"><a href="https://blog.crazyark.me/posts/epoll/">Epoll</a></h1>
+      <span class="post-date">Apr 16, 2018 </span>
+      <div class="post-content">
+        <p>Epoll 是 Linux 平台上独有的一组编程接口，用于监听多个文件描述符上的 IO 事件。Epoll 相对于 select/poll 的优势在于即使监听了大量的文件描述符，性能也非常好。Epoll API 支持两种监听方式：edge-triggered (EPOLLET) 和 level_triggered (default)。</p>
+
+<p></p>
+
+<h3 id="epoll-api">Epoll API</h3>
+
+<p>Linux 提供了以下几个函数，用于创建、管理和使用 epoll 实例：</p>
+
+<ul>
+<li><code>int epoll_create(int size);</code>、<code>int epoll_create1(int flags);</code></li>
+<li><code>int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);</code></li>
+<li><code>int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);</code></li>
+<li><code>int epoll_pwait(int epfd, struct epoll_event *events, int maxevents, int timeout, const sigset_t *sigmask);</code></li>
+</ul>
+
+<p>// TODO</p>
+
+<h3 id="参考文献">参考文献</h3>
+
+<p>[1] <a href="https://jvns.ca/blog/2017/06/03/async-io-on-linux--select--poll--and-epoll/">https://jvns.ca/blog/2017/06/03/async-io-on-linux--select--poll--and-epoll/</a></p>
+
+<p>[2] Linux Programmer&rsquo;s Manual: man epoll/epoll_create/epoll_ctl/epoll_wait</p>
+
+<h3 id="代码">代码</h3>
+
+<p>以下使用 C 语言实现了一个简单的服务器，支持同时最多 100 个连接，对每个新建的连接。将它加入 epoll 队列中。当 IO 事件到达时，处理对应的客户端的 IO 事件。</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;sys/epoll.h&gt;
+
+#define MAX_EVENTS 10
+#define LISTEN_PORT 1234
+#define BUF_LEN 512
+#define MAX_CONN 100
+
+struct epoll_event ev, events[MAX_EVENTS];
+int listen_sock, conn_sock, nfds, epollfd;
+struct sockaddr_in server;
+
+#define log(...) printf(__VA_ARGS__)
+
+void response_to_conn(int conn_sock) {
+    char buf[BUF_LEN + 1];
+
+    int read_len = 0;
+    while ((read_len = read(conn_sock, buf, BUF_LEN)) &gt; 0) {
+        // must make sure that the next read will block this non-blocking
+        // socket, then we think the event is fully consumed.
+        if (read_len &lt; 0 &amp;&amp; errno == EAGAIN) {
+            break;
+        }
+        // end of file
+        if (read_len == 0) {
+            break;
+        }
+
+        buf[read_len] = '\0';
+
+        int cursor = 0;
+        while (cursor &lt; read_len) {
+            // writing to a pipe or socket whose reading end is closed
+            // will lead to a SIGPIPE
+            int len = write(conn_sock, buf + cursor, read_len - cursor);
+            if (len &lt; 0) {
+                perror(&quot;write&quot;);
+                return;
+            }
+            cursor += len;
+        }
+
+        // there are no data so we do not have to do another read
+        if (read_len &lt; BUF_LEN) {
+            break;
+        }
+    }
+}
+
+/* Code to set up listening socket, 'listen_sock' */
+void listen_and_bind() {
+    if ((listen_sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+        perror(&quot;socket&quot;);
+        exit(EXIT_FAILURE);
+    }
+    int option = 1;
+    setsockopt(listen_sock, SOL_SOCKET, SO_REUSEADDR, &amp;option, sizeof(option));
+
+    server.sin_family = AF_INET;
+    server.sin_addr.s_addr = INADDR_ANY;
+    server.sin_port = htons(LISTEN_PORT);
+    if (bind(listen_sock, (struct sockaddr *)&amp;server, sizeof(server)) == -1) {
+        perror(&quot;bind&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    listen(listen_sock, MAX_CONN);
+}
+
+void create_epoll() {
+    epollfd = epoll_create1(0);
+    if (epollfd == -1) {
+        perror(&quot;epoll_create1&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    ev.events = EPOLLIN;
+    ev.data.fd = listen_sock;
+    if (epoll_ctl(epollfd, EPOLL_CTL_ADD, listen_sock, &amp;ev) == -1) {
+        perror(&quot;epoll_ctl: listen_sock&quot;);
+        exit(EXIT_FAILURE);
+    }
+}
+
+void set_fd_nonblocking(int fd) {
+    int flags = fcntl(fd, F_GETFL, 0);
+    if (flags == -1) {
+        perror(&quot;getfl&quot;);
+        return;
+    }
+    if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) &lt; 0) {
+        perror(&quot;setfl&quot;);
+        return;
+    }
+}
+
+void epoll_loop() {
+    for (;;) {
+        int nfds = epoll_wait(epollfd, events, MAX_EVENTS, -1);
+        if (nfds == -1) {
+            perror(&quot;epoll_wait&quot;);
+            exit(EXIT_FAILURE);
+        }
+
+        log(&quot;get %d events from epoll_wait!\n&quot;, nfds);
+
+        for (int n = 0; n &lt; nfds; ++ n) {
+            if (events[n].data.fd == listen_sock) {
+                struct sockaddr_in local;
+                socklen_t addrlen;
+                conn_sock = accept(listen_sock, (struct sockaddr *) &amp;local, &amp;addrlen);
+                if (conn_sock == -1) {
+                    perror(&quot;accept&quot;);
+                    exit(EXIT_FAILURE);
+                }
+
+                log(&quot;accept a new connection!\n&quot;);
+
+                // set non-blocking
+                set_fd_nonblocking(conn_sock);
+
+                ev.events = EPOLLIN | EPOLLET | EPOLLRDHUP;
+                ev.data.fd = conn_sock;
+                if (epoll_ctl(epollfd, EPOLL_CTL_ADD, conn_sock, &amp;ev) == -1) {
+                    perror(&quot;epoll_ctl: conn_sock&quot;);
+                    exit(EXIT_FAILURE);
+                }
+            } else {
+                if (events[n].events &amp; (EPOLLRDHUP | EPOLLERR)) {
+                    log(&quot;detect a closed/broken connection!\n&quot;);
+                    epoll_ctl(epollfd, EPOLL_CTL_DEL, events[n].data.fd, NULL);
+                    close(events[n].data.fd);
+                } else response_to_conn(events[n].data.fd);
+            }
+        }
+    }
+}
+
+int main(int argc, char **argv) {
+    log(&quot;listenning on port 1234!\n&quot;);
+    listen_and_bind();
+
+    log(&quot;creating epoll!\n&quot;);
+    create_epoll();
+
+    log(&quot;starting loop on epoll!\n&quot;);
+    epoll_loop();
+
+    return 0;
+}
+</code></pre>
+      </div>
+    </section>
+    
+    <section class="pagination clearfix">
+      
+      <a class="btn previous " href="https://blog.crazyark.me/posts/bloom_filter/"> 布隆过滤器 (Bloom Filter) </a> 
+       
+      
+    </section>
+    
+    
+<section id="disqus_thread" class='disqus'></section>
+<script>
+  var disqus_config = function () {
+    this.page.url = "https://blog.crazyark.me/posts/epoll/";
+    
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//crazyark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  
+  <footer>
+  <div class="footer-info">
+    <p>
+      <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
+      {
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.38.2</a>,
+        <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
+      }
+      {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}
+    </p>
+  </div>
+</footer>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<style type="text/css" media="screen">
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax();
+    all.forEach(function(e) {
+        e.SourceElement().parentNode.className += ' has-jax';
+    });
+});
+</script>
+
+  
+  <script src="https://blog.crazyark.me/js/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+
+</body>
+
+</html>

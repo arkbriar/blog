@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Io Multiplex on crazy.ark</title>
+    <link>https://blog.crazyark.me/categories/io-multiplex/</link>
+    <description>Recent content in Io Multiplex on crazy.ark</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 16 Apr 2018 19:51:21 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.crazyark.me/categories/io-multiplex/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Epoll</title>
+      <link>https://blog.crazyark.me/posts/epoll/</link>
+      <pubDate>Mon, 16 Apr 2018 19:51:21 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/epoll/</guid>
+      <description>&lt;p&gt;Epoll 是 Linux 平台上独有的一组编程接口，用于监听多个文件描述符上的 IO 事件。Epoll 相对于 select/poll 的优势在于即使监听了大量的文件描述符，性能也非常好。Epoll API 支持两种监听方式：edge-triggered (EPOLLET) 和 level_triggered (default)。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

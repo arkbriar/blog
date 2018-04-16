@@ -6,10 +6,21 @@
     <description>Recent content in Development on crazy.ark</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Apr 2018 13:02:27 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 16 Apr 2018 19:51:21 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.crazyark.me/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Epoll</title>
+      <link>https://blog.crazyark.me/posts/epoll/</link>
+      <pubDate>Mon, 16 Apr 2018 19:51:21 +0800</pubDate>
+      
+      <guid>https://blog.crazyark.me/posts/epoll/</guid>
+      <description>&lt;p&gt;Epoll 是 Linux 平台上独有的一组编程接口，用于监听多个文件描述符上的 IO 事件。Epoll 相对于 select/poll 的优势在于即使监听了大量的文件描述符，性能也非常好。Epoll API 支持两种监听方式：edge-triggered (EPOLLET) 和 level_triggered (default)。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>布隆过滤器 (Bloom Filter)</title>
