@@ -51,6 +51,7 @@ comments: true
 推导过程如下所示:
 
 $p = (1 - e^{-kn/m})^k$
+
 $\ln p = k\ln(1 - e^{-kn/m}) = -\dfrac{m}{n}\ln(e^{-kn/m}) \ln(1 - e^{-kn/m})$
 
 令 $g = e^{-kn/m}$，即有 $\ln p = -\dfrac{m}{n}\ln(g) \ln(1 - g)$，由对称法可知 $g = \dfrac{1}{2}$ 时上式最小。
