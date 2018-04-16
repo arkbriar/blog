@@ -1,5 +1,5 @@
 ---
-title: "Maximum Matching in Bipartite Graph"
+title: "二部图的最大匹配 (Maximum Matching in Bipartite Graph)"
 date: 2017-09-26T22:26:08+08:00
 draft: false
 categories: ["Development", "Algorithm", "Graph Theory"]

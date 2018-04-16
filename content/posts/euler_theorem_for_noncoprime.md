@@ -1,5 +1,5 @@
 ---
-title: "Euler Theorem for Non-coprime"
+title: "非质数的欧拉定理扩展 (Euler Theorem for Non-coprime)"
 date: 2017-08-23T22:02:59+08:00
 draft: false
 categories: ["Mathematics"]

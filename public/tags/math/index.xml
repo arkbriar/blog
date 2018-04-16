@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Game Theory -- Impartial Combinatorial Games</title>
+      <title>博弈论-公平组合游戏 (Game Theory -- Impartial Combinatorial Games)</title>
       <link>https://blog.crazyark.me/posts/game_theory/</link>
       <pubDate>Wed, 11 Oct 2017 00:40:08 +0800</pubDate>
       
@@ -25,7 +25,7 @@
     </item>
     
     <item>
-      <title>AGC019-F Mysterious Combinators</title>
+      <title>神奇的组合数 (AGC019-F Mysterious Combinators)</title>
       <link>https://blog.crazyark.me/posts/agc019_mysterious_combinators/</link>
       <pubDate>Wed, 06 Sep 2017 21:16:06 +0800</pubDate>
       
@@ -43,7 +43,7 @@
     </item>
     
     <item>
-      <title>Euler Theorem for Non-coprime</title>
+      <title>非质数的欧拉定理扩展 (Euler Theorem for Non-coprime)</title>
       <link>https://blog.crazyark.me/posts/euler_theorem_for_noncoprime/</link>
       <pubDate>Wed, 23 Aug 2017 22:02:59 +0800</pubDate>
       
@@ -63,7 +63,7 @@
     </item>
     
     <item>
-      <title>Polynomial Hash and Theu-Morse Sequence</title>
+      <title>多项式哈希及Theu-Morse序列 (Polynomial Hash and Theu-Morse Sequence)</title>
       <link>https://blog.crazyark.me/posts/transaction_certificates/</link>
       <pubDate>Mon, 21 Aug 2017 23:58:42 +0800</pubDate>
       

@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Stoer-Wagner Algorithm -- Global Min-Cut in Undirected Weighted Graphs</title>
+      <title>无向带权图图全局最小割 Stoer-Wagner 算法 (Stoer-Wagner Algorithm -- Global Min-Cut in Undirected Weighted Graphs)</title>
       <link>https://blog.crazyark.me/posts/stoer_wagner_al/</link>
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       

@@ -1,5 +1,5 @@
 ---
-title: "Ford Johnson Algorithm"
+title: "优化比较次数的排序算法 (Ford Johnson Algorithm)"
 date: 2017-08-04T14:15:35+08:00
 categories: ["Development", "Algorithm"]
 tags: ["algorithm", "atcoder", "sort"]

@@ -1,5 +1,5 @@
 ---
-title: "Project Euler #188 -- The Hyperexponentiation of A Number"
+title: "整数的超幂 (Project Euler #188 -- The Hyperexponentiation of A Number)"
 date: 2017-08-25T21:32:26+08:00
 draft: false
 categories: ["Development", "Algorithm", "Project Euler"]

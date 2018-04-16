@@ -1,5 +1,5 @@
 ---
-title: "Segment Tree"
+title: "线段树 (Segment Tree)"
 date: 2017-09-08T12:58:11+08:00
 draft: false
 categories: ["Development", "Algorithm"]

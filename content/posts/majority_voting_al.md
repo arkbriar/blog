@@ -1,5 +1,5 @@
 ---
-title: "Boyer-Moore Majority Voting Algorithm"
+title: "Boyer-Moore 投票算法 (Boyer-Moore Majority Voting Algorithm)"
 date: 2017-07-28T21:08:02+08:00
 tags: ["algorithm", "boyer-moore majority vote algorithm"]
 categories: ["Development", "Algorithm"]

@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Longest Palindromic Substring -- Manacher&#39;s Algorithm</title>
+      <title>最长回文子串 Manacher 算法 (Longest Palindromic Substring -- Manacher&#39;s Algorithm)</title>
       <link>https://blog.crazyark.me/posts/manachers_algorithm/</link>
       <pubDate>Fri, 13 Apr 2018 01:50:51 +0800</pubDate>
       
@@ -25,7 +25,7 @@
     </item>
     
     <item>
-      <title>Maximum Matching in Bipartite Graph</title>
+      <title>二部图的最大匹配 (Maximum Matching in Bipartite Graph)</title>
       <link>https://blog.crazyark.me/posts/maximum_matching_in_bipartite_graph/</link>
       <pubDate>Tue, 26 Sep 2017 22:26:08 +0800</pubDate>
       
@@ -38,7 +38,7 @@
     </item>
     
     <item>
-      <title>Sparse Table &amp; Parallel Binary Search</title>
+      <title>稀疏表和并行二分查找 (Sparse Table &amp; Parallel Binary Search)</title>
       <link>https://blog.crazyark.me/posts/hourrank23/</link>
       <pubDate>Sun, 10 Sep 2017 01:06:11 +0800</pubDate>
       
@@ -49,7 +49,7 @@
     </item>
     
     <item>
-      <title>Binary Indexed Tree</title>
+      <title>二叉索引树/树状数组 (Binary Indexed Tree)</title>
       <link>https://blog.crazyark.me/posts/binary_indexed_tree/</link>
       <pubDate>Fri, 08 Sep 2017 22:23:50 +0800</pubDate>
       
@@ -60,7 +60,7 @@
     </item>
     
     <item>
-      <title>Segment Tree</title>
+      <title>线段树 (Segment Tree)</title>
       <link>https://blog.crazyark.me/posts/segment_tree/</link>
       <pubDate>Fri, 08 Sep 2017 12:58:11 +0800</pubDate>
       
@@ -73,7 +73,7 @@
     </item>
     
     <item>
-      <title>AGC019-F Mysterious Combinators</title>
+      <title>神奇的组合数 (AGC019-F Mysterious Combinators)</title>
       <link>https://blog.crazyark.me/posts/agc019_mysterious_combinators/</link>
       <pubDate>Wed, 06 Sep 2017 21:16:06 +0800</pubDate>
       
@@ -91,7 +91,7 @@
     </item>
     
     <item>
-      <title>Longest Increasing Subsequence</title>
+      <title>最长递增子序列 (Longest Increasing Subsequence)</title>
       <link>https://blog.crazyark.me/posts/longest_increasing_subsequence/</link>
       <pubDate>Fri, 01 Sep 2017 15:41:22 +0800</pubDate>
       
@@ -128,7 +128,7 @@
     </item>
     
     <item>
-      <title>Project Euler #188 -- The Hyperexponentiation of A Number</title>
+      <title>整数的超幂 (Project Euler #188 -- The Hyperexponentiation of A Number)</title>
       <link>https://blog.crazyark.me/posts/projecteuler_188/</link>
       <pubDate>Fri, 25 Aug 2017 21:32:26 +0800</pubDate>
       
@@ -143,7 +143,7 @@
     </item>
     
     <item>
-      <title>Polynomial Hash and Theu-Morse Sequence</title>
+      <title>多项式哈希及Theu-Morse序列 (Polynomial Hash and Theu-Morse Sequence)</title>
       <link>https://blog.crazyark.me/posts/transaction_certificates/</link>
       <pubDate>Mon, 21 Aug 2017 23:58:42 +0800</pubDate>
       
@@ -156,7 +156,7 @@
     </item>
     
     <item>
-      <title>Stoer-Wagner Algorithm -- Global Min-Cut in Undirected Weighted Graphs</title>
+      <title>无向带权图图全局最小割 Stoer-Wagner 算法 (Stoer-Wagner Algorithm -- Global Min-Cut in Undirected Weighted Graphs)</title>
       <link>https://blog.crazyark.me/posts/stoer_wagner_al/</link>
       <pubDate>Sat, 05 Aug 2017 22:14:01 +0800</pubDate>
       
@@ -167,7 +167,7 @@
     </item>
     
     <item>
-      <title>Ford Johnson Algorithm</title>
+      <title>优化比较次数的排序算法 (Ford Johnson Algorithm)</title>
       <link>https://blog.crazyark.me/posts/ford_johnson_algorithm/</link>
       <pubDate>Fri, 04 Aug 2017 14:15:35 +0800</pubDate>
       
@@ -201,7 +201,7 @@ In testset 3, N=5 and Q=7.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Sliding Window Maximum / Monotonic Queue</title>
+      <title>滑动窗口中的最大值 (Sliding Window Maximum / Monotonic Queue)</title>
       <link>https://blog.crazyark.me/posts/monotonic_queue/</link>
       <pubDate>Thu, 03 Aug 2017 15:55:02 +0800</pubDate>
       
@@ -224,7 +224,7 @@ In testset 3, N=5 and Q=7.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Selection in X&#43;Y or Sorted Matrices</title>
+      <title>有序矩阵中的第k大数 (Selection in X&#43;Y or Sorted Matrices)</title>
       <link>https://blog.crazyark.me/posts/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/</link>
       <pubDate>Wed, 02 Aug 2017 20:58:55 +0800</pubDate>
       
@@ -250,7 +250,7 @@ In testset 3, N=5 and Q=7.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Boyer-Moore Majority Voting Algorithm</title>
+      <title>Boyer-Moore 投票算法 (Boyer-Moore Majority Voting Algorithm)</title>
       <link>https://blog.crazyark.me/posts/majority_voting_al/</link>
       <pubDate>Fri, 28 Jul 2017 21:08:02 +0800</pubDate>
       

@@ -1,5 +1,5 @@
 ---
-title: "Game Theory -- Impartial Combinatorial Games"
+title: "博弈论-公平组合游戏 (Game Theory -- Impartial Combinatorial Games)"
 date: 2017-10-11T00:40:08+08:00
 draft: false
 categories: ["Mathematics", "Game Theory"]

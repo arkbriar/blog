@@ -1,5 +1,5 @@
 ---
-title: "Stoer-Wagner Algorithm -- Global Min-Cut in Undirected Weighted Graphs"
+title: "无向带权图图全局最小割 Stoer-Wagner 算法 (Stoer-Wagner Algorithm -- Global Min-Cut in Undirected Weighted Graphs)"
 date: 2017-08-05T22:14:01+08:00
 draft: false
 toc: true

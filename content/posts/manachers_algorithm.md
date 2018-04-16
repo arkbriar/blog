@@ -1,5 +1,5 @@
 ---
-title: "Longest Palindromic Substring -- Manacher's Algorithm"
+title: "最长回文子串 Manacher 算法 (Longest Palindromic Substring -- Manacher's Algorithm)"
 date: 2018-04-13T01:50:51+08:00
 draft: false
 categories: ["Development", "Algorithm"]

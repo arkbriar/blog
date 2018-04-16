@@ -1,5 +1,5 @@
 ---
-title: "AGC019-F Mysterious Combinators"
+title: "神奇的组合数 (AGC019-F Mysterious Combinators)"
 date: 2017-09-06T21:16:06+08:00
 draft: false
 categories: ["Development", "Mathematics"]

@@ -1,5 +1,5 @@
 ---
-title: "Longest Increasing Subsequence"
+title: "最长递增子序列 (Longest Increasing Subsequence)"
 date: 2017-09-01T15:41:22+08:00
 draft: false
 categories: ["Algorithm", "Development"]

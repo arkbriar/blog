@@ -1,5 +1,5 @@
 ---
-title: "Polynomial Hash and Theu-Morse Sequence"
+title: "多项式哈希及Theu-Morse序列 (Polynomial Hash and Theu-Morse Sequence)"
 date: 2017-08-21T23:58:42+08:00
 draft: false
 categories: ["Development", "Mathematics"]

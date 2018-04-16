@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Sliding Window Maximum / Monotonic Queue</title>
+      <title>滑动窗口中的最大值 (Sliding Window Maximum / Monotonic Queue)</title>
       <link>https://blog.crazyark.me/posts/monotonic_queue/</link>
       <pubDate>Thu, 03 Aug 2017 15:55:02 +0800</pubDate>
       
@@ -35,7 +35,7 @@
     </item>
     
     <item>
-      <title>Selection in X&#43;Y or Sorted Matrices</title>
+      <title>有序矩阵中的第k大数 (Selection in X&#43;Y or Sorted Matrices)</title>
       <link>https://blog.crazyark.me/posts/selection_in_x_plus_y_and_matrices_with_sorted_rows_and_columns/</link>
       <pubDate>Wed, 02 Aug 2017 20:58:55 +0800</pubDate>
       

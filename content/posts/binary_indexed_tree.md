@@ -1,5 +1,5 @@
 ---
-title: "Binary Indexed Tree"
+title: "二叉索引树/树状数组 (Binary Indexed Tree)"
 date: 2017-09-08T22:23:50+08:00
 draft: false
 categories: ["Development", "Algorithm"]

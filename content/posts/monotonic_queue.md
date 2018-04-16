@@ -1,5 +1,5 @@
 ---
-title: "Sliding Window Maximum / Monotonic Queue"
+title: "滑动窗口中的最大值 (Sliding Window Maximum / Monotonic Queue)"
 tags: ["algorithm", "leetcode"]
 categories: ["Development", "Algorithm"]
 date: 2017-08-03T15:55:02+08:00
