@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="generator" content="Hugo 0.38.2" />
+<meta name="generator" content="Hugo 0.40.2" />
 
 
 <link rel="stylesheet" href="https://blog.crazyark.me/css/vec.css">
@@ -212,16 +212,6 @@ void response_to_conn(int conn_sock) {
 
     int read_len = 0;
     while ((read_len = read(conn_sock, buf, BUF_LEN)) &gt; 0) {
-        // must make sure that the next read will block this non-blocking
-        // socket, then we think the event is fully consumed.
-        if (read_len &lt; 0 &amp;&amp; errno == EAGAIN) {
-            break;
-        }
-        // end of file
-        if (read_len == 0) {
-            break;
-        }
-
         buf[read_len] = '\0';
 
         int cursor = 0;
@@ -240,6 +230,16 @@ void response_to_conn(int conn_sock) {
         if (read_len &lt; BUF_LEN) {
             break;
         }
+    }
+    
+    // must make sure that the next read will block this non-blocking
+    // socket, then we think the event is fully consumed.
+    if (read_len &lt; 0 &amp;&amp; errno == EAGAIN) {
+        return;
+    }
+    // end of file
+    if (read_len == 0) {
+        return;
     }
 }
 
@@ -378,7 +378,7 @@ int main(int argc, char **argv) {
     <p>
       <a href="mailto:arkbriar@gmail.com?subject="><i class="fa fa-envelope-o"></i> arkbriar@gmail.com </a>
       {
-        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.38.2</a>,
+        <a href="https://gohugo.io/" title="Hugo :: A fast and modern static website engine">Hugo 0.40.2</a>,
         <a href="https://github.com/IvanChou/yii.im" title="vec">Vec</a> 
       }
       {<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="CC BY-NC-ND 3.0">CC BY-NC-ND 3.0</a>}

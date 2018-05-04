@@ -132,16 +132,6 @@ void response_to_conn(int conn_sock) {
 
     int read_len = 0;
     while ((read_len = read(conn_sock, buf, BUF_LEN)) > 0) {
-        // must make sure that the next read will block this non-blocking
-        // socket, then we think the event is fully consumed.
-        if (read_len < 0 && errno == EAGAIN) {
-            break;
-        }
-        // end of file
-        if (read_len == 0) {
-            break;
-        }
-
         buf[read_len] = '\0';
 
         int cursor = 0;
@@ -160,6 +150,16 @@ void response_to_conn(int conn_sock) {
         if (read_len < BUF_LEN) {
             break;
         }
+    }
+    
+    // must make sure that the next read will block this non-blocking
+    // socket, then we think the event is fully consumed.
+    if (read_len < 0 && errno == EAGAIN) {
+        return;
+    }
+    // end of file
+    if (read_len == 0) {
+        return;
     }
 }
 
