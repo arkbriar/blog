@@ -1,0 +1,3 @@
+[submodule "themes/vec"]
+	path = themes/vec
+	url = git@github.com:arkbriar/hugo-theme-vec.git
