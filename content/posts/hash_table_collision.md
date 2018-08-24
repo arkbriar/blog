@@ -1,13 +1,14 @@
 ---
-title: "哈希冲突与并发哈希表"
+title: "哈希表 -- 哈希冲突"
 date: 2018-08-16T14:55:23+08:00
-draft: true
+draft: false
 categories: ["Computer Science", "Hash Table"]
 tags: []
 toc: true
 comments: true
 ---
-# Hash table -- Collision and Concurrency
+
+# Hash table -- Collision
 
 在计算机科学中，哈希表 (hash table) 是一个非常重要的数据结构，它帮助我们快速的进行插入和查询。理论上来说，在表中查询一次的耗时应该是 O(1) 的。这里假设大家对于哈希 (hash) 都已经了解，如果你以前没有接触过这个概念，这篇[文章](http://blog.thedigitalcatonline.com/blog/2018/04/06/introduction-to-hashing/)或许是一个很好的开始。
 
@@ -66,13 +67,7 @@ comments: true
 
 双重哈希相比于线性/二次探查，可以用更小的表空间存放更多的元素，但是探查的计算过程会较慢。
 
-### 2-choice hashing
-
-2-choice hashing 同样是使用两个哈希函数 h_1 和 h_2，每次插入时，只考虑 h_1(e) 和 h_2(e) 这两个位置，并选取其中元素少的那个插入。2-choice hashing 有一个神奇的结论，即每个桶中的元素的期望值为 $\theta(\log(\log(n)))$。
-
-关于期望值的证明，如果你也是南大的同学并且被尹一通老师的[随机算法](http://tcs.nju.edu.cn/wiki/index.php/%E9%AB%98%E7%BA%A7%E7%AE%97%E6%B3%95_(Fall_2017))课虐过，那你应该听说过 The power of 2-choice，同样 [CMU 的讲义](http://www.cs.cmu.edu/afs/cs/academic/class/15859-f04/www/scribes/lec10.pdf)中也有证明。
-
-### Robin Hood hashing
+#### Robin Hood hashing
 
 罗宾汉哈希 (Robin Hood Hashing) 是一个开地址法的变种，我们通常所说的罗宾汉哈希是指 Robin Hood Linear Probing。在这篇博文 [[14]](https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/) 中，作者甚至推荐大家使用基于罗宾汉哈希实现的哈希表。那它到底有什么优势？
 
@@ -91,30 +86,32 @@ comments: true
 
 在各种测试中，罗宾汉哈希表的空间和时间性能表现都非常好，希望以后在工作过程中能有机会使用。
 
-### Cuckoo hashing
-TBD
 
-### Rehashing / Extendible hashing
-TBD
+### 2-choice hashing
 
-## Implementations
+2-choice hashing 同样是使用两个哈希函数 h_1 和 h_2，每次插入时，只考虑 h_1(e) 和 h_2(e) 这两个位置，并选取其中元素少的那个插入。2-choice hashing 有一个神奇的结论，即每个桶中的元素的期望值为 $\theta(\log(\log(n)))$。
 
-### Java & C++
+关于期望值的证明，如果你也是南大的同学并且被尹一通老师的[随机算法](http://tcs.nju.edu.cn/wiki/index.php/%E9%AB%98%E7%BA%A7%E7%AE%97%E6%B3%95_(Fall_2017))课虐过，那你应该听说过 The power of 2-choice，同样 [CMU 的讲义](http://www.cs.cmu.edu/afs/cs/academic/class/15859-f04/www/scribes/lec10.pdf)中也有证明。
 
-HashMap (Java )
-std::unordered_map (C++)
-google::dense_map (C++)
-tsl::robin_map (C++)
+###  Cuckoo Hashing
+
+布谷鸟哈希 (Cuckoo Hashing) 也是开地址法的一种，它最差情况的查询速度都是 O(1) 的。布谷鸟哈希的名字来源于一种布谷鸟，他们的幼崽会在刚孵化的时候，把其他未孵化的蛋一脚踢出鸟巢。
+
+布谷鸟哈希通常使用两个数组以及哈希函数，所以和 2-choice hashing 一样，每一个元素都对应两个位置。当一个元素插入的时候，如果两个位置没满，就直接放入空的位置；如果满了，那么踢掉其中一个，放入其中，然后把踢掉的这个放入它的第二个位置；如果踢掉的这个的第二个位置也被占了，那么继续踢掉其中的；循环上述过程直到最后放入空的位置。
+
+显然，当最后遇到无限循环的时候，上述插入过程有可能会失败。此时我们可以用新的哈希函数原地重建一个表：
+
+> There is no need to allocate new tables for the rehashing: We may simply run through the tables to delete and perform the usual insertion procedure on all keys found not to be at their intended position in the table.
+>	
+> — Pagh & Rodler, "Cuckoo Hashing"[[17]](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.25.4189&rep=rep1&type=pdf)
+
+布谷鸟哈希相较于其他方法来说，空间利用率更高，所以有研究者用它设计了 Cuckoo Filter [[18]](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf) [[10]](https://brilliant.org/wiki/cuckoo-filter/)，比 Bloom Filter 更加的空间高效，并且支持动态删除。
+
+具体的其他细节这里就不多叙述了，大家可以去阅读维基百科 [[5]](https://en.wikipedia.org/wiki/Cuckoo_hashing) 上的资料和参考文献。
 
 ### Benchmarks
 
-这儿有一篇[博客](https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html)，分析了 8 种哈希表主流实现在各种场景下的时间和空间性能，大家可以自己去看一下。
-
-## Concurrency
-
-### Granularity of locks
-
-ConcurrentHashMap, tbb::concurrent_hash_map
+这儿有一篇博客[[11]](https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html)，分析了 8 种哈希表主流实现在各种场景下的时间和空间性能，分析表明罗宾汉哈希表 (robin_map) 和二次线性探查 (dense_map) 的性能表现都相当优秀，详细数据可以前往原博文查看。
 
 ## References
 
@@ -136,7 +133,7 @@ ConcurrentHashMap, tbb::concurrent_hash_map
 
 [9] http://www.cs.cmu.edu/afs/cs/academic/class/15859-f04/www/scribes/lec10.pdf
 
-[10] https://github.com/01org/tbb
+[10] https://brilliant.org/wiki/cuckoo-filter/
 
 [11] https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html
 
@@ -149,3 +146,5 @@ ConcurrentHashMap, tbb::concurrent_hash_map
 [15] http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.130.6339
 
 [16] http://codecapsule.com/2013/11/17/robin-hood-hashing-backward-shift-deletion/
+[17] http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.25.4189&rep=rep1&type=pdf
+[18] https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf
