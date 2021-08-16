@@ -21,13 +21,13 @@ paginate = 10
     name = "about"
     weight = 1
     url = "/about"
-  [[menu.main]]
-    name = "contact"
-    weight = 2
-    url = "/contact"
+  # [[menu.main]]
+  #   name = "contact"
+  #   weight = 2
+  #   url = "/contact"
   [[menu.main]]
     name = "external/coding husky"
-    weight = 3
+    weight = 2
     url = "https://ericfu.me"
 
 [params]
