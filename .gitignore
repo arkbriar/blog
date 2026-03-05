@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Astro
+.astro/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+
+# Old Hugo blog (migration source, not needed in repo)
+_old_hugo_blog/
+
+# npm lockfile (this project uses pnpm)
+package-lock.json
+
+# Debug logs
+npm-debug.log*
+pnpm-debug.log*
