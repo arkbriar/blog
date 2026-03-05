@@ -2,8 +2,8 @@
 title: "MWeb With Hugo"
 published: 2017-11-01T18:34:30+08:00
 draft: false
-category: "Kits"
-tags: ["mweb", "hugo", "markdown", "editor"]
+category: "Programming"
+tags: ["hugo", "markdown", "tooling"]
 ---
 
 前两天发现了一个好用的 markdown 编辑器叫 MWeb，支持好多 Blog 的直接发布，同时对两种静态网页生成器有直接的支持 (hexo/jelly)，然而对 hugo 却并没有支持，好在大家工作原理都差不多，稍微改改就能用上了。

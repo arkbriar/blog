@@ -2,8 +2,8 @@
 title: "最长回文子串 Manacher 算法 (Longest Palindromic Substring -- Manacher's Algorithm)"
 published: 2018-04-13T01:50:51+08:00
 draft: false
-category: "Development"
-tags: ["algorithm", "longest palindromic substring"]
+category: "Algorithm"
+tags: ["string", "palindrome"]
 ---
 
 Emm，这篇其实在 2017 年 9 月就打算写了，到现在才填上，再不填又要忘记了...

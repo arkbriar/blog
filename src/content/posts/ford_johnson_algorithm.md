@@ -1,8 +1,8 @@
 ---
 title: "优化比较次数的排序算法 (Ford Johnson Algorithm)"
 published: 2017-08-04T14:15:35+08:00
-category: "Development"
-tags: ["algorithm", "atcoder", "sort"]
+category: "Algorithm"
+tags: ["sorting", "comparison-bound", "atcoder"]
 draft: false
 ---
 

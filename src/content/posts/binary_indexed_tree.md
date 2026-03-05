@@ -2,8 +2,8 @@
 title: "二叉索引树/树状数组 (Binary Indexed Tree)"
 published: 2017-09-08T22:23:50+08:00
 draft: false
-category: "Development"
-tags: ["algorithm"]
+category: "Data Structure"
+tags: ["fenwick-tree", "range-query"]
 ---
 
 Binary Indexed Tree/Fenwick tree 的树构成方式我一直很疑惑，总是似懂非懂。现在终于弄清楚了它的节点的父子关系，记录下来防止忘记。

@@ -2,8 +2,8 @@
 title: "稀疏表和并行二分查找 (Sparse Table & Parallel Binary Search)"
 published: 2017-09-10T01:06:11+08:00
 draft: false
-category: "Development"
-tags: ["hackerrank", "hourrank", "algorithm"]
+category: "Data Structure"
+tags: ["sparse-table", "range-query", "hackerrank"]
 ---
 
 不刷题不知道自己菜，越刷题越发现自己🙄 —— 记 HourRank23 被虐。

@@ -2,8 +2,8 @@
 title: "第四届天池中间件性能挑战赛感想"
 published: 2018-08-01T19:59:45+08:00
 draft: false
-category: "dubbo"
-tags: ["Development", "Middleware"]
+category: "Systems"
+tags: ["middleware", "performance", "contest"]
 ---
 
 从报名比赛开始到现在将近四个月了，终于告一段落，最终拿到了季军也很开心。这三个月中我学到了很多有用的工程知识，顺便把 C++ 又摸熟了。初赛代码实在写太丑就不放出来了，复赛的代码托管在 github 上：

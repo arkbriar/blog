@@ -3,7 +3,7 @@ title: "博弈论-公平组合游戏 (Game Theory -- Impartial Combinatorial Gam
 published: 2017-10-11T00:40:08+08:00
 draft: false
 category: "Mathematics"
-tags: ["math", "game theory"]
+tags: ["game-theory", "sprague-grundy", "nim"]
 ---
 
 上回说到接下来都是图算法... 这个，我食个言 🙃

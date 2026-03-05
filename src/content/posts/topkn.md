@@ -1,8 +1,8 @@
 ---
 title: "2017 Alibaba Middleware 24h Final (Just for Fun 😀)"
 published: 2017-07-26T16:59:26+08:00
-tags: ["java", "distributed system", "parallel computing"]
-category: "Development"
+tags: ["distributed-system", "java", "contest"]
+category: "Systems"
 draft: false
 ---
 

@@ -3,7 +3,7 @@ title: "非质数的欧拉定理扩展 (Euler Theorem for Non-coprime)"
 published: 2017-08-23T22:02:59+08:00
 draft: false
 category: "Mathematics"
-tags: ["math", "euler theorem", "non-coprime"]
+tags: ["number-theory", "euler-theorem", "modular-arithmetic"]
 ---
 
 刚遇到一道可怕的题目，迭代次幂 (tetration) 在超级大的范围下快速求解对某个模数的幂，模数范围在 1 到 1e18 之间。

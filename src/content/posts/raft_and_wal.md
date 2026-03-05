@@ -2,8 +2,8 @@
 title: "Raft on RocksDB -- 共享日志"
 published: 2021-08-17T10:44:38+08:00
 draft: false
-category: "database"
-tags: ["raft", "write-ahead-log"]
+category: "Systems"
+tags: ["raft", "write-ahead-log", "rocksdb"]
 ---
 
 自上次更新博客起已经有三年时间了，这期间经历了留学、毕业、工作等很多事情，个中滋味只有自己知道。博客重开，希望文笔和思路上能比以前进步一点点。同时因为学识有限，也希望各位大佬能不吝赐教。

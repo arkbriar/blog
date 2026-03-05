@@ -2,8 +2,8 @@
 title: "无向带权图图全局最小割 Stoer-Wagner 算法 (Stoer-Wagner Algorithm -- Global Min-Cut in Undirected Weighted Graphs)"
 published: 2017-08-05T22:14:01+08:00
 draft: false
-tags: ["algorithm", "graph theory", "min-cut"]
-category: "Development"
+tags: ["min-cut", "graph"]
+category: "Graph Theory"
 ---
 
 最近碰到一道题目，求一个图的全局最小割，可惜图论博主学的不太好，至今只记得一个求 s-t 最大流/最小割的 ford-fulkerson。想了想总不能做$n^2$次最大流吧，最终还是求助了维基百科 🤣

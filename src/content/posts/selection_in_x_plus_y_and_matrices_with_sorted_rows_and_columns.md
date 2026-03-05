@@ -1,7 +1,7 @@
 ---
 title: "有序矩阵中的第k大数 (Selection in X+Y or Sorted Matrices)"
-tags: ["algorithm", "paper", "leetcode"]
-category: "Development"
+tags: ["selection", "sorted-matrix", "paper"]
+category: "Algorithm"
 published: 2017-08-02T20:58:55+08:00
 draft: false
 ---

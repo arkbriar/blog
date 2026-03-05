@@ -2,8 +2,8 @@
 title: "多项式哈希及Theu-Morse序列 (Polynomial Hash and Theu-Morse Sequence)"
 published: 2017-08-21T23:58:42+08:00
 draft: false
-category: "Development"
-tags: ["math", "hackerrank"]
+category: "Mathematics"
+tags: ["polynomial-hash", "thue-morse", "hackerrank"]
 ---
 
 前两天刷 Hackerrank 上的 [Contest](https://www.hackerrank.com/contests/gs-codesprint/challenges)，给了两天时间，没想到被最后一题卡成🐶，谨记录思考和收获。

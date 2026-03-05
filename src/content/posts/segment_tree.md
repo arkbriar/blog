@@ -2,8 +2,8 @@
 title: "线段树 (Segment Tree)"
 published: 2017-09-08T12:58:11+08:00
 draft: false
-category: "Development"
-tags: ["segment tree", "algorithm"]
+category: "Data Structure"
+tags: ["segment-tree", "range-query"]
 ---
 
 本篇为 WCIPEG 上关于 SegmentTree 的翻译稿，除了删去了几个小节，其余行文结构将完全一致。

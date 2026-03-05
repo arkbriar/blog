@@ -2,8 +2,8 @@
 title: "哈希表 -- 哈希冲突"
 published: 2018-08-16T14:55:23+08:00
 draft: false
-category: "Computer Science"
-tags: []
+category: "Data Structure"
+tags: ["hash-table", "collision-resolution"]
 ---
 
 # Hash table -- Collision

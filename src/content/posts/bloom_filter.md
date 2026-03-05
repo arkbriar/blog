@@ -3,7 +3,7 @@ title: "布隆过滤器 (Bloom Filter)"
 published: 2018-04-16T13:02:27+08:00
 draft: false
 category: "Data Structure"
-tags: ["set"]
+tags: ["bloom-filter", "probability", "hash"]
 ---
 
 布隆过滤器 (Bloom Filter) 是一个空间高效的**概率**数据结构，它能够用来测试是否一个元素在一个集合中。布隆过滤器存在着 false positive (返回存在，其实不存在），但是不存在 false negative (返回不存在，其实存在)。集合中的元素越多，false positive 的概率就越高。

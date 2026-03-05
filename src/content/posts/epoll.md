@@ -2,8 +2,8 @@
 title: "Linux IO 多路复用 —— Epoll"
 published: 2018-04-16T19:51:21+08:00
 draft: false
-category: "Linux"
-tags: ["epoll"]
+category: "Systems"
+tags: ["epoll", "io-multiplexing", "linux"]
 ---
 
 Epoll 是 Linux 平台上独有的一组编程接口，用于监听多个文件描述符上的 IO 事件。 Epoll 相对于 select/poll 的优势在于即使监听了大量的文件描述符，性能也非常好。 Epoll API 支持两种监听方式：edge-triggered (EPOLLET) 和 level_triggered (default)。

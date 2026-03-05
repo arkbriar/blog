@@ -2,8 +2,8 @@
 title: "SIGFPE When Doing DivQ"
 published: 2017-08-27T17:38:37+08:00
 draft: false
-category: "Development"
-tags: ["assembly", "intel x86_64"]
+category: "Programming"
+tags: ["cpp", "x86-64", "assembly"]
 ---
 
 第一次遇到了除 0 以外的 SIGFPE，记录一下。

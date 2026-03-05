@@ -1,7 +1,7 @@
 ---
 title: "滑动窗口中的最大值 (Sliding Window Maximum / Monotonic Queue)"
-tags: ["algorithm", "leetcode"]
-category: "Development"
+tags: ["sliding-window", "monotonic-queue", "leetcode"]
+category: "Algorithm"
 published: 2017-08-03T15:55:02+08:00
 draft: false
 ---

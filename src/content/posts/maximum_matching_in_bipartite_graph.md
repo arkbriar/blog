@@ -2,8 +2,8 @@
 title: "二部图的最大匹配 (Maximum Matching in Bipartite Graph)"
 published: 2017-09-26T22:26:08+08:00
 draft: false
-category: "Development"
-tags: ["maximum matching", "graph", "hungarian algorithm", "hopcraft-karp algorithm", "hall's marriage theorem", "bipartite graph"]
+category: "Graph Theory"
+tags: ["bipartite-graph", "hungarian", "hopcroft-karp"]
 ---
 
 上几篇博文主要是关于范围更新和范围查询的几个数据结构，接下去的主题是图论和图算法，希望能够学习和回忆起大部分图算法。

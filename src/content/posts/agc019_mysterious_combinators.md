@@ -2,8 +2,8 @@
 title: "神奇的组合数 (AGC019-F Mysterious Combinators)"
 published: 2017-09-06T21:16:06+08:00
 draft: false
-category: "Development"
-tags: ["math", "combination"]
+category: "Mathematics"
+tags: ["combinatorics", "atcoder"]
 ---
 
 原题目在 AtCoder Grand Contest 019，F - Yes or No。

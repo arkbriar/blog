@@ -2,8 +2,8 @@
 title: "整数的超幂 (Project Euler #188 -- The Hyperexponentiation of A Number)"
 published: 2017-08-25T21:32:26+08:00
 draft: false
-category: "Development"
-tags: ["hackerrank", "projecteuler"]
+category: "Mathematics"
+tags: ["number-theory", "factorization", "project-euler"]
 ---
 
 接上次的博文，我们来解决大整数分解问题，并最终解决 Project Euler #188。

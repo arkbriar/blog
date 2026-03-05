@@ -3,7 +3,7 @@ title: "最长递增子序列 (Longest Increasing Subsequence)"
 published: 2017-09-01T15:41:22+08:00
 draft: false
 category: "Algorithm"
-tags: ["algorightm", "LIS"]
+tags: ["dynamic-programming", "binary-search"]
 ---
 
 最长递增子序列算法，原本以为已经记住了最快的算法，看来是记性太差，今天碰到一道题目又忘记了怎么做 🙄
