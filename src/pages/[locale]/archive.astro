@@ -1,0 +1,19 @@
+---
+import ArchivePanel from "@components/ArchivePanel.svelte";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getSortedPostsList } from "@utils/content-utils";
+import { LOCALES, type Locale } from "@utils/locale-utils";
+
+export function getStaticPaths() {
+	return LOCALES.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const sortedPostsList = await getSortedPostsList(locale);
+---
+
+<MainGridLayout title={i18n(I18nKey.archive)} locale={locale}>
+    <ArchivePanel sortedPosts={sortedPostsList} locale={locale} client:only="svelte"></ArchivePanel>
+</MainGridLayout>

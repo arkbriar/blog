@@ -46,3 +46,12 @@ export function i18n(key: I18nKey): string {
 	const lang = siteConfig.lang || "en";
 	return getTranslation(lang)[key];
 }
+
+export function i18nForLocale(locale: string, key: I18nKey): string {
+	const langMap: Record<string, string> = {
+		zh: "zh_cn",
+		en: "en",
+	};
+	const lang = langMap[locale] || locale;
+	return getTranslation(lang)[key];
+}

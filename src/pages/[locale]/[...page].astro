@@ -1,0 +1,59 @@
+---
+import type { GetStaticPaths } from "astro";
+import Pagination from "@components/control/Pagination.astro";
+import PostPage from "@components/PostPage.astro";
+import { PAGE_SIZE } from "@constants/constants";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getSortedPosts } from "@utils/content-utils";
+import { LOCALES, type Locale } from "@utils/locale-utils";
+
+export const getStaticPaths = (async () => {
+	const paths = [];
+	for (const locale of LOCALES) {
+		const posts = await getSortedPosts(locale);
+		const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+		for (let i = 0; i < totalPages; i++) {
+			const start = i * PAGE_SIZE;
+			const end = Math.min(start + PAGE_SIZE, posts.length);
+			const pageData = posts.slice(start, end);
+			const pageNum = i + 1;
+
+			paths.push({
+				params: {
+					locale,
+					page: pageNum === 1 ? undefined : String(pageNum),
+				},
+				props: {
+					locale,
+					page: {
+						data: pageData,
+						start,
+						end: end - 1,
+						total: posts.length,
+						currentPage: pageNum,
+						lastPage: totalPages,
+						size: PAGE_SIZE,
+						url: {
+							current: pageNum === 1 ? `/${locale}/` : `/${locale}/${pageNum}/`,
+							prev: pageNum > 1
+								? (pageNum === 2 ? `/${locale}/` : `/${locale}/${pageNum - 1}/`)
+								: undefined,
+							next: pageNum < totalPages ? `/${locale}/${pageNum + 1}/` : undefined,
+						},
+					},
+				},
+			});
+		}
+	}
+	return paths;
+}) satisfies GetStaticPaths;
+
+const { page, locale } = Astro.props;
+
+const len = page.data.length;
+---
+
+<MainGridLayout locale={locale}>
+    <PostPage page={page} locale={locale}></PostPage>
+    <Pagination class="mx-auto onload-animation" page={page} locale={locale} style={`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`}></Pagination>
+</MainGridLayout>

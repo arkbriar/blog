@@ -2,14 +2,18 @@
 import type { Page } from "astro";
 import { Icon } from "astro-icon/components";
 import { url } from "../../utils/url-utils";
+import type { Locale } from "../../utils/locale-utils";
+import { DEFAULT_LOCALE } from "../../utils/locale-utils";
 
 interface Props {
 	page: Page;
 	class?: string;
 	style?: string;
+	locale?: Locale;
 }
 
-const { page, style } = Astro.props;
+const { page, style, locale } = Astro.props;
+const loc = locale || DEFAULT_LOCALE;
 
 const HIDDEN = -1;
 
@@ -18,7 +22,6 @@ const className = Astro.props.class;
 const ADJ_DIST = 2;
 const VISIBLE = ADJ_DIST * 2 + 1;
 
-// for test
 let count = 1;
 let l = page.currentPage;
 let r = page.currentPage;
@@ -46,8 +49,8 @@ if (r === page.lastPage - 2) pages.push(page.lastPage - 1);
 if (r < page.lastPage) pages.push(page.lastPage);
 
 const getPageUrl = (p: number) => {
-	if (p === 1) return "/";
-	return `/${p}/`;
+	if (p === 1) return `/${loc}/`;
+	return `/${loc}/${p}/`;
 };
 ---
 

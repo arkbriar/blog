@@ -8,6 +8,7 @@ import { getPostUrlBySlug } from "../utils/url-utils";
 export let tags: string[];
 export let categories: string[];
 export let sortedPosts: Post[] = [];
+export let locale: string = "zh";
 
 const params = new URLSearchParams(window.location.search);
 tags = params.has("tag") ? params.getAll("tag") : [];
@@ -105,7 +106,7 @@ onMount(async () => {
 
             {#each group.posts as post}
                 <a
-                        href={getPostUrlBySlug(post.slug)}
+                        href={getPostUrlBySlug(post.slug, locale)}
                         aria-label={post.data.title}
                         class="group btn-plain !block h-10 w-full rounded-lg hover:text-[initial]"
                 >

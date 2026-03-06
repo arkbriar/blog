@@ -5,6 +5,7 @@ import { Icon } from "astro-icon/components";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { getDir } from "../utils/url-utils";
+import type { Locale } from "../utils/locale-utils";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
 
@@ -21,6 +22,7 @@ interface Props {
 	description: string;
 	draft: boolean;
 	style: string;
+	locale?: Locale;
 }
 const {
 	entry,
@@ -33,6 +35,7 @@ const {
 	image,
 	description,
 	style,
+	locale,
 } = Astro.props;
 const className = Astro.props.class;
 
@@ -57,7 +60,7 @@ const { remarkPluginFrontmatter } = await entry.render();
         </a>
 
         <!-- metadata -->
-        <PostMetadata published={published} updated={updated} tags={tags} category={category} hideTagsForMobile={true} hideUpdateDate={true} class="mb-4"></PostMetadata>
+        <PostMetadata published={published} updated={updated} tags={tags} category={category} hideTagsForMobile={true} hideUpdateDate={true} locale={locale} class="mb-4"></PostMetadata>
 
         <!-- description -->
         <div class:list={["transition text-75 mb-3.5 pr-4", {"line-clamp-2 md:line-clamp-1": !description}]}>
