@@ -1,7 +1,7 @@
 ---
 
 import I18nKey from "../../i18n/i18nKey";
-import { i18n } from "../../i18n/translation";
+import { i18n, i18nForLocale } from "../../i18n/translation";
 import { getTagList } from "../../utils/content-utils";
 import { getTagUrl } from "../../utils/url-utils";
 import type { Locale } from "../../utils/locale-utils";
@@ -23,7 +23,7 @@ const COLLAPSED_HEIGHT = "7.5rem";
 
 const isCollapsed = tags.length >= 20;
 ---
-<WidgetLayout name={i18n(I18nKey.tags)} id="tags" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT} class={className} style={style}>
+<WidgetLayout name={locale ? i18nForLocale(locale, I18nKey.tags) : i18n(I18nKey.tags)} id="tags" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT} class={className} style={style} locale={locale}>
     <div class="flex gap-2 flex-wrap">
         {tags.map(t => (
             <ButtonTag href={getTagUrl(t.name, locale)} label={`View all posts with the ${t.name.trim()} tag`}>

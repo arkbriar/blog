@@ -1,6 +1,6 @@
 ---
 import I18nKey from "../../i18n/i18nKey";
-import { i18n } from "../../i18n/translation";
+import { i18n, i18nForLocale } from "../../i18n/translation";
 import { getCategoryList } from "../../utils/content-utils";
 import type { Locale } from "../../utils/locale-utils";
 import ButtonLink from "../control/ButtonLink.astro";
@@ -23,8 +23,8 @@ const COLLAPSE_THRESHOLD = 5;
 const isCollapsed = categories.length >= COLLAPSE_THRESHOLD;
 ---
 
-<WidgetLayout name={i18n(I18nKey.categories)} id="categories" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT}
-                class={className} style={style}
+<WidgetLayout name={locale ? i18nForLocale(locale, I18nKey.categories) : i18n(I18nKey.categories)} id="categories" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT}
+                class={className} style={style} locale={locale}
 >
     {categories.map((c) =>
         <ButtonLink

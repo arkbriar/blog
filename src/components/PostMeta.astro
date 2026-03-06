@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
+import { i18n, i18nForLocale } from "../i18n/translation";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
 import { getCategoryUrl, getTagUrl } from "../utils/url-utils";
 import type { Locale } from "../utils/locale-utils";
@@ -59,7 +59,7 @@ const className = Astro.props.class;
             <a href={getCategoryUrl(category, locale)} aria-label={`View all posts in the ${category} category`}
                class="link-lg transition text-50 text-sm font-medium
                             hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
-                {category || i18n(I18nKey.uncategorized)}
+                {category || (locale ? i18nForLocale(locale, I18nKey.uncategorized) : i18n(I18nKey.uncategorized))}
             </a>
         </div>
     </div>
@@ -79,7 +79,7 @@ const className = Astro.props.class;
                     {tag.trim()}
                 </a>
             ))}
-            {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
+            {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{locale ? i18nForLocale(locale, I18nKey.noTags) : i18n(I18nKey.noTags)}</div>}
         </div>
     </div>
 </div>
