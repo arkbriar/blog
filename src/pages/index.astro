@@ -1,4 +1,7 @@
 ---
 import { DEFAULT_LOCALE } from "@utils/locale-utils";
-return Astro.redirect(`/${DEFAULT_LOCALE}/`);
+const target = `/${DEFAULT_LOCALE}/`;
 ---
+
+<meta http-equiv="refresh" content={`0;url=${target}`}>
+<script define:vars={{ target }}>window.location.replace(target);</script>
