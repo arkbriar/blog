@@ -1,10 +1,13 @@
 # crazy.ark blog
 
-Personal technical blog built with [Astro 5](https://astro.build/) and the [Fuwari](https://github.com/saicaca/fuwari) theme. Primarily Chinese writing on algorithms, data structures, math, and systems programming.
+Personal technical blog built with [Astro 5](https://astro.build/) and the [Fuwari](https://github.com/saicaca/fuwari) theme.
+
+**Live:** [blog.crazyark.me](https://blog.crazyark.me)
 
 ## Stack
 
 - **Astro 5 + Fuwari** — stylish blog theme with animated transitions, search, light/dark mode
+- **Multilingual** — locale-prefixed routing (`/zh/`, `/en/`) with per-locale UI translations
 - **KaTeX** — server-side LaTeX math rendering via remark-math + rehype-katex
 - **Expressive Code** — syntax highlighting with collapsible sections and line numbers
 - **Pagefind** — static search index generated at build time
@@ -25,28 +28,24 @@ pnpm new-post <f> # scaffold a new blog post
 ```
 src/
 ├── config.ts            # Site title, nav, profile, theme config
+├── utils/locale-utils.ts # Locale definitions and helpers
 ├── content/
 │   ├── config.ts        # Content collection schema (Zod)
 │   ├── posts/           # Markdown blog posts
 │   └── spec/about.md    # About page content
 ├── pages/
-│   ├── [...page].astro  # Home with pagination
-│   ├── posts/[...slug].astro
-│   ├── archive.astro
-│   └── about.astro
+│   ├── index.astro      # Root redirect to default locale
+│   └── [locale]/        # Locale-prefixed routes
+│       ├── [...page].astro
+│       ├── posts/[...slug].astro
+│       ├── archive.astro
+│       └── about.astro
 └── styles/              # Tailwind + custom CSS
 public/
 ├── img/                 # Blog images
 └── favicon.ico
 ```
 
-## Migration
+## Deployment
 
-Migrated from Hugo (`_old_hugo_blog/`). The migration script (`scripts/migrate.mjs`) handles:
-
-- Converting frontmatter to Fuwari schema (`date` -> `published`, `categories[]` -> `category`)
-- Stripping backtick-wrapped LaTeX (Hugo blackfriday workaround)
-- Fixing malformed LaTeX (`\sum_\limits{}` -> `\sum\limits_{}`)
-- Fixing escaped backticks in text (`mis\`ere` -> `misere`)
-- Removing `<!--more-->` summary markers
-- Separating display math trailing punctuation
+Deployed to GitHub Pages via [GitHub Actions](.github/workflows/deploy.yml). Pushes to `main` trigger a build and deploy automatically.
